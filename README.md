@@ -2,3 +2,4 @@
 Project 2 for the Vanderbilt Coding Bootcamp.
 
 - Sasha Peters
+- Chris Bistline
