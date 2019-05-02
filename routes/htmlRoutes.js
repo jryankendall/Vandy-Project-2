@@ -3,17 +3,24 @@ var db = require("../models");
 module.exports = function(app) {
     // Load index page
     app.get("/", function(req, res) {
-        db.Example.findAll({}).then(function(dbExamples) {
+        // console.log(db.appids);
+        
+        db.appids.findAll({
+            attributes: ["appid", "name"],
+            limit: 5
+        }).then(function(dbGames) {
+            console.log(dbGames[0]);
+            
             res.render("index", {
-                msg: "Welcome!",
-                examples: dbExamples
+                msg: "Games in the DB!",
+                examples: dbGames
             });
         });
     });
 
     // Load example page and pass in an example by id
-    app.get("/example/:id", function(req, res) {
-        db.Example.findOne({ where: { id: req.params.id } }).then(function(
+    app.get("/example/:appid", function(req, res) {
+        db.appids.findOne({ where: { appid: req.params.appid } }).then(function(
             dbExample
         ) {
             res.render("example", {
