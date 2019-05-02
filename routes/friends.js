@@ -1,46 +1,14 @@
-var db = require("../models");
 var request = require("request");
 var APIkey = "B82D9F592F8EBCC4BD6130029F700D2B";
+// var steamid = "76561197991920883";
+// console.log(steamid);
 
-module.exports = function (app) {
-    // Load index page
-    app.get("/", function (req, res) {
-        // console.log(db.appids);
 
-        db.appids.findAll({
-            attributes: ["appid", "name"],
-            limit: 5
-        }).then(function (dbGames) {
-            console.log(dbGames[0]);
-
-            res.render("index", {
-                msg: "Games in the DB!",
-                examples: dbGames
-            });
-        });
-    });
-
-    // Load example page and pass in an example by id
-    app.get("/example/:appid", function (req, res) {
-        db.appids.findOne({ where: { appid: req.params.appid } }).then(function (
-            dbExample
-        ) {
-            res.render("example", {
-                example: dbExample
-            });
-        });
-    });
-
-    // Render 404 page for any unmatched routes
-    app.get("*", function (req, res) {
-        res.render("404");
-    });
-
-    // see if we get anything from the steam API
-    app.get("/api/friends/:steamid", function (req, res) {
-        console.log("Making a request for friends of: " + req.params.steamid);
-        console.log(res);
+module.exports = function(app) {
+    app.get("/api/friends/:steamid", function(req, res) {
         getFriendsList(req.params.steamid);
+        console.log(res);
+        
     });
 };
 
@@ -108,3 +76,6 @@ var getPlayerSummary = function (steamid) {
     });
 
 };
+
+// getPlayerSummary(steamid);
+// getFriendsList(steamid);
