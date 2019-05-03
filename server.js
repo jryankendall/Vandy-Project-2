@@ -31,8 +31,6 @@ app.set("view engine", "handlebars");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 require("./routes/steamApiRoutes")(app);
-require("./routes/friends")(app);
-
 
 
 var syncOptions = { force: false };

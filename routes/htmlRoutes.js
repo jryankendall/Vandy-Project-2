@@ -51,7 +51,7 @@ module.exports = function (app) {
 };
 
 // calls steam API to get friends list for specified user
-var getFriendsList = function (steamid) {
+async function getFriendsList(steamid) {
     var options = {
         method: "GET",
         url: "https://api.steampowered.com/ISteamUser/GetFriendList/v1/",
@@ -69,7 +69,7 @@ var getFriendsList = function (steamid) {
     };
     // console.log(options);
 
-    request(options, function (error, response, body) {
+    await request(options, function (error, response, body) {
         if (error) { throw new Error(error); }
         // console.log(response);
         var data = JSON.parse(body);
@@ -81,7 +81,7 @@ var getFriendsList = function (steamid) {
 };
 
 // displays info from Steam API about specified user
-var getPlayerSummary = function (steamid) {
+async function getPlayerSummary(steamid) {
     var options = {
         method: "GET",
         url: "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/",
@@ -96,7 +96,7 @@ var getPlayerSummary = function (steamid) {
         }
     };
 
-    request(options, function (error, response, body) {
+    await request(options, function (error, response, body) {
         if (error) { throw new Error(error); }
         var data = JSON.parse(body);
         var friendObj = data.response;
