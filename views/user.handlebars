@@ -1,0 +1,91 @@
+<style>
+    .sidebar {
+  width: 25%;
+  max-height: 110vh; // experiment with this value, try changing to 110vh
+  min-height: 200px;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: fixed;
+  top: 5%;
+  border-right: 1px solid lightgrey;
+}
+
+.container-fluid{
+    margin-left: 25%;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+// Decoration for demo
+
+code, pre {
+  background-color: #ccc;
+  padding: 0 3px;
+  border-radius: 5px;
+}
+
+.bottom {
+  justify-self: bottom;
+}
+</style>
+
+<div class="wrapper">
+  <div class="sidebar">
+    <br>
+    <p class="text-center">image goes here</p>
+    <h3>User Profile (name goes here)</h3>
+    <hr>
+    <p>description</p>
+    <hr>
+    <p>friends count</p>
+    <hr>
+    <p>friends online</p>
+  </div>
+  
+  <div class="container-fluid">
+    <br><br><br>
+    <h2>Game 1</h2>
+    <p>image of game</p>
+    <p>friends who play this game<p>
+    <p>
+      Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
+      <pre>
+        .sidebar {
+        position: sticky;
+        top: 0;
+        }
+    </pre>
+    Include <code>position: -webkit-sticky;</code> for Safari.
+    </p>
+    <h2>Game 2</h2>
+    <p>image of game</p>
+    <p>friends who play this game<p>
+    <p>
+      Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
+      <pre>
+        .sidebar {
+        position: sticky;
+        top: 0;
+        }
+    </pre>
+    Include <code>position: -webkit-sticky;</code> for Safari.
+    </p>
+    <h2>Game 3</h2>
+    <p>image of game</p>
+    <p>friends who play this game<p>
+    <p>
+      Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
+      <pre>
+        .sidebar {
+        position: sticky;
+        top: 0;
+        }
+    </pre>
+    Include <code>position: -webkit-sticky;</code> for Safari.
+    </p>
+    
+  </div>
+</div>
