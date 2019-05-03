@@ -25,34 +25,29 @@ module.exports = function (app) {
 
     // Load example page and pass in an example by id
     app.get("/example/:appid", function (req, res) {
-        db.appids.findOne({ where: { appid: req.params.appid } }).then(function (
-            dbExample
-        ) {
-            res.render("example", {
-                example: dbExample
+        db.appids.findOne({ where: { appid: req.params.appid } })
+            .then(function (
+                dbExample
+            ) {
+                res.render("example", {
+                    example: dbExample
+                });
             });
-        });
     });
 
     // see if we get anything from the steam API
     app.get("/api/friends/:steamid", function (req, res) {
         var steamid = req.params.steamid;
         console.log("Making a request for friends of: " + steamid);
-        var friendObj = getFriendsList(steamid);
-        res.render("page_name", friendObj);
+        res.render("index", getFriendsList(steamid));
+        // res.render("index", friendObj);
     });
 
 
     // Render 404 page for any unmatched routes
     app.get("*", function (req, res) {
-        // console.log("this is the 404 page");
-        // console.log("The URL you requested is: " + req.url);
-
         res.render("404");
     });
-
-    // app.get("/friends")
-
 };
 
 // calls steam API to get friends list for specified user
@@ -104,8 +99,8 @@ var getPlayerSummary = function (steamid) {
     request(options, function (error, response, body) {
         if (error) { throw new Error(error); }
         var data = JSON.parse(body);
-        var friendArr = data.response.players;
         var friendObj = data.response;
+        var friendArr = data.response.players;
         friendArr.forEach(function (element) {
             console.log(element.personaname);
             console.log(element.steamid);
