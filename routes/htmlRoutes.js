@@ -2,6 +2,9 @@ var db = require("../models");
 var request = require("request");
 var APIkey = "B82D9F592F8EBCC4BD6130029F700D2B";
 
+console.log("HTML routes loaded");
+
+
 module.exports = function (app) {
     // Load index page
     app.get("/", function (req, res) {
@@ -31,21 +34,28 @@ module.exports = function (app) {
         });
     });
 
+    // see if we get anything from the steam API
+    app.get("/api/friends/:steamid", function (req, res) {
+        var steamid = req.params.steamid;
+        console.log("Making a request for friends of: " + steamid);
+        var friendObj = getFriendsList(steamid);
+        res.render("page_name", friendObj);
+    });
+
+
     // Render 404 page for any unmatched routes
     app.get("*", function (req, res) {
+        // console.log("this is the 404 page");
+        // console.log("The URL you requested is: " + req.url);
+
         res.render("404");
     });
 
-    // see if we get anything from the steam API
-    app.get("/api/friends/:steamid", function (req, res) {
-        console.log("Making a request for friends of: " + req.params.steamid);
-        console.log(res);
-        getFriendsList(req.params.steamid);
-    });
+    // app.get("/friends")
+
 };
 
-
-
+// calls steam API to get friends list for specified user
 var getFriendsList = function (steamid) {
     var options = {
         method: "GET",
@@ -59,12 +69,7 @@ var getFriendsList = function (steamid) {
         {
             "cache-control": "no-cache",
             Connection: "keep-alive",
-            // "accept-encoding": "gzip, deflate",
             Host: "api.steampowered.com",
-            // "Postman-Token": "2e625f9e-68f7-48be-8cab-829010d4dbf8,3b9112e3-42d1-42ed-bb10-cf0fb4e11a35",
-            // "Cache-Control": "no-cache",
-            // Accept: "*/*",
-            // "User-Agent": "PostmanRuntime/7.11.0"
         }
     };
     // console.log(options);
@@ -80,6 +85,7 @@ var getFriendsList = function (steamid) {
     });
 };
 
+// displays info from Steam API about specified user
 var getPlayerSummary = function (steamid) {
     var options = {
         method: "GET",
@@ -98,13 +104,15 @@ var getPlayerSummary = function (steamid) {
     request(options, function (error, response, body) {
         if (error) { throw new Error(error); }
         var data = JSON.parse(body);
-        var friend = data.response.players;
-        friend.forEach(function (element) {
+        var friendArr = data.response.players;
+        var friendObj = data.response;
+        friendArr.forEach(function (element) {
             console.log(element.personaname);
             console.log(element.steamid);
             console.log(element.profileurl);
             console.log(element.avatar);
         });
+        return friendObj;
     });
 
 };

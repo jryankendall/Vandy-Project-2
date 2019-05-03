@@ -33,9 +33,12 @@ var API = {
     getFriends: function(steamid) {
         console.log("friends btn clicked");
         console.log(steamid);
+        var urlToGet = "api/friends/" + steamid;
+        console.log(urlToGet);
+        
         
         return $.ajax({
-            url: "api/friends/" + steamid,
+            url: urlToGet,
             type: "GET"
         });
     }
@@ -110,9 +113,8 @@ var handleFriendsBtnClick = function () {
     var steamid = $(this)
         .attr("data-steamid");
 
-    API.getFriends(steamid).then(function () {
-        console.log(steamid);
-        console.log("getFriends function finished");
+    API.getFriends(steamid).then(function (response) {
+        console.log(response);
         $steamFriends.append("Stuff goes here");
     });
 };
