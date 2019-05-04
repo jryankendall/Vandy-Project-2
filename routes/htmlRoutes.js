@@ -33,6 +33,15 @@ module.exports = function(app) {
         res.render("user");
     });
 
+    app.get("/api/user/:val", function(req, res){
+        console.log(req.params.val);
+        db.users.findOne({ where: {email: req.params.val} }).then(function(dbUsers){
+            console.log(dbUsers.dataValues);
+            // console.log("Db users after parse", typeof dbUsers.dataValues);
+            res.json(dbUsers.dataValues);
+        });
+    });
+
     app.get("/createAccount", function(req,res){
         res.render("createAccount");
     });

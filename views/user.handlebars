@@ -38,9 +38,9 @@
     <br>
     <p class="text-center">image goes here</p>
     <img href="{{this.image}}" alt="user image">
-    <h3>User Profile ({{this.user}})</h3>
+    <h3>User Profile (<a id="username"></a>)</h3>
     <hr>
-    <p>description: {{this.desc}}</p>
+    <p>description: <a id="description"></a></p>
     <hr>
     <p>friends count</p>
     <hr>
@@ -105,8 +105,27 @@
 
   </div>
 </div>
+
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
   <script src="/js/index.js"></script>
+
+
+<script>
+    $("#login").on("click",function(e){
+      e.preventDefault();
+        console.log("pressed");
+        console.log($("#inputEmail").val());
+        return $.ajax({
+            url: "api/user/" + $("#inputEmail").val().trim(),
+            type: "GET"
+        }).then(function(user){
+          console.log("DER USER", user);
+          $("#username").text(user.username);
+          $("#description").text(user.description);
+        });
+    })
+</script>
+
