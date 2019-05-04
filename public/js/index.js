@@ -129,7 +129,7 @@ var displaySearchResults = function (data) {
             .text(game.name)
             .attr("href", "/games/" + game.id);
 
-        var image = game.box_art_url.replace(/-{width}x{height}/g, "")
+        var image = game.box_art_url.replace(/-{width}x{height}/g, "");
         var $li = $("<li>")
             .attr({
                 class: "list-group-item",

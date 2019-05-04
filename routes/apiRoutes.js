@@ -51,7 +51,7 @@ module.exports = function (app) {
 
         axios(config)
             .then(function (data) {
-                var newGames = data.data
+                var newGames = data.data;
                 console.log(newGames);
                 res.json(newGames);
             });
