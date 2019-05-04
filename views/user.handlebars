@@ -1,35 +1,36 @@
 <style>
-    .sidebar {
-  width: 25%;
-  max-height: 110vh; // experiment with this value, try changing to 110vh
-  min-height: 200px;
-  overflow: auto;
-  position: -webkit-sticky;
-  position: fixed;
-  top: 5%;
-  border-right: 1px solid lightgrey;
-}
+  .sidebar {
+    width: 25%;
+    max-height: 110vh; // experiment with this value, try changing to 110vh
+    min-height: 200px;
+    overflow: auto;
+    position: -webkit-sticky;
+    position: fixed;
+    top: 5%;
+    border-right: 1px solid lightgrey;
+  }
 
-.container-fluid{
+  .container-fluid {
     margin-left: 25%;
-}
+  }
 
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-}
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
 
-// Decoration for demo
+  // Decoration for demo
 
-code, pre {
-  background-color: #ccc;
-  padding: 0 3px;
-  border-radius: 5px;
-}
+  code,
+  pre {
+    background-color: #ccc;
+    padding: 0 3px;
+    border-radius: 5px;
+  }
 
-.bottom {
-  justify-self: bottom;
-}
+  .bottom {
+    justify-self: bottom;
+  }
 </style>
 
 <div class="wrapper">
@@ -44,49 +45,68 @@ code, pre {
     <p>friends count</p>
     <hr>
     <p>friends online</p>
+    <hr>
+
+    <div class="game-search">
+      <form>
+        <div class="form-group">
+          <label for="game-search">Search for game</label>
+          <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
+            placeholder="Enter game name">
+        </div>
+        <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
+      </form>
+    </div>
   </div>
-  
+
   <div class="container-fluid">
     <br><br><br>
+        <div id="search-results"></div>
+
     <h2>Game 1</h2>
     <p>image of game</p>
     <p>friends who play this game<p>
-    <p>
-      Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
-      <pre>
+        <p>
+          Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
+          <pre>
         .sidebar {
         position: sticky;
         top: 0;
         }
     </pre>
-    Include <code>position: -webkit-sticky;</code> for Safari.
-    </p>
-    <h2>Game 2</h2>
-    <p>image of game</p>
-    <p>friends who play this game<p>
-    <p>
-      Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
-      <pre>
+          Include <code>position: -webkit-sticky;</code> for Safari.
+        </p>
+        <h2>Game 2</h2>
+        <p>image of game</p>
+        <p>friends who play this game<p>
+            <p>
+              Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
+              <pre>
         .sidebar {
         position: sticky;
         top: 0;
         }
     </pre>
-    Include <code>position: -webkit-sticky;</code> for Safari.
-    </p>
-    <h2>Game 3</h2>
-    <p>image of game</p>
-    <p>friends who play this game<p>
-    <p>
-      Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
-      <pre>
+              Include <code>position: -webkit-sticky;</code> for Safari.
+            </p>
+            <h2>Game 3</h2>
+            <p>image of game</p>
+            <p>friends who play this game<p>
+                <p>
+                  Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
+                  <pre>
         .sidebar {
         position: sticky;
         top: 0;
         }
     </pre>
-    Include <code>position: -webkit-sticky;</code> for Safari.
-    </p>
-    
+                  Include <code>position: -webkit-sticky;</code> for Safari.
+                </p>
+
   </div>
 </div>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="/js/index.js"></script>
