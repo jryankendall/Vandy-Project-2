@@ -37,9 +37,9 @@ code, pre {
     <br>
     <p class="text-center">image goes here</p>
     <img href="{{this.image}}" alt="user image">
-    <h3>User Profile ({{this.user}})</h3>
+    <h3>User Profile (<a id="username"></a>)</h3>
     <hr>
-    <p>description: {{this.desc}}</p>
+    <p>description: <a id="description"></a></p>
     <hr>
     <p>friends count</p>
     <hr>
@@ -90,3 +90,19 @@ code, pre {
     
   </div>
 </div>
+
+<script>
+    $("#login").on("click",function(e){
+      e.preventDefault();
+        console.log("pressed");
+        console.log($("#inputEmail").val());
+        return $.ajax({
+            url: "api/user/" + $("#inputEmail").val().trim(),
+            type: "GET"
+        }).then(function(user){
+          console.log("DER USER", user);
+          $("#username").text(user.username);
+          $("#description").text(user.description);
+        });
+    })
+</script>
