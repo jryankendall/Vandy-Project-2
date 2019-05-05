@@ -50,12 +50,45 @@ module.exports = function (app) {
                 name: game
             },
         };
+        function findGame(){
+            db.appids.findOne({ where: {name: game} }).then(function(dbUsers){
+                if(!dbUsers){
+                    console.log("Game does not exist in database, searching twitch...");
+                    axios(config)
+                        .then(function (data) {
+                            var newGames = data.data;
+                            console.log(newGames.data.length);
+                            if(newGames.data.length > 0){
+                                db.appids.create({
+                                    appid: newGames.data[0].id,
+                                    name: newGames.data[0].name,
+                                    image: newGames.data[0].box_art_url.replace(/-{width}x{height}/g, "")
+                                }).then(function () {
+                                    findGame();
+                                });
+                            }
+                            else{ //add better error handling for invalid searches
+                                console.log("Game does not exist on twitch");
+                            }
+                            //res.json(newGames);
 
-        axios(config)
+                        });
+                }
+                else{
+                    console.log("Found in database, twitch api not used!");
+                    res.json(dbUsers.dataValues);
+                }
+                // console.log("Db users after parse", typeof dbUsers.dataValues);
+                //res.json(dbUsers.dataValues);
+            });
+        }
+        findGame();
+
+        /*axios(config)
             .then(function (data) {
                 var newGames = data.data;
                 console.log(newGames);
                 res.json(newGames);
-            });
+            });*/
     });
 };

@@ -115,29 +115,38 @@ var handleFormSearch = function (event) {
 
     API.searchGame(game).then(function (data) {
         //call function to do something with API data
-        console.log(data);
+        //console.log(data);
         displaySearchResults(data);
     });
 };
 
 var displaySearchResults = function (data) {
     console.log(data);
-    console.log(data.data);
+    //console.log(data.data);
     
-    var $games = data.data.map(function (game) {
+    var $games = [data].map(function (game) {
+        //console.log(game.name);
         var $a = $("<a>")
             .text(game.name)
             .attr("href", "/games/" + game.id);
 
-        var image = game.box_art_url.replace(/-{width}x{height}/g, "");
+        var image = game.image;
+
+        var img = $("<img>")
+            .attr("src",image)
+            .attr("height","200")
+            .attr("width","150");
+        //console.log(img);
+
+        
         var $li = $("<li>")
             .attr({
                 class: "list-group-item",
                 "data-id": game.id,
-                "data-name": game.name,
-                "data-image": image
+                "data-name": game.name
             })
-            .append($a);
+            .append($a)
+            .append(img);
 
         var $button = $("<button>")
             .addClass("btn btn-success float-right add")
