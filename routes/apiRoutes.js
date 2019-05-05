@@ -50,14 +50,13 @@ module.exports = function (app) {
                 name: game
             },
         };
-        function findGame(check){
+        function findGame(check,obj){
             db.appids.findOne({ where: {name: game} }).then(function(dbUsers){
                 if(!dbUsers){
                     console.log("Game does not exist in database, searching twitch...");
                     axios(config)
                         .then(function (data) {
                             var newGames = data.data;
-                            console.log(newGames.data.length);
                             if(newGames.data.length > 0 && !check){
                                 db.appids.findOne({ where: {name: newGames.data[0].name} }).then(function(dbUsersDoubleCheck){
                                     if(dbUsersDoubleCheck){
@@ -70,14 +69,15 @@ module.exports = function (app) {
                                             name: newGames.data[0].name,
                                             image: newGames.data[0].box_art_url.replace(/-{width}x{height}/g, "")
                                         }).then(function () {
-                                            findGame(1);
+                                            findGame(1,newGames.data[0]);
                                         });
                                     }
                                 });
                             }
                             else if(check === 1){
+                                console.log(obj);
                                 console.log("Game successfully added to and pulled from database");
-                                res.json(dbUsers.dataValues);
+                                res.json(obj);
                             }
                             else{ //add better error handling for invalid searches
                                 console.log("Game does not exist on twitch");
@@ -94,6 +94,6 @@ module.exports = function (app) {
                 }
             });
         }
-        findGame(0);
+        findGame(0,{});
     });
 };
