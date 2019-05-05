@@ -50,7 +50,7 @@ module.exports = function (app) {
                 name: game
             },
         };
-        function findGame(){
+        function findGame(check){
             db.appids.findOne({ where: {name: game} }).then(function(dbUsers){
                 if(!dbUsers){
                     console.log("Game does not exist in database, searching twitch...");
@@ -58,37 +58,42 @@ module.exports = function (app) {
                         .then(function (data) {
                             var newGames = data.data;
                             console.log(newGames.data.length);
-                            if(newGames.data.length > 0){
-                                db.appids.create({
-                                    appid: newGames.data[0].id,
-                                    name: newGames.data[0].name,
-                                    image: newGames.data[0].box_art_url.replace(/-{width}x{height}/g, "")
-                                }).then(function () {
-                                    findGame();
+                            if(newGames.data.length > 0 && !check){
+                                db.appids.findOne({ where: {name: newGames.data[0].name} }).then(function(dbUsersDoubleCheck){
+                                    if(dbUsersDoubleCheck){
+                                        console.log("Different input name than twitch name matched. Insertion prevented");
+                                        res.json(dbUsersDoubleCheck.dataValues);
+                                    }
+                                    else{
+                                        db.appids.create({
+                                            appid: newGames.data[0].id,
+                                            name: newGames.data[0].name,
+                                            image: newGames.data[0].box_art_url.replace(/-{width}x{height}/g, "")
+                                        }).then(function () {
+                                            findGame(1);
+                                        });
+                                    }
                                 });
+                            }
+                            else if(check === 1){
+                                console.log("Game successfully added to and pulled from database");
+                                res.json(dbUsers.dataValues);
                             }
                             else{ //add better error handling for invalid searches
                                 console.log("Game does not exist on twitch");
                             }
-                            //res.json(newGames);
-
                         });
+                }
+                else if(check > 0){
+                    console.log("Game successfully added to and pulled from database");
+                    res.json(dbUsers.dataValues);
                 }
                 else{
                     console.log("Found in database, twitch api not used!");
                     res.json(dbUsers.dataValues);
                 }
-                // console.log("Db users after parse", typeof dbUsers.dataValues);
-                //res.json(dbUsers.dataValues);
             });
         }
-        findGame();
-
-        /*axios(config)
-            .then(function (data) {
-                var newGames = data.data;
-                console.log(newGames);
-                res.json(newGames);
-            });*/
+        findGame(0);
     });
 };
