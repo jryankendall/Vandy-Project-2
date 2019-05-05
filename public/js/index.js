@@ -121,7 +121,7 @@ var handleFormSearch = function (event) {
 };
 
 var displaySearchResults = function (data) {
-    console.log(data);
+    //console.log(data);
     //console.log(data.data);
     
     var $games = [data].map(function (game) {
@@ -130,8 +130,16 @@ var displaySearchResults = function (data) {
             .text(game.name)
             .attr("href", "/games/" + game.id);
 
-        var image = game.image;
+        var image = "";
 
+        if(!game.image){
+            image = game.box_art_url.replace(/-{width}x{height}/g, "");
+        }
+        else {
+            image = game.image;
+        }
+
+        console.log(image);
         var img = $("<img>")
             .attr("src",image)
             .attr("height","200")
