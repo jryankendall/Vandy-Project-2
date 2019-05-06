@@ -2,42 +2,77 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <title>Home Page</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:400,500,700,900" rel="stylesheet">
+    <!-- moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+
+    <title>Gamerbook</title>
+    <style>
+        .hvy {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: black;
+        }
+
+        .lite {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            color: #f44336;
+        }
+    </style>
+
+  <meta name="google-site-verification" content="9d-iVnFswad_CW1_XiRU1D3di72bIJih7CX2ufaasVk" />
+
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="/img/mario.png" width="30" height="30" class="d-inline-block align-top" alt="">
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto" >
-              <li class="nav-item">
-                  <a class="nav-link" href="/">Home</a>
-              </li>
-              <div class="dropdown-divider"></div>
-              <li class="nav-item">
-                  <a class="nav-link" href="/user">User</a>
-              </li>
-              <div class="dropdown-divider"></div>
-              <li class="nav-item">
-                  <a class="nav-link" href="/createAccount">Create Account</a>
-              </li>
-          </ul>
-      </div>
-      <form action="submit">
-        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Login: Enter email" style="min-width: 200px; max-width: 250px; display: inline-block; float: right!important">
-        <button type="submit" id="login" class="btn btn-primary" style="float:right; display: inline-block">Submit</button>
-      </form>
-  </nav>
-  {{{body}}}
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <span class="hvy">gamer</span><span class="lite">book</span></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">User</a>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/createAccount">Create Account</a>
+                </li>
+
+            </ul>
+            <form action="submit" class="form-inline">
+                <input type="email" class="form-control mr-1" id="inputEmail" aria-describedby="emailHelp"
+                    placeholder="Login: Enter email" style="min-width: 200px; max-width: 250px;">
+                <button type="submit" id="login" class="btn btn-primary" style="float:right;">Submit</button>
+            </form>
+        </div>
+
+    </nav>
+    {{{body}}}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    {{!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
+    <script src="/js/index.js"></script>
 </body>
 
 </html>
