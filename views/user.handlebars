@@ -1,17 +1,15 @@
 <style>
   .sidebar {
-    width: 25%;
-    max-height: 110vh; // experiment with this value, try changing to 110vh
-    min-height: 200px;
     overflow: auto;
-    position: -webkit-sticky;
-    position: fixed;
+    position: -webkit-sticky left;
+    position: sticky;
     top: 5%;
-    border-right: 1px solid lightgrey;
-  }
-
-  .container-fluid {
-    margin-left: 25%;
+    background-color: rgb(240, 240, 240);
+    font-family: "Orbitron", sans-serif;
+    float: left;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .wrapper {
@@ -19,7 +17,10 @@
     justify-content: space-between;
   }
 
-  // Decoration for demo
+  .container-fluid {
+    margin-top: 56px;
+    padding: 0px;
+  }
 
   code,
   pre {
@@ -33,66 +34,70 @@
   }
 </style>
 
-<div class="wrapper">
-  <div class="sidebar">
-    <br>
-    <p class="text-center">image goes here</p>
-    <img href="{{this.image}}" alt="user image">
-    <h3>User Profile (<a id="username"></a>)</h3>
-    <hr>
-    <p>description: <a id="description"></a></p>
-    <hr>
-    <p>friends count</p>
-    <hr>
-    <p>friends online</p>
-    <hr>
-
-    <div class="game-search">
-      <form>
-        <div class="form-group">
-          <label for="game-search">Search for game</label>
-          <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
-            placeholder="Enter game name">
-        </div>
-        <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <br><br><br>
-        <div id="search-results"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 col-sm-12">
+      <div class="sidebar">
         <br>
-        <div id="games"></div>
+        <p class="text-center">image goes here</p>
+        <img href="{{this.image}}" alt="user image">
+        <h3>User Profile (<a id="username"></a>)</h3>
+        <hr>
+        <p>description: <a id="description"></a></p>
+        <hr>
+        <p>friends count</p>
+        <hr>
+        <p>friends online</p>
+        <hr>
+
+        <div class="game-search">
+          <form>
+            <div class="form-group">
+              <label for="game-search">Search for game</label>
+              <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
+                placeholder="Enter game name">
+            </div>
+            <button type="submit" id="search-btn" class="btn btn-primary">Search</button>
+          </form>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <br><br><br>
+        <div id="search-results">
+        </div>
+
+      <br>
+      <div id="games"></div>
+
+    </div>
   </div>
 </div>
 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-  <script src="/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="/js/index.js"></script>
 
 
 <script>
-    $("#login").on("click",function(e){
-      $("#games").empty();
-      e.preventDefault();
-        console.log("pressed");
-        console.log($("#inputEmail").val());
-        return $.ajax({
-            url: "api/user/" + $("#inputEmail").val().trim(),
-            type: "GET"
-        }).then(function(user){
-            console.log("DER USER", user);
-            $("#username").text(user.username);
-            $("#description").text(user.description);
-            for(var i = 0; i < user.games.length; i++){
-                $("#games").append("<h2>"+user.games[i].name+"<h2>")
-                           .append("<img src="+user.games[i].image+"height=200 width=150>");
-            }
-          
-        });
-    })
-</script>
 
+  $("#login").on("click", function (e) {
+    $("#games").empty();
+    e.preventDefault();
+    console.log("pressed");
+    console.log($("#inputEmail").val());
+    return $.ajax({
+      url: "api/user/" + $("#inputEmail").val().trim(),
+      type: "GET"
+    }).then(function (user) {
+      console.log("DER USER", user);
+      $("#username").text(user.username);
+      $("#description").text(user.description);
+      for (var i = 0; i < user.games.length; i++) {
+        $("#games").append("<h2>" + user.games[i].name + "<h2>")
+          .append("<img src=" + user.games[i].image + "height=200 width=150>");
+      }
+    });
+  })
+</script>

@@ -1,6 +1,7 @@
-h1 {
+.hvy {
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
+    color: black;
 }
 
 .lite {
@@ -9,6 +10,3 @@ h1 {
     color: #f44336;
 }
 
-#mario {
-    height: 50px;
-}
