@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "t5rkf3nnlmyz07wh",
-    "password": "wlo9f6a2qf661qt0",
-    "database": "yg2hvhsmdq2csbn5",
-    "host": "q3vtafztappqbpzn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": null,
+    "database": "steam_appids",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
