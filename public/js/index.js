@@ -191,4 +191,7 @@ $button.on("click",function(){
             console.log(res);
         });
     }
+    else{
+        console.log("Please login to add games");
+    }
 });

@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     // Create a new example
     app.post("/api/usergames", function (req, res) {
-        //console.log(req.body);
+        console.log(req.body);
         db.usergames.findOne({ where: {userId: req.body.userId,gameId: req.body.gameId} }).then(function(dbUsergames){
             if(!dbUsergames){
                 db.usergames.create(req.body).then(function () {
