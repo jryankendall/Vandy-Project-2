@@ -5,6 +5,7 @@ var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
+var $button = $("<button>");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -125,7 +126,7 @@ var displaySearchResults = function (data) {
     //console.log(data.data);
     
     var $games = [data].map(function (game) {
-        //console.log(game.name);
+        console.log(game);
         var $a = $("<a>")
             .text(game.name)
             .attr("href", "/games/" + game.id);
@@ -156,8 +157,9 @@ var displaySearchResults = function (data) {
             .append($a)
             .append(img);
 
-        var $button = $("<button>")
+        $button
             .addClass("btn btn-success float-right add")
+            .attr("id", game.id)
             .text("+");
 
         $li.append($button);
@@ -175,3 +177,18 @@ var displaySearchResults = function (data) {
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 $searchBtn.on("click", handleFormSearch);
+$button.on("click",function(){
+    userId = $("#username").attr("data-id");
+    if(userId){//Not secure!!! Change when authentication works
+        return $.ajax({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            type: "POST",
+            url: "api/usergames",
+            data: JSON.stringify({userId: userId, gameId: this.id})
+        }).then(function(res){
+            console.log(res);
+        });
+    }
+});

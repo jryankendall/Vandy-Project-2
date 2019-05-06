@@ -85,7 +85,7 @@
             type: "GET"
         }).then(function(user){
             console.log("DER USER", user);
-            $("#username").text(user.username);
+            $("#username").text(user.username).attr("data-id",user.id);
             $("#description").text(user.description);
             for(var i = 0; i < user.games.length; i++){
                 $("#games").append("<h2>"+user.games[i].name+"<h2>")
@@ -93,6 +93,6 @@
             }
           
         });
-    })
+    });
 </script>
 
