@@ -36,9 +36,24 @@ module.exports = function(app) {
     app.get("/api/user/:val", function(req, res){
         console.log(req.params.val);
         db.users.findOne({ where: {email: req.params.val} }).then(function(dbUsers){
-            console.log(dbUsers.dataValues);
-            // console.log("Db users after parse", typeof dbUsers.dataValues);
-            res.json(dbUsers.dataValues);
+
+
+
+            db.sequelize.query("select appids.id, appid, name, image from appids"+
+            " join usergames"+
+            " on usergames.gameId = appids.id"+
+            " where usergames.userId = ?;",
+            { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+            ).then(function(projects) {
+                dbUsers.dataValues.games = projects;
+                console.log(dbUsers.dataValues);
+                // console.log("Db users after parse", typeof dbUsers.dataValues);
+                res.json(dbUsers.dataValues);
+            });
+
+
+
+            
         });
     });
 

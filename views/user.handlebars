@@ -62,47 +62,8 @@
   <div class="container-fluid">
     <br><br><br>
         <div id="search-results"></div>
-
-    <h2>Game 1</h2>
-    <p>image of game</p>
-    <p>friends who play this game<p>
-        <p>
-          Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
-          <pre>
-        .sidebar {
-        position: sticky;
-        top: 0;
-        }
-    </pre>
-          Include <code>position: -webkit-sticky;</code> for Safari.
-        </p>
-        <h2>Game 2</h2>
-        <p>image of game</p>
-        <p>friends who play this game<p>
-            <p>
-              Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
-              <pre>
-        .sidebar {
-        position: sticky;
-        top: 0;
-        }
-    </pre>
-              Include <code>position: -webkit-sticky;</code> for Safari.
-            </p>
-            <h2>Game 3</h2>
-            <p>image of game</p>
-            <p>friends who play this game<p>
-                <p>
-                  Position the columns with flex. Then apply two lines of CSS to the sidebar to make it sticky:
-                  <pre>
-        .sidebar {
-        position: sticky;
-        top: 0;
-        }
-    </pre>
-                  Include <code>position: -webkit-sticky;</code> for Safari.
-                </p>
-
+        <br>
+        <div id="games"></div>
   </div>
 </div>
 
@@ -115,6 +76,7 @@
 
 <script>
     $("#login").on("click",function(e){
+      $("#games").empty();
       e.preventDefault();
         console.log("pressed");
         console.log($("#inputEmail").val());
@@ -122,9 +84,14 @@
             url: "api/user/" + $("#inputEmail").val().trim(),
             type: "GET"
         }).then(function(user){
-          console.log("DER USER", user);
-          $("#username").text(user.username);
-          $("#description").text(user.description);
+            console.log("DER USER", user);
+            $("#username").text(user.username);
+            $("#description").text(user.description);
+            for(var i = 0; i < user.games.length; i++){
+                $("#games").append("<h2>"+user.games[i].name+"<h2>")
+                           .append("<img src="+user.games[i].image+"height=200 width=150>");
+            }
+          
         });
     })
 </script>
