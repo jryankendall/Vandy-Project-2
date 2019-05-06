@@ -1,8 +1,10 @@
 var db = require("../models");
+var passport = require("passport");
+
 
 module.exports = function(app) {
 
-    app.get("/", (req, res) => {
+    app.get("/authtest", (req, res) => {
         //will need to add more stuff to this, placeholder for now
         console.log(req);
         
@@ -19,17 +21,6 @@ module.exports = function(app) {
             });
         }
 
-        db.appids.findAll({
-            attributes: ["appid", "name"],
-            limit: 5
-        }).then(function(dbGames) {
-            console.log(dbGames[0]);
-            
-            res.render("index", {
-                msg: "Games in the DB!",
-                examples: dbGames
-            });
-        });
     });
 
     app.get("/logout", (req, res) => {
@@ -37,11 +28,11 @@ module.exports = function(app) {
         
         req.logout();
         req.session = null;
-        res.redirect("/");
+        res.redirect("/authtest");
     });
 
     // Load index page
-    /*     app.get("/", function(req, res) {
+    app.get("/", function(req, res) {
         // console.log(db.appids);
         
         db.appids.findAll({
@@ -55,7 +46,7 @@ module.exports = function(app) {
                 examples: dbGames
             });
         });
-    }); */
+    });
     
     //Authentication URL
     app.get("/auth/google", passport.authenticate("google", {
@@ -65,11 +56,11 @@ module.exports = function(app) {
     //Return after auth URL
     app.get("/auth/google/callback",
         passport.authenticate("google", {
-            failureRedirect: "/"
+            failureRedirect: "/authtest"
         }),
         (req, res) => {
             req.session.token = req.user.token;
-            res.redirect("/");
+            res.redirect("/authtest");
         }
     );
 
