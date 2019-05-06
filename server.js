@@ -12,6 +12,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 
+//Cookie Middleware
+var cookieParser = require("cookie-parser");
+var cookieSession = require("cookie-session");
+
+app.use(cookieSession({
+    name: "session",
+    keys: ["experimentalbaconburger"]
+}));
+
+app.use(cookieParser());
+
 // Handlebars
 app.engine(
     "handlebars",
@@ -26,6 +37,11 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 require("./routes/steamApiRoutes")(app);
 
+//Authentication
+var passport = require("passport");
+var auth = require("./config/auth");
+auth(passport);
+app.use(passport.initialize());
 
 var syncOptions = { force: false };
 

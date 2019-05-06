@@ -1,8 +1,47 @@
 var db = require("../models");
 
 module.exports = function(app) {
+
+    app.get("/", (req, res) => {
+        //will need to add more stuff to this, placeholder for now
+        console.log(req);
+        
+        if (req.session.token) {
+            res.cookie("token", req.session.token);
+            res.json({
+                status: "session cookie set"
+            });
+            
+        } else {
+            res.cookie("token", "");
+            res.json({
+                status: "session cookie not set"
+            });
+        }
+
+        db.appids.findAll({
+            attributes: ["appid", "name"],
+            limit: 5
+        }).then(function(dbGames) {
+            console.log(dbGames[0]);
+            
+            res.render("index", {
+                msg: "Games in the DB!",
+                examples: dbGames
+            });
+        });
+    });
+
+    app.get("/logout", (req, res) => {
+        console.log(req);
+        
+        req.logout();
+        req.session = null;
+        res.redirect("/");
+    });
+
     // Load index page
-    app.get("/", function(req, res) {
+    /*     app.get("/", function(req, res) {
         // console.log(db.appids);
         
         db.appids.findAll({
@@ -16,7 +55,23 @@ module.exports = function(app) {
                 examples: dbGames
             });
         });
-    });
+    }); */
+    
+    //Authentication URL
+    app.get("/auth/google", passport.authenticate("google", {
+        scope: ["https://www.googleapis.com/auth/userinfo.profile"]
+    }));
+
+    //Return after auth URL
+    app.get("/auth/google/callback",
+        passport.authenticate("google", {
+            failureRedirect: "/"
+        }),
+        (req, res) => {
+            req.session.token = req.user.token;
+            res.redirect("/");
+        }
+    );
 
     // Load example page and pass in an example by id
     app.get("/example/:appid", function(req, res) {
