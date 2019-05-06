@@ -123,16 +123,17 @@ var handleFormSearch = function (event) {
 var displaySearchResults = function (data) {
     //console.log(data);
     //console.log(data.data);
-    
+
+    // build the card for each game returned
     var $games = [data].map(function (game) {
         //console.log(game.name);
-        var $a = $("<a>")
-            .text(game.name)
-            .attr("href", "/games/" + game.id);
+        var $card = $("<div>")
+            .addClass("card")
+            .width("10rem");
 
         var image = "";
 
-        if(!game.image){
+        if (!game.image) {
             image = game.box_art_url.replace(/-{width}x{height}/g, "");
         }
         else {
@@ -140,35 +141,31 @@ var displaySearchResults = function (data) {
         }
 
         console.log(image);
-        var img = $("<img>")
-            .attr("src",image)
-            .attr("height","200")
-            .attr("width","150");
-        //console.log(img);
+        var $img = $("<img>")
+            .attr("src", image)
+            .addClass("card-img-top");
+        var $cardbody = $("<div>");
+        var $title = $("<h5>")
+            .addClass("card-title pl-1")
+            .text(game.name);
+        var $button = $("<a>")
+            .addClass("btn btn-success btn-sm btn-block")
+            .attr("href", "#")
+            .text("+ Add game");
+            .attr("id", game.id)
+        $card
+            .append($img)
+            .append($cardbody)
+            .append($title)
+            .append($button);
 
-        
-        var $li = $("<li>")
-            .attr({
-                class: "list-group-item",
-                "data-id": game.id,
-                "data-name": game.name
-            })
-            .append($a)
-            .append(img);
-
-        var $button = $("<button>")
-            .addClass("btn btn-success float-right add")
-            .text("+");
-
-        $li.append($button);
-
-        return $li;
+        return $card;
     });
     $searchResults.empty();
     $searchResults.append("Search results" + "<hr>");
     $searchResults.append($games);
     $searchResults.append("<hr>");
-    
+
 };
 
 // Add event listeners to the submit and delete buttons
