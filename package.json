@@ -12,15 +12,28 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+<<<<<<< HEAD
     "cookie-parser": "^1.4.4",
     "cookie-session": "^1.3.3",
+=======
+    "cookies": "^0.7.3",
+>>>>>>> 7d3a5a8735a05963dbb8506f06adb3e59df6d038
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "mysql2": "^1.6.4",
+<<<<<<< HEAD
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "sequelize": "^4.41.2"
+=======
+    "openid-client": "^2.5.0",
+    "passport": "^0.4.0",
+    "passport-openid": "^0.4.0",
+    "passport-steam": "^1.0.10",
+    "sequelize": "^4.41.2",
+    "steam-web": "^0.7.0"
+>>>>>>> 7d3a5a8735a05963dbb8506f06adb3e59df6d038
   },
   "devDependencies": {
     "chai": "^4.1.2",
