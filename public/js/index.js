@@ -154,8 +154,8 @@ var displaySearchResults = function (data) {
         $button
             .addClass("btn btn-success btn-sm btn-block")
             .attr("href", "#")
-            .text("+ Add game");
-            .attr("id", game.id)
+            .text("+ Add game")
+            .attr("id", game.id);
         $card
             .append($img)
             .append($cardbody)
