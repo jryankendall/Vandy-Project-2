@@ -12,10 +12,21 @@ module.exports = function (app) {
     
 
     // Create a new example
-    app.post("/api/examples", function (req, res) {
-        db.Example.create(req.body).then(function (dbExample) {
-            res.json(dbExample);
+    app.post("/api/usergames", function (req, res) {
+        console.log(req.body);
+        db.usergames.findOne({ where: {userId: req.body.userId,gameId: req.body.gameId} }).then(function(dbUsergames){
+            if(!dbUsergames){
+                db.usergames.create(req.body).then(function () {
+                    res.json({success: "Game successfully added to profile!"});
+                });
+            }
+            else{
+                res.json({success: "This game is already part of your profile."});
+            }
         });
+        /*(db.usergames.create(req.body).then(function (dbExample) {
+            res.json(dbExample);
+        });*/
     });
 
     // Delete an example by id

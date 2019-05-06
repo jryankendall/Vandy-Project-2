@@ -5,6 +5,7 @@ var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
+var $button = $("<button>");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -126,6 +127,7 @@ var displaySearchResults = function (data) {
 
     // build the card for each game returned
     var $games = [data].map(function (game) {
+
         //console.log(game.name);
         var $card = $("<div>")
             .addClass("card")
@@ -141,6 +143,7 @@ var displaySearchResults = function (data) {
         }
 
         console.log(image);
+
         var $img = $("<img>")
             .attr("src", image)
             .addClass("card-img-top");
@@ -148,7 +151,7 @@ var displaySearchResults = function (data) {
         var $title = $("<h5>")
             .addClass("card-title pl-1")
             .text(game.name);
-        var $button = $("<a>")
+        $button
             .addClass("btn btn-success btn-sm btn-block")
             .attr("href", "#")
             .text("+ Add game");
@@ -160,6 +163,7 @@ var displaySearchResults = function (data) {
             .append($button);
 
         return $card;
+
     });
     $searchResults.empty();
     $searchResults.append("Search results" + "<hr>");
@@ -172,3 +176,21 @@ var displaySearchResults = function (data) {
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 $searchBtn.on("click", handleFormSearch);
+$button.on("click",function(){
+    userId = $("#username").attr("data-id");
+    if(userId){//Not secure!!! Change when authentication works
+        return $.ajax({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            type: "POST",
+            url: "api/usergames",
+            data: JSON.stringify({userId: userId, gameId: this.id})
+        }).then(function(res){
+            console.log(res);
+        });
+    }
+    else{
+        console.log("Please login to add games");
+    }
+});
