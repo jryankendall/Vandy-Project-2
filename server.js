@@ -6,11 +6,25 @@ var db = require("./models");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
+var passport = require("passport");
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Cookie Middleware
+var cookieParser = require("cookie-parser");
+var cookieSession = require("cookie-session");
+
+app.use(cookieSession({
+    name: "session",
+    keys: ["experimentalbaconburger"]
+}));
+
+app.use(cookieParser());
 
 // Handlebars
 app.engine(
@@ -26,6 +40,11 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 require("./routes/steamApiRoutes")(app);
 
+//Authentication
+var passport = require("passport");
+var auth = require("./config/auth");
+auth(passport);
+app.use(passport.initialize());
 
 var syncOptions = { force: false };
 
