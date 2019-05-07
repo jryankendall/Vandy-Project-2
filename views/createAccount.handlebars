@@ -24,7 +24,7 @@
                     data: JSON.stringify({username: $("#create-username").val().trim(), description: $("#create-description").val().trim()})
                 }).then(function(res){
                     if(res.success !== "username taken"){
-                        window.location.href = res.success;
+                        window.location.href = "/user";
                     }
                     else
                         console.log(res);
