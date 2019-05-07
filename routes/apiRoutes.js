@@ -11,7 +11,16 @@ module.exports = function (app) {
 
     app.post("/api/userdetails",function (req, res) {
         console.log(req.body);
-        res.json({success: maybe});
+        db.users.findOne({ where: {username: req.body.username} }).then(function(dbUser){
+            if(!dbUser){
+                //db.usergames.create(req.body).then(function () {
+                res.json({success: "User details successfully updates!"});
+                //});
+            }
+            else{
+                res.json({success: "This username already exists."});
+            }
+        });
     });
 
     // Create a new example
