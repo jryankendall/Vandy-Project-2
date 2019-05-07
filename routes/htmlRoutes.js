@@ -84,7 +84,7 @@ module.exports = function(app) {
         }
         else {
             var sessionId = req.session.passport.user.profile.id;
-            console.log("This is to check for image location: ",req.session.passport.user.profile);
+            console.log("This is to check for image location: ",req.session.passport.user.profile.photos[0].value);
             db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
                 if(!dbUsers){
                     db.users.create({email: sessionId}).then(function () {
