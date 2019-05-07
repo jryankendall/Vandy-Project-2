@@ -2,6 +2,8 @@
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
 var $loginBtn = $("#login");
+var $userGames = $("#games");
+var $userGames2 = $("#games2");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -80,22 +82,58 @@ var displaySearchResults = function (data) {
 };
 
 var handleLogin = function (e) {
-    $("#games").empty();
     e.preventDefault();
     console.log("pressed");
     console.log($("#inputEmail").val());
+    var $email = $("#inputEmail").val().trim();
+    localStorage.setItem("userEmail", $email);
+    refreshLogin($email);
+};
+
+var refreshLogin = function ($email) {
     return $.ajax({
-        url: "api/user/" + $("#inputEmail").val().trim(),
+        url: "api/user/" + $email,
         type: "GET"
     }).then(function (user) {
         console.log("DER USER", user);
         $("#username").text(user.username)
             .attr("data-id", user.id);
         $("#description").text(user.description);
-        for (var i = 0; i < user.games.length; i++) {
-            $("#games").append("<h2>" + user.games[i].name + "<h2>")
-                .append("<img src=" + user.games[i].image + "height=200 width=150>");
-        }
+
+        // create a card for games in library
+        var $games = user.games.map(function (game) {
+            var $card = $("<div>")
+                .addClass("card mb-2")
+                .width("10rem");
+            var cardCol = $("<div>")
+                .addClass("col");
+    
+            var image = "";
+    
+            if (!game.image) {
+                image = game.box_art_url.replace(/-{width}x{height}/g, "");
+            }
+            else {
+                image = game.image;
+            }
+            var $img = $("<img>")
+                .attr("src", image)
+                .addClass("card-img-top");
+            var $title = $("<h5>")
+                .addClass("card-title pl-1")
+                .text(game.name);
+
+            $card
+                .append($img)
+                .append($title);
+            cardCol.append($card);
+            return cardCol;
+    
+        });
+        $userGames.empty();
+        $userGames.append(user.username + "'s games" + "<hr>");
+        $userGames2.empty();
+        $userGames2.append($games);
     });
 };
 
@@ -111,6 +149,10 @@ var handleAdd = function () {
             data: JSON.stringify({ userId: userId, gameId: this.id })
         }).then(function (res) {
             console.log(res);
+            $searchResults.empty();
+            $searchResults.append("Game added to your games list");
+            var $email = localStorage.getItem("userEmail");
+            refreshLogin($email);
         });
     }
     else {
