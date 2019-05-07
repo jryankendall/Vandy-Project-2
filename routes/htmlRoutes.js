@@ -84,12 +84,17 @@ module.exports = function(app) {
         }
         else {
             var sessionId = req.session.passport.user.profile.id;
+            console.log("This is to check for image location: ",req.session.passport.user.profile);
             db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
                 if(!dbUsers){
                     db.users.create({email: sessionId}).then(function () {
                         console.log("Account added to database. Redirecting to account creation...");
                         res.redirect("/createAccount");
                     });
+                }
+                else if(!dbUsers.dataValues.username || !dbUsers.dataValues.description){
+                    console.log("Account details not complete. Redirecting to account creation...");
+                    res.redirect("/createAccount");
                 }
                 else {
                     console.log(dbUsers);
@@ -122,7 +127,13 @@ module.exports = function(app) {
     });
 
     app.get("/createAccount", function(req,res){
-        res.render("createAccount");
+        if(Object.keys(req.session).length===1){
+            res.redirect("/");
+        }
+        else{
+            res.render("createAccount");
+        }
+        
     });
 
     // Render 404 page for any unmatched routes
