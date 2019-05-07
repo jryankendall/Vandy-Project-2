@@ -78,7 +78,7 @@ module.exports = function(app) {
 
     app.get("/user", function(req,res){
         //if(req.isAuthenticated()){
-        console.log(req);
+        console.log(req.user);
         res.render("user");
         //}
         //else {
