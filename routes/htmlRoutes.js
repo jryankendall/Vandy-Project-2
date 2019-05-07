@@ -80,7 +80,7 @@ module.exports = function(app) {
 
     app.get("/user", function(req,res){
         //if(req.isAuthenticated()){
-        console.log(req.session.id);
+        console.log("Session: ",req.session);
         res.render("user");
         //}
         //else {
