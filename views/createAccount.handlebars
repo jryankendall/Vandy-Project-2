@@ -1,0 +1,39 @@
+<br><br><br>
+<div class="create-details">
+    <form>
+    <div class="form-group">
+        <label for="create-username">Create username</label>
+        <input type="input" class="form-control" id="create-username" aria-describedby="create-username"
+        placeholder="Enter desired username">
+        <hr>
+        <label for="create-description">Write something about yourself</label>
+        <input type="input" class="form-control" id="create-description" aria-describedby="create-description"
+        placeholder="Enter description">
+    </div>
+    <button type="submit" id="create-btn" class="btn btn-primary">Submit Details</button>
+    <script>
+        $("#create-btn").on("click",function(e){
+            e.preventDefault();
+            if($("#create-username").val().trim()!=="" && $("#create-description").val().trim()!==""){
+                return $.ajax({
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    type: "POST",
+                    url: "api/userdetails",
+                    data: JSON.stringify({username: $("#create-username").val().trim(), description: $("#create-description").val().trim()})
+                }).then(function(res){
+                    if(res.success !== "username taken"){
+                        window.location.href = "/user";
+                    }
+                    else
+                        console.log(res);
+                });
+            }
+            else{
+                console.log("Please enter all fields");
+            }
+        });
+    </script>
+    </form>
+</div>
