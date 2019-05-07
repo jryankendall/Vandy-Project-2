@@ -13,7 +13,7 @@
     <button type="submit" id="create-btn" class="btn btn-primary">Submit Details</button>
     <script>
         $("#create-btn").on("click",function(){
-            if($("#create-username").val().trim()!=="" && $("#create-username").val().trim()!==""){
+            if($("#create-username").val().trim()!=="" && $("#create-description").val().trim()!==""){
                 return $.ajax({
                     headers: {
                         "Content-Type": "application/json"
