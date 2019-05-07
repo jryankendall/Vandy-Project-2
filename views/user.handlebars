@@ -78,26 +78,3 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="/js/index.js"></script>
-
-
-<script>
-
-  $("#login").on("click", function (e) {
-    $("#games").empty();
-    e.preventDefault();
-    console.log("pressed");
-    console.log($("#inputEmail").val());
-    return $.ajax({
-      url: "api/user/" + $("#inputEmail").val().trim(),
-      type: "GET"
-    }).then(function (user) {
-      console.log("DER USER", user);
-      $("#username").text(user.username);
-      $("#description").text(user.description);
-      for (var i = 0; i < user.games.length; i++) {
-        $("#games").append("<h2>" + user.games[i].name + "<h2>")
-          .append("<img src=" + user.games[i].image + "height=200 width=150>");
-      }
-    });
-  })
-</script>
