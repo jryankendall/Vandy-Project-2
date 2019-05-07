@@ -62,6 +62,7 @@ module.exports = function(app) {
             console.log(req.user);
             
             res.redirect("/user");
+            console.log("           redirected             ");
         }
     );
 
@@ -78,7 +79,7 @@ module.exports = function(app) {
 
     app.get("/user", function(req,res){
         //if(req.isAuthenticated()){
-        console.log(req.user);
+        console.log(req.session.token);
         res.render("user");
         //}
         //else {
