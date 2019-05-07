@@ -23,7 +23,7 @@
                     url: "api/userdetails",
                     data: JSON.stringify({username: $("#create-username").val().trim(), description: $("#create-description").val().trim()})
                 }).then(function(res){
-                    console.log(res);
+                    window.location.href = res.success;
                 });
             }
             else{

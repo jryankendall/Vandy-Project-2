@@ -23,11 +23,11 @@ module.exports = function (app) {
                             {username: req.body.username, description: req.body.description},
                             {where: {email: req.session.passport.user.profile.id}})
                             .then(function () {
-                                res.redirect("/user");
+                                res.json({success: "redirect"});
                             });
                     }
                     else{
-                        res.json({success: "This username already exists.(won't until criteria met)"});
+                        res.json({success: "This username already exists."});
                     }
                 });
             }
