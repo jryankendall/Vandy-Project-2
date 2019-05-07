@@ -77,7 +77,13 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        res.render("user");
+        if(req.isAuthenticated()){
+            console.log(req);
+            res.render("user");
+        }
+        else {
+            res.redirect("/");
+        }
     });
 
     app.get("/api/user/:val", function(req, res){
