@@ -93,6 +93,9 @@ module.exports = function(app) {
                 }
                 else {
                     console.log(dbUsers);
+                    res.render("user",{
+
+                    });
                 }
             });
             /*res.render("user",{
