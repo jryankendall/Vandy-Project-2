@@ -10,7 +10,6 @@ module.exports = function(app) {
         
         if (req.session.token) {
             res.cookie("token", req.session.token);
-            res.cookie("id", req.session.id);
             res.json({
                 status: "session cookie set"
             });
