@@ -27,7 +27,7 @@ module.exports = function (app) {
                             });
                     }
                     else{
-                        res.json({success: "This username already exists."});
+                        res.json({success: "username taken"});
                     }
                 });
             }
