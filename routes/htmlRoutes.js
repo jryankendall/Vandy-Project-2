@@ -13,6 +13,7 @@ module.exports = function(app) {
             res.json({
                 status: "session cookie set"
             });
+            res.json(req.session);
             
         } else {
             res.cookie("token", "");
@@ -60,6 +61,8 @@ module.exports = function(app) {
         }),
         (req, res) => {
             req.session.token = req.user.token;
+            console.log(req.user);
+            
             res.redirect("/authtest");
         }
     );

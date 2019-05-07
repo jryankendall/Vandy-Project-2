@@ -41,7 +41,6 @@ require("./routes/htmlRoutes")(app);
 require("./routes/steamApiRoutes")(app);
 
 //Authentication
-var passport = require("passport");
 var auth = require("./config/auth/auth");
 auth(passport);
 app.use(passport.initialize());
