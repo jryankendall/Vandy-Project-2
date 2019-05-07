@@ -15,7 +15,7 @@ module.exports = (passport) => {
     passport.use(new GoogleStrategy({
         clientID: process.env.CLIENTID,
         clientSecret: process.env.CLIENTSECRET,
-        callbackURL: "https://jk-cb-asp-project2.herokuapp.com/auth/google/callback/"
+        callbackURL: "https://jk-cb-asp-project2.herokuapp.com/auth/google/callback"
     },
     (token, refreshToken, profile, done) => {
         return done(null, {
