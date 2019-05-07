@@ -14,11 +14,11 @@ module.exports = function (app) {
         db.users.findOne({ where: {username: req.body.username} }).then(function(dbUser){
             if(!dbUser){
                 //db.usergames.create(req.body).then(function () {
-                res.json({success: "User details successfully updates!"});
+                res.json({success: "User details successfully updates!(doesn't yet)"});
                 //});
             }
             else{
-                res.json({success: "This username already exists."});
+                res.json({success: "This username already exists.(won't until criteria met)"});
             }
         });
     });
