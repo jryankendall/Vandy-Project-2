@@ -12,7 +12,8 @@
     </div>
     <button type="submit" id="create-btn" class="btn btn-primary">Submit Details</button>
     <script>
-        $("#create-btn").on("click",function(){
+        $("#create-btn").on("click",function(e){
+            e.preventDefault();
             if($("#create-username").val().trim()!=="" && $("#create-description").val().trim()!==""){
                 return $.ajax({
                     headers: {
