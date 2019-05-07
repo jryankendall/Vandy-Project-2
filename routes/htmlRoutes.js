@@ -61,7 +61,7 @@ module.exports = function(app) {
             req.session.token = req.user.token;
             console.log(req.user);
             
-            res.redirect("/authtest");
+            res.redirect("/user");
         }
     );
 
@@ -77,13 +77,13 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        if(req.isAuthenticated()){
-            console.log(req);
-            res.render("user");
-        }
-        else {
-            res.redirect("/");
-        }
+        //if(req.isAuthenticated()){
+        console.log(req);
+        res.render("user");
+        //}
+        //else {
+        //    res.redirect("/");
+        //}
     });
 
     app.get("/api/user/:val", function(req, res){
