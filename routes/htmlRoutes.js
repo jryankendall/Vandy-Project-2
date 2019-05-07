@@ -78,7 +78,8 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        if(!Object.keys(req.session).length){
+        console.log(Object.keys(req.session));
+        if(Object.keys(req.session).length===0){
             res.redirect("/");
         }
         else {
