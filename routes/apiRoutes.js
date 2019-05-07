@@ -11,9 +11,12 @@ module.exports = function (app) {
 
     app.post("/api/userdetails",function (req, res) {
         console.log(req.body);
+        console.log(req.session.passport.user.profile.id);
         db.users.findOne({ where: {username: req.body.username} }).then(function(dbUser){
             if(!dbUser){
-                //db.usergames.create(req.body).then(function () {
+                //db.usergames.update(
+                //{username: req.body.username, description: req.body.description},
+                //{where {email: req.session.passport.user.profile.id}}).then(function () {
                 res.json({success: "User details successfully updates!(doesn't yet)"});
                 //});
             }
