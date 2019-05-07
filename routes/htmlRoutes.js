@@ -78,12 +78,12 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        if(req.session.passport.user){
-            console.log("Session: ",req.session.passport.user.profile);
-            res.render("user");
+        if(!req.session.passport.user.profile){
+            res.redirect("/");
         }
         else {
-            res.redirect("/");
+            console.log("Session: ",req.session.passport.user.profile);
+            res.render("user");
         }
     });
 
