@@ -128,7 +128,7 @@ module.exports = function(app) {
 
     app.get("/createAccount", function(req,res){
         if(Object.keys(req.session).length===1){
-            res.redirect("/");
+            res.redirect("/auth/google");
         }
         else{
             res.render("createAccount");

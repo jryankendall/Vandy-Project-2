@@ -11,5 +11,24 @@
         placeholder="Enter description">
     </div>
     <button type="submit" id="create-btn" class="btn btn-primary">Submit Details</button>
+    <script>
+        $("#create-btn").on("click",function(){
+            if($("#create-username").val().trim()!=="" && $("#create-username").val().trim()!==""){
+                return $.ajax({
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    type: "POST",
+                    url: "api/userdetails",
+                    data: JSON.stringify({username: $("#create-username").val().trim(), description: $("#create-username").val().trim()})
+                }).then(function(res){
+                    console.log(res);
+                });
+            }
+            else{
+                console.log("Please enter all fields");
+            }
+        });
+    </script>
     </form>
 </div>

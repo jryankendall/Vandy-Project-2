@@ -9,7 +9,10 @@ module.exports = function (app) {
         });
     });
 
-    
+    app.post("/api/userdetails",function (req, res) {
+        console.log(req.body);
+        res.json({success: maybe});
+    });
 
     // Create a new example
     app.post("/api/usergames", function (req, res) {
