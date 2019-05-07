@@ -60,7 +60,7 @@ module.exports = function(app) {
         }),
         (req, res) => {
             req.session.token = req.user.token;
-            console.log(req.user);
+            //console.log(req.user);
             
             res.redirect("/user");
             console.log("           redirected             ");
