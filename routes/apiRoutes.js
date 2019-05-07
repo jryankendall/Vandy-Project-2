@@ -14,7 +14,7 @@ module.exports = function (app) {
         console.log(req.session.passport.user.profile.id);
         db.users.findOne({ where: {username: req.body.username} }).then(function(dbUser){
             if(!dbUser){
-                db.usergames.update(
+                db.users.update(
                     {username: req.body.username, description: req.body.description},
                     {where: {email: req.session.passport.user.profile.id}})
                     .then(function () {

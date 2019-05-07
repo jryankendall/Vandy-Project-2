@@ -80,7 +80,7 @@ module.exports = function(app) {
     app.get("/user", function(req,res){
         console.log(Object.keys(req.session));
         if(Object.keys(req.session).length===1){
-            res.redirect("/");
+            res.redirect("/auth/google");
         }
         else {
             var sessionId = req.session.passport.user.profile.id;
