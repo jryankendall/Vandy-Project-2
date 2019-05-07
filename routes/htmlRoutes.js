@@ -85,11 +85,19 @@ module.exports = function(app) {
         else {
             var sessionId = req.session.passport.user.profile.id;
             db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
-                console.log(dbUsers);
+                if(!dbUsers){
+                    db.users.create({email: sessionId}).then(function () {
+                        console.log("Account added to database. Redirecting to account creation...");
+                        res.redirect("/createAccount");
+                    });
+                }
+                else {
+                    console.log(dbUsers);
+                }
             });
-            res.render("user",{
+            /*res.render("user",{
 
-            });
+            });*/
         }
     });
 
