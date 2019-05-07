@@ -6,14 +6,15 @@ module.exports = function(app) {
 
     app.get("/authtest", (req, res) => {
         //will need to add more stuff to this, placeholder for now
-        console.log(req);
+        console.log(req.session);
+        console.log(req.user);
+        
         
         if (req.session.token) {
             res.cookie("token", req.session.token);
             res.json({
                 status: "session cookie set"
             });
-            res.json(req.session);
             
         } else {
             res.cookie("token", "");
