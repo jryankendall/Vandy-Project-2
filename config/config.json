@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "dare2Bstupid69",
+    "password": "",
     "database": "steam_appids",
     "host": "localhost",
     "dialect": "mysql"
