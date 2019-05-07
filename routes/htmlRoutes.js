@@ -83,8 +83,13 @@ module.exports = function(app) {
             res.redirect("/");
         }
         else {
-            console.log("Session: ",req.session.passport.user.profile);
-            res.render("user");
+            var sessionId = req.session.passport.user.profile.id;
+            db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                console.log(dbUsers);
+            });
+            res.render("user",{
+
+            });
         }
     });
 
