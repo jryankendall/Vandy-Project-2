@@ -80,7 +80,7 @@ module.exports = function(app) {
 
     app.get("/user", function(req,res){
         //if(req.isAuthenticated()){
-        console.log("Session: ",req.session);
+        console.log("Session: ",req.session.passport.user.profile);
         res.render("user");
         //}
         //else {
