@@ -78,7 +78,7 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        if(!req.session.passport.user.profile){
+        if(!Object.keys(req.session).length){
             res.redirect("/");
         }
         else {
