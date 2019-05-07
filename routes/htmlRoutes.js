@@ -78,13 +78,13 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        //if(req.isAuthenticated()){
-        console.log("Session: ",req.session.passport.user.profile);
-        res.render("user");
-        //}
-        //else {
-        //    res.redirect("/");
-        //}
+        if(req.session.passport.user){
+            console.log("Session: ",req.session.passport.user.profile);
+            res.render("user");
+        }
+        else {
+            res.redirect("/");
+        }
     });
 
     app.get("/api/user/:val", function(req, res){
