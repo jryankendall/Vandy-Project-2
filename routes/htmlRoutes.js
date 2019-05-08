@@ -6,14 +6,13 @@ module.exports = function(app) {
 
     app.get("/authtest", (req, res) => {
         //will need to add more stuff to this, placeholder for now
-        console.log(req);
+        
         
         if (req.session.token) {
             res.cookie("token", req.session.token);
             res.json({
                 status: "session cookie set"
             });
-            res.json(req.session);
             
         } else {
             res.cookie("token", "");
@@ -25,7 +24,6 @@ module.exports = function(app) {
     });
 
     app.get("/logout", (req, res) => {
-        console.log(req);
         
         req.logout();
         req.session = null;
@@ -61,9 +59,10 @@ module.exports = function(app) {
         }),
         (req, res) => {
             req.session.token = req.user.token;
-            console.log(req.user);
+            //console.log(req.user);
             
-            res.redirect("/authtest");
+            res.redirect("/user");
+            console.log("           redirected             ");
         }
     );
 
@@ -79,7 +78,35 @@ module.exports = function(app) {
     });
 
     app.get("/user", function(req,res){
-        res.render("user");
+        console.log(Object.keys(req.session));
+        if(Object.keys(req.session).length===1){
+            res.redirect("/auth/google");
+        }
+        else {
+            var sessionId = req.session.passport.user.profile.id;
+            var sessionImage = req.session.passport.user.profile.photos[0].value;
+            db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                if(!dbUsers){
+                    db.users.create({email: sessionId,image: sessionImage}).then(function () {
+                        console.log("Account added to database. Redirecting to account creation...");
+                        res.redirect("/createAccount");
+                    });
+                }
+                else if(!dbUsers.dataValues.username || !dbUsers.dataValues.description){
+                    console.log("Account details not complete. Redirecting to account creation...");
+                    res.redirect("/createAccount");
+                }
+                else {
+                    console.log(dbUsers);
+                    res.render("user",{
+
+                    });
+                }
+            });
+            /*res.render("user",{
+
+            });*/
+        }
     });
 
     app.get("/api/user/:val", function(req, res){
@@ -100,7 +127,13 @@ module.exports = function(app) {
     });
 
     app.get("/createAccount", function(req,res){
-        res.render("createAccount");
+        if(Object.keys(req.session).length===1){
+            res.redirect("/auth/google");
+        }
+        else{
+            res.render("createAccount");
+        }
+        
     });
 
     // Render 404 page for any unmatched routes
