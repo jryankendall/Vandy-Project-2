@@ -38,18 +38,18 @@ module.exports = function (app) {
     app.post("/api/usergames", function (req, res) {
         console.log(req.body);
         db.users.findOne({ where: { email: req.session.passport.user.profile.id } }).then(function (dbUser) {
-            console.log(dbUser.dataValues.id);
-            res.json({dbUser});
-            /*db.usergames.findOne({ where: { userId: dbUser.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
+            //console.log(dbUser.dataValues.id);
+            //res.json({dbUser});
+            db.usergames.findOne({ where: { userId: dbUser.dataValues.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
                 if (!dbUsergames) {
                     db.usergames.create(req.body).then(function () {
-                        res.json({ success: "Game successfully added to profile!" });
+                        res.json({ success: true });
                     });
                 }
                 else {
-                    res.json({ success: "This game is already part of your profile." });
+                    res.json({ success: false });
                 }
-            });*/
+            });
         });
         
         /*(db.usergames.create(req.body).then(function (dbExample) {

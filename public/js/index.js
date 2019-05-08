@@ -140,9 +140,15 @@ var handleAdd = function () {
         url: "api/usergames",
         data: JSON.stringify({gameId: this.id })
     }).then(function (res) {
-        console.log(res);
+        //console.log(res);
         $searchResults.empty();
-        $searchResults.append("Game added to your games list");
+        if(res.success){
+            location.reload();
+        }
+        else{
+            $searchResults.append("This game is already on your list.");
+        }
+        
         //var $email = localStorage.getItem("userEmail");
         //refreshLogin();
     });
