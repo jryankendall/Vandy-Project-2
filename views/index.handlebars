@@ -1,8 +1,71 @@
-<div id="home">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
+<style>
+  .sidebar {
+    overflow: auto;
+    position: -webkit-sticky left;
+    position: sticky;
+    top: 5%;
+    background-color: rgb(240, 240, 240);
+    float: left;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+h3, h6 {
+      font-family: "Orbitron", sans-serif;
+}
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .container-fluid {
+    margin-top: 56px;
+    padding: 0px;
+  }
+
+  code,
+  pre {
+    background-color: #ccc;
+    padding: 0 3px;
+    border-radius: 5px;
+  }
+
+  .bottom {
+    justify-self: bottom;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 col-sm-12">
+      <div class="sidebar">
+       
+
+        <div class="game-search">
+          <form>
+            <div class="form-group">
+              <label for="news-search"><br><h6>Search for game</h6></label>
+              <input type="input" class="form-control" id="news-search" aria-describedby="news-search"
+                placeholder="Enter game name">
             </div>
+            <button type="submit" id="news-btn" class="btn btn-primary">Search</button>
+          </form>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="row">
+            <div class="col"><br><h3>Top trending games</h3><hr></div>
+        </div>
+        <div id="news-feed" class="row">
         </div>
     </div>
+  </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="/js/index.js"></script>
+<script src="/js/news.js"></script>

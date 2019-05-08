@@ -37,14 +37,14 @@ module.exports = function (app) {
     // Create a new example
     app.post("/api/usergames", function (req, res) {
         console.log(req.body);
-        db.usergames.findOne({ where: {userId: req.body.userId,gameId: req.body.gameId} }).then(function(dbUsergames){
-            if(!dbUsergames){
+        db.usergames.findOne({ where: { userId: req.body.userId, gameId: req.body.gameId } }).then(function (dbUsergames) {
+            if (!dbUsergames) {
                 db.usergames.create(req.body).then(function () {
-                    res.json({success: "Game successfully added to profile!"});
+                    res.json({ success: "Game successfully added to profile!" });
                 });
             }
-            else{
-                res.json({success: "This game is already part of your profile."});
+            else {
+                res.json({ success: "This game is already part of your profile." });
             }
         });
         /*(db.usergames.create(req.body).then(function (dbExample) {
@@ -84,50 +84,106 @@ module.exports = function (app) {
                 name: game
             },
         };
-        function findGame(check,obj){
-            db.appids.findOne({ where: {name: game} }).then(function(dbUsers){
-                if(!dbUsers){
+        function findGame(check, obj) {
+            db.appids.findOne({ where: { name: game } }).then(function (dbUsers) {
+                if (!dbUsers) {
                     console.log("Game does not exist in database, searching twitch...");
                     axios(config)
                         .then(function (data) {
                             var newGames = data.data;
-                            if(newGames.data.length > 0 && !check){
-                                db.appids.findOne({ where: {name: newGames.data[0].name} }).then(function(dbUsersDoubleCheck){
-                                    if(dbUsersDoubleCheck){
+                            if (newGames.data.length > 0 && !check) {
+                                db.appids.findOne({ where: { name: newGames.data[0].name } }).then(function (dbUsersDoubleCheck) {
+                                    if (dbUsersDoubleCheck) {
                                         console.log("Different input name than twitch name matched. Insertion prevented");
                                         res.json(dbUsersDoubleCheck.dataValues);
                                     }
-                                    else{
+                                    else {
                                         db.appids.create({
                                             appid: newGames.data[0].id,
                                             name: newGames.data[0].name,
                                             image: newGames.data[0].box_art_url.replace(/-{width}x{height}/g, "")
                                         }).then(function () {
-                                            findGame(1,newGames.data[0]);
+                                            findGame(1, newGames.data[0]);
                                         });
                                     }
                                 });
                             }
-                            else if(check === 1){
+                            else if (check === 1) {
                                 console.log(obj);
                                 console.log("Game successfully added to and pulled from database");
                                 res.json(obj);
                             }
-                            else{ //add better error handling for invalid searches
+                            else { //add better error handling for invalid searches
                                 console.log("Game does not exist on twitch");
                             }
                         });
                 }
-                else if(check > 0){
+                else if (check > 0) {
                     console.log("Game successfully added to and pulled from database");
                     res.json(dbUsers.dataValues);
                 }
-                else{
+                else {
                     console.log("Found in database, twitch api not used!");
                     res.json(dbUsers.dataValues);
                 }
             });
         }
-        findGame(0,{});
+        findGame(0, {});
+    });
+
+    app.get("/api/news", function (req, res) {
+        console.log("app.get news called in apiRoutes");
+        var $clipsArr = [];
+        var config = {
+            url: "https://api.twitch.tv/helix/games/top",
+            method: "get",
+            headers: {
+                "cache-control": "no-cache",
+                Connection: "keep-alive",
+                Host: "api.twitch.tv",
+                "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
+            },
+            params:
+            {
+                first: 3
+            }
+        };
+
+        console.log("searching twitch for top games...");
+
+        axios(config)
+            .then(function (data) {
+                var $news = data.data.data;
+                console.log("Top games from twitch");
+
+                // console.log($news);
+
+                for (var i = 0; i < $news.length; i++) {
+                    console.log("Game " + i + " : " + $news[i].name);
+
+                    var config = {
+                        url: "https://api.twitch.tv/helix/clips",
+                        method: "get",
+                        headers: {
+                            "cache-control": "no-cache",
+                            Connection: "keep-alive",
+                            Host: "api.twitch.tv",
+                            "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
+                        },
+                        params:
+                        {
+                            game_id: $news[i].id,
+                            first: 1
+                        }
+                    };
+                    axios(config)
+                        .then(function (data) {
+                            var $clips = data.data.data;
+                            $clipsArr.push($clips[0]);
+                            console.log($clipsArr);
+                            res.json($clipsArr);
+                        });
+                }
+            });
     });
 };

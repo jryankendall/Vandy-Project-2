@@ -5,13 +5,15 @@
     position: sticky;
     top: 5%;
     background-color: rgb(240, 240, 240);
-    font-family: "Orbitron", sans-serif;
     float: left;
     width: 100%;
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
+h3, h6 {
+      font-family: "Orbitron", sans-serif;
+}
   .wrapper {
     display: flex;
     justify-content: space-between;
@@ -38,22 +40,23 @@
   <div class="row">
     <div class="col-md-4 col-sm-12">
       <div class="sidebar">
-        <br>
-        <p class="text-center">image goes here</p>
+        {{!-- <p class="text-center">image goes here</p> --}}
         <img href="{{this.image}}" alt="user image">
-        <h3>User Profile (<a id="username"></a>)</h3>
+        <h6>Profile:</h6>
+        <h3><a id="username"></a></h3>
         <hr>
-        <p>description: <a id="description"></a></p>
+        <h6>Description</h6>
+         <a id="description"></a>
         <hr>
-        <p>friends count</p>
+        <h6>Friends count</h6>
         <hr>
-        <p>friends online</p>
+        <h6>Friends online</h6>
         <hr>
 
         <div class="game-search">
           <form>
             <div class="form-group">
-              <label for="game-search">Search for game</label>
+              <label for="game-search"><h6>Search for game</h6></label>
               <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
                 placeholder="Enter game name">
             </div>
@@ -63,14 +66,14 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4 col-sm-12">
-        <br><br><br>
+    <div class="col-md-8 col-sm-12">
+        {{!-- <br><br><br> --}}
         <div id="search-results">
         </div>
 
       <br>
       <div id="games"></div>
-
+      <div id="games2" class="row justify-content-start"></div>
     </div>
   </div>
 </div>
@@ -78,26 +81,3 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="/js/index.js"></script>
-
-
-<script>
-
-  $("#login").on("click", function (e) {
-    $("#games").empty();
-    e.preventDefault();
-    console.log("pressed");
-    console.log($("#inputEmail").val());
-    return $.ajax({
-      url: "api/user/" + $("#inputEmail").val().trim(),
-      type: "GET"
-    }).then(function (user) {
-      console.log("DER USER", user);
-      $("#username").text(user.username);
-      $("#description").text(user.description);
-      for (var i = 0; i < user.games.length; i++) {
-        $("#games").append("<h2>" + user.games[i].name + "<h2>")
-          .append("<img src=" + user.games[i].image + "height=200 width=150>");
-      }
-    });
-  })
-</script>

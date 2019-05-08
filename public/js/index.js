@@ -1,106 +1,18 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
-var $button = $("<button>");
+var $loginBtn = $("#login");
+var $userGames = $("#games");
+var $userGames2 = $("#games2");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-    saveExample: function (example) {
-        return $.ajax({
-            headers: {
-                "Content-Type": "application/json"
-            },
-            type: "POST",
-            url: "api/examples",
-            data: JSON.stringify(example)
-        });
-    },
-    getExamples: function () {
-        return $.ajax({
-            url: "api/examples",
-            type: "GET"
-        });
-    },
-    deleteExample: function (id) {
-        return $.ajax({
-            url: "api/examples/" + id,
-            type: "DELETE"
-        });
-    },
     searchGame: function (game) {
         return $.ajax({
             url: "api/games/search/" + game,
             type: "GET"
         });
     }
-};
-
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function () {
-    API.getExamples().then(function (data) {
-        var $examples = data.map(function (example) {
-            var $a = $("<a>")
-                .text(example.text)
-                .attr("href", "/example/" + example.id);
-
-            var $li = $("<li>")
-                .attr({
-                    class: "list-group-item",
-                    "data-id": example.id
-                })
-                .append($a);
-
-            var $button = $("<button>")
-                .addClass("btn btn-danger float-right delete")
-                .text("ｘ");
-
-            $li.append($button);
-
-            return $li;
-        });
-
-        $exampleList.empty();
-        $exampleList.append($examples);
-    });
-};
-
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-var handleFormSubmit = function (event) {
-    event.preventDefault();
-
-    var example = {
-        text: $exampleText.val().trim(),
-        description: $exampleDescription.val().trim()
-    };
-
-    if (!(example.text && example.description)) {
-        alert("You must enter an example text and description!");
-        return;
-    }
-
-    API.saveExample(example).then(function () {
-        refreshExamples();
-    });
-
-    $exampleText.val("");
-    $exampleDescription.val("");
-};
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function () {
-    var idToDelete = $(this)
-        .parent()
-        .attr("data-id");
-
-    API.deleteExample(idToDelete).then(function () {
-        refreshExamples();
-    });
 };
 
 // handle the search button
@@ -122,8 +34,6 @@ var handleFormSearch = function (event) {
 };
 
 var displaySearchResults = function (data) {
-    //console.log(data);
-    //console.log(data.data);
 
     // build the card for each game returned
     var $games = [data].map(function (game) {
@@ -151,8 +61,8 @@ var displaySearchResults = function (data) {
         var $title = $("<h5>")
             .addClass("card-title pl-1")
             .text(game.name);
-        $button
-            .addClass("btn btn-success btn-sm btn-block")
+        var $addBtn = $("<button>")
+            .addClass("btn btn-success btn-sm btn-block add")
             .attr("href", "#")
             .text("+ Add game")
             .attr("id", game.id);
@@ -160,7 +70,7 @@ var displaySearchResults = function (data) {
             .append($img)
             .append($cardbody)
             .append($title)
-            .append($button);
+            .append($addBtn);
 
         return $card;
 
@@ -169,28 +79,88 @@ var displaySearchResults = function (data) {
     $searchResults.append("Search results" + "<hr>");
     $searchResults.append($games);
     $searchResults.append("<hr>");
-
 };
 
-// Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
-$searchBtn.on("click", handleFormSearch);
-$button.on("click",function(){
+var handleLogin = function (e) {
+    e.preventDefault();
+    console.log("pressed");
+    console.log($("#inputEmail").val());
+    var $email = $("#inputEmail").val().trim();
+    localStorage.setItem("userEmail", $email);
+    refreshLogin($email);
+};
+
+var refreshLogin = function ($email) {
+    return $.ajax({
+        url: "api/user/" + $email,
+        type: "GET"
+    }).then(function (user) {
+        console.log("DER USER", user);
+        $("#username").text(user.username)
+            .attr("data-id", user.id);
+        $("#description").text(user.description);
+
+        // create a card for games in library
+        var $games = user.games.map(function (game) {
+            var $card = $("<div>")
+                .addClass("card mb-2")
+                .width("10rem");
+            var cardCol = $("<div>")
+                .addClass("col");
+    
+            var image = "";
+    
+            if (!game.image) {
+                image = game.box_art_url.replace(/-{width}x{height}/g, "");
+            }
+            else {
+                image = game.image;
+            }
+            var $img = $("<img>")
+                .attr("src", image)
+                .addClass("card-img-top");
+            var $title = $("<h5>")
+                .addClass("card-title pl-1")
+                .text(game.name);
+
+            $card
+                .append($img)
+                .append($title);
+            cardCol.append($card);
+            return cardCol;
+    
+        });
+        $userGames.empty();
+        $userGames.append(user.username + "'s games" + "<hr>");
+        $userGames2.empty();
+        $userGames2.append($games);
+    });
+};
+
+var handleAdd = function () {
     userId = $("#username").attr("data-id");
-    if(userId){//Not secure!!! Change when authentication works
+    if (userId) {//Not secure!!! Change when authentication works
         return $.ajax({
             headers: {
                 "Content-Type": "application/json"
             },
             type: "POST",
             url: "api/usergames",
-            data: JSON.stringify({userId: userId, gameId: this.id})
-        }).then(function(res){
+            data: JSON.stringify({ userId: userId, gameId: this.id })
+        }).then(function (res) {
             console.log(res);
+            $searchResults.empty();
+            $searchResults.append("Game added to your games list");
+            var $email = localStorage.getItem("userEmail");
+            refreshLogin($email);
         });
     }
-    else{
+    else {
         console.log("Please login to add games");
     }
-});
+};
+
+// Add event listeners to the submit and delete buttons
+$searchBtn.on("click", handleFormSearch);
+$loginBtn.on("click", handleLogin);
+$(document).on("click", ".add", handleAdd);
