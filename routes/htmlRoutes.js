@@ -108,7 +108,9 @@ module.exports = function(app) {
                         dbUsers.dataValues.games = projects;
                         console.log(dbUsers.dataValues);
                         res.render("user",{
-                            user: dbUsers.dataValues
+                            image: dbUsers.dataValues.image,
+                            username: dbUsers.dataValues.username,
+                            description: dbUsers.dataValues.description
                         });
                     });  
                     //});
