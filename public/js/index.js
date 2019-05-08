@@ -1,9 +1,9 @@
 // Get references to page elements
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
-var $loginBtn = $("#login");
-var $userGames = $("#games");
-var $userGames2 = $("#games2");
+// var $loginBtn = $("#login");
+// var $userGames = $("#games");
+// var $userGames2 = $("#games2");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -81,54 +81,54 @@ var displaySearchResults = function (data) {
     $searchResults.append("<hr>");
 };
 
-var handleLogin = function (e) {
-    e.preventDefault();
-    console.log("pressed");
-    /*console.log($("#inputEmail").val());
-    var $email = $("#inputEmail").val().trim();
-    localStorage.setItem("userEmail", $email);
-    refreshLogin($email);*/
-};
+// var handleLogin = function (e) {
+//     e.preventDefault();
+//     console.log("pressed");
+//     /*console.log($("#inputEmail").val());
+//     var $email = $("#inputEmail").val().trim();
+//     localStorage.setItem("userEmail", $email);
+//     refreshLogin($email);*/
+// };
 
 // @Chris -- Move what you can to handle bars
-var refreshLogin = function () {
+// var refreshLogin = function () {
 
-    // create a card for games in library
-    var $games = user.games.map(function (game) {
-        var $card = $("<div>")
-            .addClass("card mb-2")
-            .width("10rem");
-        var cardCol = $("<div>")
-            .addClass("col");
+//     // create a card for games in library
+//     var $games = user.games.map(function (game) {
+//         var $card = $("<div>")
+//             .addClass("card mb-2")
+//             .width("10rem");
+//         var cardCol = $("<div>")
+//             .addClass("col");
 
-        var image = "";
+//         var image = "";
 
-        if (!game.image) {
-            image = game.box_art_url.replace(/-{width}x{height}/g, "");
-        }
-        else {
-            image = game.image;
-        }
-        var $img = $("<img>")
-            .attr("src", image)
-            .addClass("card-img-top");
-        var $title = $("<h5>")
-            .addClass("card-title pl-1")
-            .text(game.name);
+//         if (!game.image) {
+//             image = game.box_art_url.replace(/-{width}x{height}/g, "");
+//         }
+//         else {
+//             image = game.image;
+//         }
+//         var $img = $("<img>")
+//             .attr("src", image)
+//             .addClass("card-img-top");
+//         var $title = $("<h5>")
+//             .addClass("card-title pl-1")
+//             .text(game.name);
 
-        $card
-            .append($img)
-            .append($title);
-        cardCol.append($card);
-        return cardCol;
+//         $card
+//             .append($img)
+//             .append($title);
+//         cardCol.append($card);
+//         return cardCol;
 
-    });
-    $userGames.empty();
-    $userGames.append(user.username + "'s games" + "<hr>");
-    $userGames2.empty();
-    $userGames2.append($games);
+//     });
+//     $userGames.empty();
+//     $userGames.append(user.username + "'s games" + "<hr>");
+//     $userGames2.empty();
+//     $userGames2.append($games);
 
-};
+// };
 
 var handleAdd = function () {
 
@@ -157,5 +157,5 @@ var handleAdd = function () {
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
-$loginBtn.on("click", handleLogin);
+// $loginBtn.on("click", handleLogin);
 $(document).on("click", ".add", handleAdd);
