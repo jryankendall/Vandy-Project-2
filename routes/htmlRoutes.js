@@ -110,7 +110,8 @@ module.exports = function(app) {
                         res.render("user",{
                             image: dbUsers.dataValues.image,
                             username: dbUsers.dataValues.username,
-                            description: dbUsers.dataValues.description
+                            description: dbUsers.dataValues.description,
+                            games: dbUsers.dataValues.games
                         });
                     });  
                     //});
