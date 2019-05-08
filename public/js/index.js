@@ -140,7 +140,7 @@ var displaySearchResults = function (data) {
 // render whatever html is passed to the $searchResults area
 var renderResults = function ($item) {
     $searchResults.empty();
-    $searchResults.append("Search results" + "<hr>");
+    $searchResults.append("<hr>Search results</h3>" + "<hr>");
     $searchResults.append($item);
     $searchResults.append("<hr>");
 };
@@ -165,10 +165,32 @@ var handleAddGame = function () {
             $searchResults.append("This game is already on your list.");
         }
     });
-
 };
+
+var handleAddFriend = function () {
+
+    return $.ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "POST",
+        url: "api/usergames",
+        data: JSON.stringify({ gameId: this.id })
+    }).then(function (res) {
+        //console.log(res);
+        $searchResults.empty();
+        if (res.success) {
+            location.reload();
+        }
+        else {
+            $searchResults.append("This game is already on your list.");
+        }
+    });
+};
+
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
 $(document).on("click", ".add-game", handleAddGame);
+$(document).on("click", ".add-friend", handleAddGame);
