@@ -81,12 +81,14 @@
         <hr>
       </div>
       <div id="games2" class="row justify-content-start">
+
         {{#each games}}
-        <div class="card" style="width: 10rem;">
-          <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{this.name}}</h5>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="col">
+          <div class="card mb-2" style="width: 10rem;">
+            <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title pl-1">{{this.name}}</h5>
+            </div>
           </div>
         </div>
         {{/each}}
