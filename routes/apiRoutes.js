@@ -64,7 +64,7 @@ module.exports = function (app) {
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
             var userId1 = dbUsers.dataValues.id;
             console.log(userId1,userId2);
-            db.userfriends.findOne({ where: {[Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
+            db.userfriends.findOne({ where: {[Sequelize.Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
                 if(!dbFriends){
                     res.json("Should add friends here");
                 }
