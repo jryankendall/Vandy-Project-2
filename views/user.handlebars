@@ -7,8 +7,7 @@
     background-color: rgb(240, 240, 240);
     float: left;
     width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 1rem;
   }
 
   h3,
@@ -36,6 +35,10 @@
   .bottom {
     justify-self: bottom;
   }
+
+  #profile-img {
+    border-radius: 50%;
+  }
 </style>
 
 <div class="container-fluid">
@@ -43,7 +46,7 @@
     <div class="col-md-4 col-sm-12">
       <div class="sidebar">
         {{!-- <p class="text-center">image goes here</p> --}}
-        <img src="{{image}}" alt="user image" width="150" height="150">
+        <img src="{{image}}" alt="user image" width="150" height="150" class="mb-2" id="profile-img">
         <h6 style="color:darkgrey"><u><b>Profile:</b></u></h6>
         <h3><a id="username" style="color:green">{{username}}</a></h3>
         <hr>
