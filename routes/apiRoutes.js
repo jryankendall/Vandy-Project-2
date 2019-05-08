@@ -66,7 +66,9 @@ module.exports = function (app) {
             console.log(userId1,userId2);
             db.userfriends.findOne({ where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
                 if(!dbFriends){
-                    res.json("Should add friends here");
+                    db.user.create({userId1: userId1, userId2: userId2}).then(function () {
+                        res.json({ success: true });
+                    });
                 }
                 else{
                     res.json("Handle other shit here");
