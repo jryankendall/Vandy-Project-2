@@ -38,7 +38,8 @@ module.exports = function (app) {
     app.post("/api/usergames", function (req, res) {
         console.log(req.body);
         db.users.findOne({ where: { email: req.session.passport.user.profile.id } }).then(function (dbUser) {
-            db.usergames.findOne({ where: { userId: dbUser.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
+            res.json({dbUser});
+            /*db.usergames.findOne({ where: { userId: dbUser.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
                 if (!dbUsergames) {
                     db.usergames.create(req.body).then(function () {
                         res.json({ success: "Game successfully added to profile!" });
@@ -47,7 +48,7 @@ module.exports = function (app) {
                 else {
                     res.json({ success: "This game is already part of your profile." });
                 }
-            });
+            });*/
         });
         
         /*(db.usergames.create(req.body).then(function (dbExample) {
