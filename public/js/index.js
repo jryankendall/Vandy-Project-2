@@ -53,7 +53,7 @@ var handlePersonSearch = function (event) {
         return;
     }
 
-    API.searchGame(person).then(function (data) {
+    API.searchPerson(person).then(function (data) {
         //call function to do something with API data
         console.log(data);
         //displaySearchResults(data);
