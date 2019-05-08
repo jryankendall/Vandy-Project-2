@@ -59,14 +59,14 @@ module.exports = function (app) {
     });
 
     app.post("/api/userfriends", function (req, res) {
-        var userId2 = req.body.userId2;
+        var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
             var userId1 = dbUsers.dataValues.id;
             console.log(userId1,userId2);
             db.userfriends.findOne({ where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
                 if(!dbFriends){
-                    db.user.create({userId1: userId1, userId2: userId2}).then(function () {
+                    db.userfriends.create({userId1: userId1, userId2: userId2}).then(function () {
                         res.json({ success: true });
                     });
                 }
