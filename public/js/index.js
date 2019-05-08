@@ -89,10 +89,8 @@ var displayPersonSearch = function (user) {
         .append($body)
         .append($addBtn);
 
-    $searchResults.empty();
-    $searchResults.append("Search results" + "<hr>");
-    $searchResults.append($card);
-    $searchResults.append("<hr>");
+    // call the render function
+    renderResults($card);
 };
 
 var displaySearchResults = function (data) {
@@ -123,7 +121,7 @@ var displaySearchResults = function (data) {
             .addClass("card-title pl-1")
             .text(game.name);
         var $addBtn = $("<button>")
-            .addClass("btn btn-success btn-sm btn-block add")
+            .addClass("btn btn-success btn-sm btn-block add-game")
             .attr("href", "#")
             .text("+ Add game")
             .attr("id", game.id);
@@ -134,15 +132,21 @@ var displaySearchResults = function (data) {
             .append($addBtn);
 
         return $card;
-
     });
+    // call render function
+    renderResults($games);
+};
+
+// render whatever html is passed to the $searchResults area
+var renderResults = function ($item) {
     $searchResults.empty();
     $searchResults.append("Search results" + "<hr>");
-    $searchResults.append($games);
+    $searchResults.append($item);
     $searchResults.append("<hr>");
 };
 
-var handleAdd = function () {
+// this handles the addGame button click
+var handleAddGame = function () {
 
     return $.ajax({
         headers: {
@@ -167,4 +171,4 @@ var handleAdd = function () {
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
-$(document).on("click", ".add", handleAdd);
+$(document).on("click", ".add-game", handleAddGame);
