@@ -145,7 +145,17 @@ module.exports = function(app) {
             res.redirect("/auth/google");
         }
         else{
-            res.render("createAccount");
+            var sessionId = req.session.passport.user.profile.id;
+            
+            db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                if(dbUsers.dataValues.username && dbUsers.dataValues.description){
+                    res.redirect("/");
+                }
+                else {
+                    //console.log("Account details not complete. Redirecting to account creation...");
+                    res.render("createAccount");
+                }
+            });
         }
         
     });
