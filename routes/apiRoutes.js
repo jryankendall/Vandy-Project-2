@@ -64,11 +64,14 @@ module.exports = function (app) {
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
             var userId1 = dbUsers.dataValues.id;
             console.log(userId1,userId2);
-            res.json("Testing stuff still");
-            /*db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
-                var userId1 = dbUsers.dataValues.id;
-                
-            });*/
+            db.userfirends.findOne({ where: {[Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
+                if(!dbFriends){
+                    res.json("Should add friends here");
+                }
+                else{
+                    res.json("Handle other shit here");
+                }
+            });
         });
         // function to add user to friends list ... first checking that friend doesn't exist
         
