@@ -70,6 +70,7 @@ module.exports = function (app) {
     app.get("api/person/search/:person", function (req, res){
         var username = req.params.person;
         db.users.findOne({ where: { username: username } }).then(function (dbUsers) {
+            console.log(dbUsers.dataValues);
             res.json(dbUsers.dataValues);
         });
     });
