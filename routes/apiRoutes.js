@@ -58,6 +58,12 @@ module.exports = function (app) {
         });*/
     });
 
+    app.post("/api/userfriends", function (req, res) {
+        console.log(req.body);
+        // function to add user to friends list ... first checking that friend doesn't exist
+        res.json("you clicked the add friend button")
+    });
+
     // Delete an example by id
     app.delete("/api/examples/:id", function (req, res) {
         db.Example.destroy({ where: { id: req.params.id } }).then(function (

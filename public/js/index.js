@@ -174,16 +174,16 @@ var handleAddFriend = function () {
             "Content-Type": "application/json"
         },
         type: "POST",
-        url: "api/usergames",
-        data: JSON.stringify({ gameId: this.id })
+        url: "api/userfriends",
+        data: JSON.stringify({ userId2: this.id })
     }).then(function (res) {
-        //console.log(res);
+        console.log(res);
         $searchResults.empty();
         if (res.success) {
             location.reload();
         }
         else {
-            $searchResults.append("This game is already on your list.");
+            $searchResults.append("This user is already in your friends list.");
         }
     });
 };
@@ -193,4 +193,4 @@ var handleAddFriend = function () {
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
 $(document).on("click", ".add-game", handleAddGame);
-$(document).on("click", ".add-friend", handleAddGame);
+$(document).on("click", ".add-friend", handleAddFriend);
