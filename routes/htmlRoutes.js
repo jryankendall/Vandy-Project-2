@@ -97,10 +97,24 @@ module.exports = function(app) {
                     res.redirect("/createAccount");
                 }
                 else {
-                    console.log(dbUsers);
-                    res.render("user",{
-
-                    });
+                    //console.log(dbUsers);
+                    //db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                    db.sequelize.query("select appids.id, appid, name, image from appids"+
+                    " join usergames"+
+                    " on usergames.gameId = appids.id"+
+                    " where usergames.userId = ?;",
+                    { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                    ).then(function(projects) {
+                        dbUsers.dataValues.games = projects;
+                        console.log(dbUsers.dataValues);
+                        res.render("user",{
+                            image: dbUsers.dataValues.image,
+                            username: dbUsers.dataValues.username,
+                            description: dbUsers.dataValues.description,
+                            games: dbUsers.dataValues.games
+                        });
+                    });  
+                    //});
                 }
             });
             /*res.render("user",{
@@ -131,7 +145,17 @@ module.exports = function(app) {
             res.redirect("/auth/google");
         }
         else{
-            res.render("createAccount");
+            var sessionId = req.session.passport.user.profile.id;
+            
+            db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                if(dbUsers.dataValues.username && dbUsers.dataValues.description){
+                    res.redirect("/");
+                }
+                else {
+                    //console.log("Account details not complete. Redirecting to account creation...");
+                    res.render("createAccount");
+                }
+            });
         }
         
     });

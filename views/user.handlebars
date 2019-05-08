@@ -41,12 +41,12 @@ h3, h6 {
     <div class="col-md-4 col-sm-12">
       <div class="sidebar">
         {{!-- <p class="text-center">image goes here</p> --}}
-        <img href="{{this.image}}" alt="user image">
-        <h6>Profile:</h6>
-        <h3><a id="username"></a></h3>
+        <img src="{{image}}" alt="user image" width="150" height="150">
+        <h6 style="color:darkgrey"><u><b>Profile:</b></u></h6>
+        <h3><a id="username" style="color:green">{{username}}</a></h3>
         <hr>
-        <h6>Description</h6>
-         <a id="description"></a>
+        <h6 style="color:darkgrey"><u><b>Description:</b></u></h6>
+         <a id="description">{{description}}</a>
         <hr>
         <h6>Friends count</h6>
         <hr>
@@ -72,8 +72,21 @@ h3, h6 {
         </div>
 
       <br>
-      <div id="games"></div>
-      <div id="games2" class="row justify-content-start"></div>
+      <div id="games">{{username}}'s games</div>
+      <div id="games2" class="row justify-content-start">
+        {{#each games}}
+
+
+          {{!-- #Chris- Add stuff here --}}
+          {{this.name}}
+          <br>
+          <img src="{{this.image}}" alt="{{this.name}}'s image'" width="150" height="200">
+          <hr>
+
+
+          
+        {{/each}}
+      </div>
     </div>
   </div>
 </div>

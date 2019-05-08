@@ -84,80 +84,75 @@ var displaySearchResults = function (data) {
 var handleLogin = function (e) {
     e.preventDefault();
     console.log("pressed");
-    console.log($("#inputEmail").val());
+    /*console.log($("#inputEmail").val());
     var $email = $("#inputEmail").val().trim();
     localStorage.setItem("userEmail", $email);
-    refreshLogin($email);
+    refreshLogin($email);*/
 };
 
-var refreshLogin = function ($email) {
-    return $.ajax({
-        url: "api/user/" + $email,
-        type: "GET"
-    }).then(function (user) {
-        console.log("DER USER", user);
-        $("#username").text(user.username)
-            .attr("data-id", user.id);
-        $("#description").text(user.description);
+// @Chris -- Move what you can to handle bars
+var refreshLogin = function () {
 
-        // create a card for games in library
-        var $games = user.games.map(function (game) {
-            var $card = $("<div>")
-                .addClass("card mb-2")
-                .width("10rem");
-            var cardCol = $("<div>")
-                .addClass("col");
-    
-            var image = "";
-    
-            if (!game.image) {
-                image = game.box_art_url.replace(/-{width}x{height}/g, "");
-            }
-            else {
-                image = game.image;
-            }
-            var $img = $("<img>")
-                .attr("src", image)
-                .addClass("card-img-top");
-            var $title = $("<h5>")
-                .addClass("card-title pl-1")
-                .text(game.name);
+    // create a card for games in library
+    var $games = user.games.map(function (game) {
+        var $card = $("<div>")
+            .addClass("card mb-2")
+            .width("10rem");
+        var cardCol = $("<div>")
+            .addClass("col");
 
-            $card
-                .append($img)
-                .append($title);
-            cardCol.append($card);
-            return cardCol;
-    
-        });
-        $userGames.empty();
-        $userGames.append(user.username + "'s games" + "<hr>");
-        $userGames2.empty();
-        $userGames2.append($games);
+        var image = "";
+
+        if (!game.image) {
+            image = game.box_art_url.replace(/-{width}x{height}/g, "");
+        }
+        else {
+            image = game.image;
+        }
+        var $img = $("<img>")
+            .attr("src", image)
+            .addClass("card-img-top");
+        var $title = $("<h5>")
+            .addClass("card-title pl-1")
+            .text(game.name);
+
+        $card
+            .append($img)
+            .append($title);
+        cardCol.append($card);
+        return cardCol;
+
     });
+    $userGames.empty();
+    $userGames.append(user.username + "'s games" + "<hr>");
+    $userGames2.empty();
+    $userGames2.append($games);
+
 };
 
 var handleAdd = function () {
-    userId = $("#username").attr("data-id");
-    if (userId) {//Not secure!!! Change when authentication works
-        return $.ajax({
-            headers: {
-                "Content-Type": "application/json"
-            },
-            type: "POST",
-            url: "api/usergames",
-            data: JSON.stringify({ userId: userId, gameId: this.id })
-        }).then(function (res) {
-            console.log(res);
-            $searchResults.empty();
-            $searchResults.append("Game added to your games list");
-            var $email = localStorage.getItem("userEmail");
-            refreshLogin($email);
-        });
-    }
-    else {
-        console.log("Please login to add games");
-    }
+
+    return $.ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "POST",
+        url: "api/usergames",
+        data: JSON.stringify({gameId: this.id })
+    }).then(function (res) {
+        //console.log(res);
+        $searchResults.empty();
+        if(res.success){
+            location.reload();
+        }
+        else{
+            $searchResults.append("This game is already on your list.");
+        }
+        
+        //var $email = localStorage.getItem("userEmail");
+        //refreshLogin();
+    });
+
 };
 
 // Add event listeners to the submit and delete buttons
