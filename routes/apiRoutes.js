@@ -38,6 +38,7 @@ module.exports = function (app) {
     app.post("/api/usergames", function (req, res) {
         console.log(req.body);
         db.users.findOne({ where: { email: req.session.passport.user.profile.id } }).then(function (dbUser) {
+            console.log(dbUser.dataValues.id);
             res.json({dbUser});
             /*db.usergames.findOne({ where: { userId: dbUser.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
                 if (!dbUsergames) {
