@@ -67,9 +67,8 @@ module.exports = function (app) {
         });
     });
 
-    app.get("api/person/search/:person", function (req, res){
+    app.get("/api/person/search/:person", function (req, res){
         var username = req.params.person;
-        console.log("Is this ever getting reached?");
         db.users.findOne({ where: { username: username } }).then(function (dbUsers) {
             console.log(dbUsers.dataValues);
             res.json(dbUsers.dataValues);

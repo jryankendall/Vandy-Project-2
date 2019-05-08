@@ -47,7 +47,7 @@ var handlePersonSearch = function (event) {
     event.preventDefault();
 
     var person = $("#person-search").val().trim();
-    console.log(person);
+    //console.log(person);
     if (!(person)) {
         alert("You must enter a person's username!");
         return;
@@ -56,7 +56,7 @@ var handlePersonSearch = function (event) {
     API.searchPerson(person).then(function (data) {
 
         //call function to do something with API data
-        console.log("made it this far");
+        console.log(data);
         //displaySearchResults(data);
     });
 };
