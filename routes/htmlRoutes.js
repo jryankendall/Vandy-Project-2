@@ -98,20 +98,20 @@ module.exports = function(app) {
                 }
                 else {
                     //console.log(dbUsers);
-                    db.users.findOne({ where: {email: req.params.val} }).then(function(dbUsers){
-                        db.sequelize.query("select appids.id, appid, name, image from appids"+
-                        " join usergames"+
-                        " on usergames.gameId = appids.id"+
-                        " where usergames.userId = ?;",
-                        { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
-                        ).then(function(projects) {
-                            dbUsers.dataValues.games = projects;
-                            console.log(dbUsers.dataValues);
-                            res.render("user",{
-                                user: dbUsers.dataValues
-                            });
-                        });  
-                    });
+                    //db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                    db.sequelize.query("select appids.id, appid, name, image from appids"+
+                    " join usergames"+
+                    " on usergames.gameId = appids.id"+
+                    " where usergames.userId = ?;",
+                    { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                    ).then(function(projects) {
+                        dbUsers.dataValues.games = projects;
+                        console.log(dbUsers.dataValues);
+                        res.render("user",{
+                            user: dbUsers.dataValues
+                        });
+                    });  
+                    //});
                 }
             });
             /*res.render("user",{
