@@ -16,7 +16,7 @@ var API = {
         });
     },
 
-    searchPerson: function(person){
+    searchPerson: function (person) {
         return $.ajax({
             url: "api/person/search/" + person,
             type: "GET"
@@ -57,8 +57,38 @@ var handlePersonSearch = function (event) {
 
         //call function to do something with API data
         console.log(data);
-        //displaySearchResults(data);
+        displayPersonSearch(data);
     });
+};
+
+var displayPersonSearch = function (user) {
+
+    // builds the user card and has an add button
+    var $card = $("<div>")
+        .addClass("card")
+        .width("10rem");
+    var $img = $("<img>")
+        .attr("src", user.image)
+        .addClass("card-img-top");
+    var $cardbody = $("<div>");
+    var $title = $("<h5>")
+        .addClass("card-title")
+        .text(user.username);
+    var $body = $("<p>")
+        .addClass("card-text")
+        .text(user.description);
+    var $addBtn = $("<button>")
+        .addClass("btn btn-success btn-sm btn-block add-friend")
+        .attr("href", "#")
+        .text("+ Add friend")
+        .attr("id", user.id);
+    $card
+        .append($img)
+        .append($cardbody)
+        .append($title)
+        .append($addBtn);
+
+    return $card;
 };
 
 var displaySearchResults = function (data) {
@@ -66,7 +96,6 @@ var displaySearchResults = function (data) {
     // build the card for each game returned
     var $games = [data].map(function (game) {
 
-        //console.log(game.name);
         var $card = $("<div>")
             .addClass("card")
             .width("10rem");
@@ -109,55 +138,6 @@ var displaySearchResults = function (data) {
     $searchResults.append("<hr>");
 };
 
-// var handleLogin = function (e) {
-//     e.preventDefault();
-//     console.log("pressed");
-//     /*console.log($("#inputEmail").val());
-//     var $email = $("#inputEmail").val().trim();
-//     localStorage.setItem("userEmail", $email);
-//     refreshLogin($email);*/
-// };
-
-// @Chris -- Move what you can to handle bars
-// var refreshLogin = function () {
-
-//     // create a card for games in library
-//     var $games = user.games.map(function (game) {
-//         var $card = $("<div>")
-//             .addClass("card mb-2")
-//             .width("10rem");
-//         var cardCol = $("<div>")
-//             .addClass("col");
-
-//         var image = "";
-
-//         if (!game.image) {
-//             image = game.box_art_url.replace(/-{width}x{height}/g, "");
-//         }
-//         else {
-//             image = game.image;
-//         }
-//         var $img = $("<img>")
-//             .attr("src", image)
-//             .addClass("card-img-top");
-//         var $title = $("<h5>")
-//             .addClass("card-title pl-1")
-//             .text(game.name);
-
-//         $card
-//             .append($img)
-//             .append($title);
-//         cardCol.append($card);
-//         return cardCol;
-
-//     });
-//     $userGames.empty();
-//     $userGames.append(user.username + "'s games" + "<hr>");
-//     $userGames2.empty();
-//     $userGames2.append($games);
-
-// };
-
 var handleAdd = function () {
 
     return $.ajax({
@@ -166,19 +146,16 @@ var handleAdd = function () {
         },
         type: "POST",
         url: "api/usergames",
-        data: JSON.stringify({gameId: this.id })
+        data: JSON.stringify({ gameId: this.id })
     }).then(function (res) {
         //console.log(res);
         $searchResults.empty();
-        if(res.success){
+        if (res.success) {
             location.reload();
         }
-        else{
+        else {
             $searchResults.append("This game is already on your list.");
         }
-        
-        //var $email = localStorage.getItem("userEmail");
-        //refreshLogin();
     });
 
 };
@@ -186,5 +163,4 @@ var handleAdd = function () {
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
-// $loginBtn.on("click", handleLogin);
 $(document).on("click", ".add", handleAdd);
