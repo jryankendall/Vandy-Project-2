@@ -67,7 +67,7 @@ module.exports = function(app) {
     );
 
     // Load example page and pass in an example by id
-    app.get("/example/:appid", function(req, res) {
+    /*app.get("/example/:appid", function(req, res) {
         db.appids.findOne({ where: { appid: req.params.appid } }).then(function(
             dbExample
         ) {
@@ -75,7 +75,7 @@ module.exports = function(app) {
                 example: dbExample
             });
         });
-    });
+    });*/
 
     app.get("/user", function(req,res){
         console.log(Object.keys(req.session));
@@ -123,7 +123,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get("/api/user/:val", function(req, res){
+    /*app.get("/api/user/:val", function(req, res){
         console.log(req.params.val);
         db.users.findOne({ where: {email: req.params.val} }).then(function(dbUsers){
             db.sequelize.query("select appids.id, appid, name, image from appids"+
@@ -138,7 +138,7 @@ module.exports = function(app) {
                 res.json(dbUsers.dataValues);
             });  
         });
-    });
+    });*/
 
     app.get("/createAccount", function(req,res){
         if(Object.keys(req.session).length===1){

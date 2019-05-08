@@ -67,6 +67,21 @@ module.exports = function (app) {
         });
     });
 
+    app.get("/api/person/search/:person", function (req, res){
+        var username = req.params.person;
+        db.users.findOne({ where: { username: username } }).then(function (dbUsers) {
+            if(!dbUsers){
+                res.json("User not found");
+            }
+            else {
+                dbUsers.dataValues.email = "not passed";
+                dbUsers.dataValues.createdAt = "not passed";
+                dbUsers.dataValues.updatedAt = "not passed";
+                res.json(dbUsers.dataValues);
+            }
+        });
+    });
+
     // get info on game from twitch
     app.get("/api/games/search/:game", function (req, res) {
         console.log("app.get called in apiRoutes");

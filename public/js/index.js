@@ -1,6 +1,8 @@
 // Get references to page elements
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
+var $personBtn = $("#person-btn");
+
 // var $loginBtn = $("#login");
 // var $userGames = $("#games");
 // var $userGames2 = $("#games2");
@@ -10,6 +12,13 @@ var API = {
     searchGame: function (game) {
         return $.ajax({
             url: "api/games/search/" + game,
+            type: "GET"
+        });
+    },
+
+    searchPerson: function(person){
+        return $.ajax({
+            url: "api/person/search/" + person,
             type: "GET"
         });
     }
@@ -30,6 +39,25 @@ var handleFormSearch = function (event) {
         //call function to do something with API data
         //console.log(data);
         displaySearchResults(data);
+    });
+};
+
+// handle the search button
+var handlePersonSearch = function (event) {
+    event.preventDefault();
+
+    var person = $("#person-search").val().trim();
+    //console.log(person);
+    if (!(person)) {
+        alert("You must enter a person's username!");
+        return;
+    }
+
+    API.searchPerson(person).then(function (data) {
+
+        //call function to do something with API data
+        console.log(data);
+        //displaySearchResults(data);
     });
 };
 
@@ -157,5 +185,6 @@ var handleAdd = function () {
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
+$personBtn.on("click", handlePersonSearch);
 // $loginBtn.on("click", handleLogin);
 $(document).on("click", ".add", handleAdd);
