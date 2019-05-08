@@ -86,9 +86,13 @@ var displayPersonSearch = function (user) {
         .append($img)
         .append($cardbody)
         .append($title)
+        .append($body)
         .append($addBtn);
 
-    return $card;
+    $searchResults.empty();
+    $searchResults.append("Search results" + "<hr>");
+    $searchResults.append($card);
+    $searchResults.append("<hr>");
 };
 
 var displaySearchResults = function (data) {
