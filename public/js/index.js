@@ -84,14 +84,14 @@ var displaySearchResults = function (data) {
 var handleLogin = function (e) {
     e.preventDefault();
     console.log("pressed");
-    console.log($("#inputEmail").val());
+    /*console.log($("#inputEmail").val());
     var $email = $("#inputEmail").val().trim();
     localStorage.setItem("userEmail", $email);
-    refreshLogin($email);
+    refreshLogin($email);*/
 };
 
 // @Chris -- Move what you can to handle bars
-var refreshLogin = function ($email) {
+var refreshLogin = function () {
 
     // create a card for games in library
     var $games = user.games.map(function (game) {
@@ -131,26 +131,22 @@ var refreshLogin = function ($email) {
 };
 
 var handleAdd = function () {
-    userId = $("#username").attr("data-id");
-    if (userId) {//Not secure!!! Change when authentication works
-        return $.ajax({
-            headers: {
-                "Content-Type": "application/json"
-            },
-            type: "POST",
-            url: "api/usergames",
-            data: JSON.stringify({gameId: this.id })
-        }).then(function (res) {
-            console.log(res);
-            $searchResults.empty();
-            $searchResults.append("Game added to your games list");
-            var $email = localStorage.getItem("userEmail");
-            refreshLogin($email);
-        });
-    }
-    else {
-        console.log("Please login to add games");
-    }
+
+    return $.ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "POST",
+        url: "api/usergames",
+        data: JSON.stringify({gameId: this.id })
+    }).then(function (res) {
+        console.log(res);
+        $searchResults.empty();
+        $searchResults.append("Game added to your games list");
+        //var $email = localStorage.getItem("userEmail");
+        //refreshLogin();
+    });
+
 };
 
 // Add event listeners to the submit and delete buttons
