@@ -83,11 +83,14 @@ var displayPersonSearch = function (user) {
         .attr("href", "#")
         .text("+ Add friend")
         .attr("id", user.id);
+
+    $cardbody
+        .append($title)
+        .append($body);
+
     $card
         .append($img)
         .append($cardbody)
-        .append($title)
-        .append($body)
         .append($addBtn);
 
     // call the render function
