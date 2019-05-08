@@ -70,7 +70,8 @@ var displayPersonSearch = function (user) {
     var $img = $("<img>")
         .attr("src", user.image)
         .addClass("card-img-top");
-    var $cardbody = $("<div>");
+    var $cardbody = $("<div>")
+        .addClass("card-body");
     var $title = $("<h5>")
         .addClass("card-title")
         .text(user.username);
