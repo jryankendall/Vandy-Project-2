@@ -42,6 +42,7 @@ module.exports = function (app) {
             //res.json({dbUser});
             db.usergames.findOne({ where: { userId: dbUser.dataValues.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
                 if (!dbUsergames) {
+                    req.body.userId = dbUser.dataValues.id;
                     db.usergames.create(req.body).then(function () {
                         res.json({ success: true });
                     });
