@@ -59,9 +59,19 @@ module.exports = function (app) {
     });
 
     app.post("/api/userfriends", function (req, res) {
-        console.log(req.body);
+        var userId2 = req.body.userId2;
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId1 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+            res.json("Testing stuff still");
+            /*db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                var userId1 = dbUsers.dataValues.id;
+                
+            });*/
+        });
         // function to add user to friends list ... first checking that friend doesn't exist
-        res.json("you clicked the add friend button")
+        
     });
 
     // Delete an example by id
