@@ -77,6 +77,7 @@ module.exports = function (app) {
         });
     });
 
+    //Remove friend
     app.post("/api/confirmfriend", function(req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
@@ -89,6 +90,21 @@ module.exports = function (app) {
                 {where: {userId1: userId1, userId2: userId2}})
                 .then(function () {
                     res.json("added");
+                });
+        });
+    });
+
+    app.post("/api/deletefriend", function(req, res) {
+        var userId2 = parseInt(req.body.userId2);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId2 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.destroy(
+                {where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2, status: 1},{userId1: userId2, userId2: userId1, status: 1}]}})
+                .then(function () {
+                    res.json("destroyed");
                 });
         });
     });
