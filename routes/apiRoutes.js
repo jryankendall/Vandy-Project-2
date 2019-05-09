@@ -175,36 +175,36 @@ module.exports = function (app) {
 
 
 
-// app to get latest streams for top games ... implement later    
-//     app.get("/api/news", function (req, res) {
-//         console.log("app.get news called in apiRoutes");
-//         var $clipsArr = [];
-//         var config = {
-//             url: "https://api.twitch.tv/helix/games/top",
-//             method: "get",
-//             headers: {
-//                 "cache-control": "no-cache",
-//                 Connection: "keep-alive",
-//                 Host: "api.twitch.tv",
-//                 "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
-//             },
-//             params:
-//             {
-//                 first: 3
-//             }
-//         };
+    // app to get latest streams for top games ... implement later    
+    //     app.get("/api/news", function (req, res) {
+    //         console.log("app.get news called in apiRoutes");
+    //         var $clipsArr = [];
+    //         var config = {
+    //             url: "https://api.twitch.tv/helix/games/top",
+    //             method: "get",
+    //             headers: {
+    //                 "cache-control": "no-cache",
+    //                 Connection: "keep-alive",
+    //                 Host: "api.twitch.tv",
+    //                 "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
+    //             },
+    //             params:
+    //             {
+    //                 first: 3
+    //             }
+    //         };
 
-//         console.log("searching twitch for top games...");
+    //         console.log("searching twitch for top games...");
 
-//         axios(config)
-//             .then(function (data) {
-//                 var $news = data.data.data;
-//                 console.log("Top games from twitch");
+    //         axios(config)
+    //             .then(function (data) {
+    //                 var $news = data.data.data;
+    //                 console.log("Top games from twitch");
 
-//                 // console.log($news);
+    //                 // console.log($news);
 
-//                 for (var i = 0; i < $news.length; i++) {
-//                     console.log("Game " + i + " : " + $news[i].name);
+    //                 for (var i = 0; i < $news.length; i++) {
+    //                     console.log("Game " + i + " : " + $news[i].name);
 
 //                     var config = {
 //                         url: "https://api.twitch.tv/helix/clips",
