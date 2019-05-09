@@ -52,11 +52,14 @@
 
       </div>
     </div>
+    <!-- Friends and game search results section -->
     <div class="col-md-8 col-sm-12">
       <div id="search-results">
       </div>
 
       <br>
+
+    <!-- Current user's games section -->
       <div id="games">
         <h3>{{username}}'s games</h3>
         <hr>
@@ -78,7 +81,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Friends Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -91,7 +94,7 @@
       </div>
       <div class="modal-body">
 
-        <h6><u>Friends List:</u></h6>
+        <h6>Friends List:</h6>
         <p id="friendslist">{{#each friends}}
           <p>
             <strong>{{this.friends}} </strong>
@@ -101,7 +104,7 @@
         </p>
         <hr>
 
-        <h6><u>Outgoing requests:</u></h6>
+        <h6>Outgoing requests:</h6>
         <p>{{#each friendsOut}}
           <p>
             <strong>{{this.friendsOut}} </strong>
@@ -111,7 +114,7 @@
         </p>
         <hr>
 
-        <h6><u>Incoming requests:</u></h6>
+        <h6>Incoming requests:</h6>
         <p>{{#each friendsIn}}
           <p>
             <strong>{{this.friendsIn}} </strong>
