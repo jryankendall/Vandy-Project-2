@@ -131,18 +131,18 @@
       <div class="modal-body">
         <h6>Friends List</h6>
         <p>{{#each friends}}
-          {{this.friends}}
+          {{this.friends}} <button class="btn btn-success btn-sm delete-friend" data-id={{this.id}}>Delete</button>
           {{/each}}
         </p>
         
         <h6>Outgoing requests</h6>
         <p>{{#each friendsOut}}
-          {{this.friendsOut}}
+          {{this.friendsOut}} <button class="btn btn-success btn-sm cancel" data-id={{this.id}}>Cancel</button>
           {{/each}}</p>
 
         <h6>Incoming requests</h6>
         <p>{{#each friendsIn}}
-          {{this.friendsIn}} <button class="btn btn-success btn-sm confirm" data-id={{this.id}}>Confirm</button>
+          {{this.friendsIn}} <button class="btn btn-success btn-sm confirm" data-id={{this.id}}>Confirm</button> <button class="btn btn-success btn-sm deny" data-id={{this.id}}>Deny</button>
           {{/each}}</p>
 
       </div>
