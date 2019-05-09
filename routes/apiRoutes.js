@@ -83,7 +83,13 @@ module.exports = function (app) {
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
             var userId2 = dbUsers.dataValues.id;
             console.log(userId1,userId2);
-            res.json("Accept friend here");
+
+            db.userfriends.update(
+                {status: 1},
+                {where: {userId1: userId1, userId2: userId2}})
+                .then(function () {
+                    res.json("added");
+                });
         });
     });
 
