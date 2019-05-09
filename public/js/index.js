@@ -152,14 +152,14 @@ var renderResults = function ($item) {
 
 // this handles the addGame button click
 function handleAddGame(btn) {
-
-    return $.ajax({
+    console.log($(btn).attr("id"));
+    /*return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/usergames",
-        data: JSON.stringify({ gameId: $(btn).id })
+        data: JSON.stringify({ gameId: $(btn).attr("id") })
     }).then(function (res) {
         //console.log(res);
         //$searchResults.empty();
@@ -173,7 +173,7 @@ function handleAddGame(btn) {
         else {
             $searchResults.append("This game is already on your list.");
         }
-    });
+    });*/
 }
 
 var handleAddFriend = function () {
