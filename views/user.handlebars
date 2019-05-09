@@ -130,13 +130,20 @@
       </div>
       <div class="modal-body">
         <h6>Friends List</h6>
-        <p>...</p>
+        <p>{{#each friends}}
+          {{this.friends}}
+          {{/each}}
+        </p>
         
         <h6>Outgoing requests</h6>
-        <p>...</p>
+        <p>{{#each friendsOut}}
+          {{this.friendsOut}}
+          {{/each}}</p>
 
         <h6>Incoming requests</h6>
-        <p>...</p>
+        <p>{{#each friendsIn}}
+          {{this.friendsIn}}
+          {{/each}}</p>
 
       </div>
       <div class="modal-footer">

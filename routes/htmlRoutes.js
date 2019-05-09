@@ -121,7 +121,7 @@ module.exports = function(app) {
                             dbUsers.dataValues.friends = friends;
 
                             //Get user pending out
-                            db.sequelize.query("select users.username as friends,status from users"+
+                            db.sequelize.query("select users.username as friendsOut,status from users"+
                             " join userfriends"+
                             " on userfriends.userId1 = users.id"+
                             " or userfriends.userId2 = users.id"+
@@ -133,7 +133,7 @@ module.exports = function(app) {
                                 dbUsers.dataValues.friendsOut = friendsOut;
 
                                 //Get user pending in
-                                db.sequelize.query("select users.username as friends,status from users"+
+                                db.sequelize.query("select users.username as friendsIn,status from users"+
                                 " join userfriends"+
                                 " on userfriends.userId1 = users.id"+
                                 " or userfriends.userId2 = users.id"+
