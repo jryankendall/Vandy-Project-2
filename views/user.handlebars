@@ -132,20 +132,26 @@
         <h6>Friends List</h6>
         <p id="friendslist">{{#each friends}}
           <p>
-          {{this.friends}} <button class="btn btn-success btn-sm" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
+          {{this.friends}} 
+          <button class="btn btn-success btn-sm" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
           </p>
           {{/each}}
         </p>
         
         <h6>Outgoing requests</h6>
         <p>{{#each friendsOut}}
-          {{this.friendsOut}} <button class="btn btn-success btn-sm cancel" data-id={{this.id}}>Cancel</button>
+          <p>
+          {{this.friendsOut}} 
+          <button class="btn btn-success btn-sm" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel</button>
+          </p>
           {{/each}}</p>
 
         <h6>Incoming requests</h6>
         <p>{{#each friendsIn}}
           <p>
-          {{this.friendsIn}} <button class="btn btn-success btn-sm" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}" data-id={{this.id}}>Confirm</button> <button class="btn btn-success btn-sm deny" data-id={{this.id}}>Deny</button>
+          {{this.friendsIn}} 
+          <button class="btn btn-success btn-sm" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}" data-id={{this.id}}>Confirm</button>
+          <button class="btn btn-success btn-sm" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
           </p>
           {{/each}}
           </p>

@@ -192,6 +192,7 @@ var handleAddFriend = function () {
     });
 };
 
+//Button function for confirming a friend
 function handleConfirmFriend(btn) {
     return $.ajax({
         headers: {
@@ -210,35 +211,35 @@ function handleConfirmFriend(btn) {
     });
 }
 
-var handleDenyFriend = function () {
+function handleDenyFriend(btn) {
     return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/denyfriend",
-        data: JSON.stringify({ userId1: $(".deny").attr("data-id") })
+        data: JSON.stringify({ userId1: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $(btn).parent().remove();
     });
-};
+}
 
-var handleCancelFriend = function () {
+function handleCancelFriend(btn) {
     return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/cancelfriend",
-        data: JSON.stringify({ userId2: $(".cancel").attr("data-id") })
+        data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
-};
+}
 
+// Button function for deleting a friend
 function handleDeleteFriend(btn) {
-    
-
     return $.ajax({
         headers: {
             "Content-Type": "application/json"

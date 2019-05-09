@@ -95,7 +95,6 @@ module.exports = function (app) {
     });
 
     app.post("/api/deletefriend", function(req, res) {
-        console.log("sdfhasdjfhsdklfhdaslkfhdsfdsha");
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
@@ -106,6 +105,21 @@ module.exports = function (app) {
                 {where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2, status: 1},{userId1: userId2, userId2: userId1, status: 1}]}})
                 .then(function () {
                     res.json("destroyed");
+                });
+        });
+    });
+
+    app.post("/api/denyfriend", function(req, res) {
+        var userId1 = parseInt(req.body.userId1);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId2 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.destroy(
+                {where: {userId1: userId1, userId2: userId2, status: 0}})
+                .then(function () {
+                    res.json("denied");
                 });
         });
     });
