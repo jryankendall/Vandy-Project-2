@@ -75,16 +75,70 @@ module.exports = function (app) {
                 }
             });
         });
-        // function to add user to friends list ... first checking that friend doesn't exist
-
     });
 
-    // Delete an example by id
-    app.delete("/api/examples/:id", function (req, res) {
-        db.Example.destroy({ where: { id: req.params.id } }).then(function (
-            dbExample
-        ) {
-            res.json(dbExample);
+    //Confirm friend request
+    app.post("/api/confirmfriend", function(req, res) {
+        var userId1 = parseInt(req.body.userId1);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId2 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.update(
+                {status: 1},
+                {where: {userId1: userId1, userId2: userId2}})
+                .then(function () {
+                    res.json("added");
+                });
+        });
+    });
+
+    //Delete friend
+    app.delete("/api/deletefriend", function(req, res) {
+        var userId2 = parseInt(req.body.userId2);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId1 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.destroy(
+                {where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2, status: 1},{userId1: userId2, userId2: userId1, status: 1}]}})
+                .then(function () {
+                    res.json("destroyed");
+                });
+        });
+    });
+
+    //Deny friend request
+    app.post("/api/denyfriend", function(req, res) {
+        var userId1 = parseInt(req.body.userId1);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId2 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.destroy(
+                {where: {userId1: userId1, userId2: userId2, status: 0}})
+                .then(function () {
+                    res.json("denied");
+                });
+        });
+    });
+
+    //Cancel friend request
+    app.post("/api/cancelfriend", function(req, res) {
+        var userId2 = parseInt(req.body.userId2);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId1 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.destroy(
+                {where: {userId1: userId1, userId2: userId2, status: 0}})
+                .then(function () {
+                    res.json("canceled");
+                });
         });
     });
 

@@ -192,65 +192,75 @@ var handleAddFriend = function () {
     });
 };
 
-var handleConfirmFriend = function () {
-    return $ajax({
+//Button function for confirming a friend
+function handleConfirmFriend(btn) {
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/confirmfriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId1: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $("#friendslist")
+            .append("<p>")
+            .append($(btn).attr("id"))
+            .append("<button class='btn btn-success btn-sm' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
+        $(btn).parent().remove();
     });
-};
+}
 
-var handleDenyFriend = function () {
-    return $ajax({
+function handleDenyFriend(btn) {
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/denyfriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId1: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $(btn).parent().remove();
     });
-};
+}
 
-var handleCancelFriend = function () {
-    return $ajax({
+function handleCancelFriend(btn) {
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/cancelfriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $(btn).parent().remove();
     });
-};
+}
 
-var handleDeleteFriend = function () {
-    return $ajax({
+// Button function for deleting a friend
+function handleDeleteFriend(btn) {
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
-        type: "POST",
+        type: "DELETE",
         url: "api/deletefriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $(btn).parent().remove();
     });
-};
+}
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
 $(document).on("click", ".add-game", handleAddGame);
 $(document).on("click", ".add-friend", handleAddFriend);
-$(document).on("click", ".confirm", handleConfirmFriend);
+//$(document).on("click", ".confirm", handleConfirmFriend);
 $(document).on("click", ".deny", handleDenyFriend);
 $(document).on("click", ".cancel", handleCancelFriend);
-$(document).on("click", ".delete", handleDeleteFriend);
+//$(document).on("click", ".delete", handleDeleteFriend);
 
