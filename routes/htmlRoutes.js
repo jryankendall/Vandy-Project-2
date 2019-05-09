@@ -120,6 +120,7 @@ module.exports = function(app) {
 
                             dbUsers.dataValues.friends = friends;
                             dbUsers.dataValues.friendsLen = friends.length;
+                            
 
                             if(friends.length > 0){
                                 for(var i = 0; i < friends.length; i++){
@@ -129,7 +130,7 @@ module.exports = function(app) {
                                     " where usergames.userId = ?;",
                                     { replacements: [dbUsers.dataValues.friends[i].id], type: db.sequelize.QueryTypes.SELECT }
                                     ).then(function(projects) {
-                                        dbUsers.dataValues.friends[i].games = projects;
+                                        dbUsers.dataValues.friendsgames[i] = projects;
                                         //console.log(projects);
                                     });
                                 }
