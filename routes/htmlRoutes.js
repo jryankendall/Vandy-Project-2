@@ -131,7 +131,12 @@ module.exports = function(app) {
                                     " where usergames.userId = ?;",
                                     { replacements: [element.id], type: db.sequelize.QueryTypes.SELECT }
                                     ).then(function(projects) {
-                                        element.game = projects;
+                                        element.sameGames = [];
+                                        element.difGames = [];
+                                        projects.forEach(element =>{
+                                            var same = arr.find(o => o.id === element.id);
+                                            console.log(same);
+                                        });
                                     });
                                 });
                             }
