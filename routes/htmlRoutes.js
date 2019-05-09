@@ -150,7 +150,9 @@ module.exports = function(app) {
                                         username: dbUsers.dataValues.username,
                                         description: dbUsers.dataValues.description,
                                         games: dbUsers.dataValues.games,
-                                        friends: dbUsers.dataValues.friends
+                                        friends: dbUsers.dataValues.friends,
+                                        friendsOut: dbUsers.dataValues.friendsOut,
+                                        friendsIn: dbUsers.dataValues.friendsIn
                                     });
                                 });
                             });
