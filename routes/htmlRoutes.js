@@ -119,6 +119,7 @@ module.exports = function(app) {
                         ).then(function(friends) {
 
                             dbUsers.dataValues.friends = friends;
+                            dbUsers.dataValues.friendsLen = friends.length;
 
                             //Get user pending out
                             db.sequelize.query("select users.username as friendsOut,status,users.id from users"+
@@ -131,6 +132,7 @@ module.exports = function(app) {
                             ).then(function(friendsOut) {
 
                                 dbUsers.dataValues.friendsOut = friendsOut;
+                                dbUsers.dataValues.friendsOutLen = friendsOut.length;
 
                                 //Get user pending in
                                 db.sequelize.query("select users.username as friendsIn,status,users.id from users"+
@@ -143,6 +145,7 @@ module.exports = function(app) {
                                 ).then(function(friendsIn) {
 
                                     dbUsers.dataValues.friendsIn = friendsIn;
+                                    dbUsers.dataValues.friendsInLen = friendsIn.length;
 
                                     console.log(dbUsers.dataValues);
                                     res.render("user",{
@@ -152,7 +155,10 @@ module.exports = function(app) {
                                         games: dbUsers.dataValues.games,
                                         friends: dbUsers.dataValues.friends,
                                         friendsOut: dbUsers.dataValues.friendsOut,
-                                        friendsIn: dbUsers.dataValues.friendsIn
+                                        friendsIn: dbUsers.dataValues.friendsIn,
+                                        friendsLen: dbUsers.dataValues.friendsLen,
+                                        friendsOutLen: dbUsers.dataValues.friendsOutLen,
+                                        friendsInLen: dbUsers.dataValues.friendsInLen
                                     });
                                 });
                             });
