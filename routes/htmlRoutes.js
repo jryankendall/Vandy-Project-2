@@ -120,7 +120,7 @@ module.exports = function(app) {
 
                             dbUsers.dataValues.friends = friends;
 
-                            //Get user pending in
+                            //Get user pending out
                             db.sequelize.query("select users.username as friends,status from users"+
                             " join userfriends"+
                             " on userfriends.userId1 = users.id"+
@@ -132,13 +132,26 @@ module.exports = function(app) {
 
                                 dbUsers.dataValues.friendsOut = friendsOut;
 
-                                console.log(dbUsers.dataValues);
-                                res.render("user",{
-                                    image: dbUsers.dataValues.image,
-                                    username: dbUsers.dataValues.username,
-                                    description: dbUsers.dataValues.description,
-                                    games: dbUsers.dataValues.games,
-                                    friends: dbUsers.dataValues.friends
+                                //Get user pending in
+                                db.sequelize.query("select users.username as friends,status from users"+
+                                " join userfriends"+
+                                " on userfriends.userId1 = users.id"+
+                                " or userfriends.userId2 = users.id"+
+                                " where users.id != ? AND (userfriends.userId2 = ?) AND userfriends.status = 0"+
+                                " group by users.username;",
+                                { replacements: [dbUsers.dataValues.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                                ).then(function(friendsIn) {
+
+                                    dbUsers.dataValues.friendsIn = friendsIn;
+
+                                    console.log(dbUsers.dataValues);
+                                    res.render("user",{
+                                        image: dbUsers.dataValues.image,
+                                        username: dbUsers.dataValues.username,
+                                        description: dbUsers.dataValues.description,
+                                        games: dbUsers.dataValues.games,
+                                        friends: dbUsers.dataValues.friends
+                                    });
                                 });
                             });
                         });
