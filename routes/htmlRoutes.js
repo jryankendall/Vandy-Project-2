@@ -135,7 +135,12 @@ module.exports = function(app) {
                                         element.difGames = [];
                                         projects.forEach(element =>{
                                             var same = dbUsers.dataValues.games.find(o => o.id === element.id);
-                                            console.log(same);
+                                            if(same) {
+                                                element.sameGames.push(element);
+                                            }
+                                            else{
+                                                element.difGames.push(element);
+                                            }
                                         });
                                     });
                                 });
