@@ -125,10 +125,11 @@ var displaySearchResults = function (data) {
             .addClass("card-title pl-1")
             .text(game.name);
         var $addBtn = $("<button>")
-            .addClass("btn btn-success btn-sm btn-block add-game")
-            .attr("href", "#")
+            .addClass("btn btn-success btn-sm btn-block")
+            //.attr("href", "#")
             .text("+ Add game")
-            .attr("id", game.id);
+            .attr("id", game.id)
+            .attr("onclick","handleAddGame(this)");
         $card
             .append($img)
             .append($cardbody)
@@ -150,7 +151,7 @@ var renderResults = function ($item) {
 };
 
 // this handles the addGame button click
-var handleAddGame = function () {
+function handleAddGame(btn) {
 
     return $.ajax({
         headers: {
@@ -158,18 +159,22 @@ var handleAddGame = function () {
         },
         type: "POST",
         url: "api/usergames",
-        data: JSON.stringify({ gameId: this.id })
+        data: JSON.stringify({ gameId: $(btn).id })
     }).then(function (res) {
         //console.log(res);
-        $searchResults.empty();
+        //$searchResults.empty();
         if (res.success) {
-            location.reload();
+            $(btn).attr("onclick","handleRemoveGame(this)")
+                .removeClass("btn-success").addClass("btn-danger");
+            $("#games2").append($(btn).parent());
+            $searchResults.empty();
+            //location.reload();
         }
         else {
             $searchResults.append("This game is already on your list.");
         }
     });
-};
+}
 
 var handleAddFriend = function () {
 
@@ -272,7 +277,7 @@ function handleRemoveGame(btn) {
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
-$(document).on("click", ".add-game", handleAddGame);
+//$(document).on("click", ".add-game", handleAddGame);
 $(document).on("click", ".add-friend", handleAddFriend);
 //$(document).on("click", ".confirm", handleConfirmFriend);
 //$(document).on("click", ".deny", handleDenyFriend);
