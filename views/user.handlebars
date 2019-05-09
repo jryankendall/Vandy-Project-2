@@ -53,14 +53,15 @@
         <h6 style="color:darkgrey"><u><b>Description:</b></u></h6>
         <a id="description">{{description}}</a>
         <hr>
-        <h6>Friends 
-          <span class="badge">Count: {{this.friendsLen}}</span>
-          <span class="badge">Outgoing requests: {{this.friendsOutLen}}</span>
-          <span class="badge">Incoming requests: {{this.friendsInLen}}</span>
-          </h6>
+        <h6>Friends</h6>
+        <ul>
+          <li>Total: <span class="badge badge-secondary">{{this.friendsLen}}</span></li>
+          <li>Outgoing requests: <span class="badge badge-secondary">{{this.friendsOutLen}}</span></li>
+          <li>Incoming requests: <span class="badge badge-secondary">{{this.friendsInLen}}</span></li>
+        </ul>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-          Show friends
+          Manage
         </button>
         <hr>
 
@@ -113,7 +114,8 @@
           <div class="card mb-2" style="width: 10rem;">
             <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
             <h5 class="card-title pl-1">{{this.name}}</h5>
-            <button class="btn btn-danger btn-sm" onclick="handleRemoveGame(this)" data-id={{this.id}} style="float: right">Remove Game</button>
+            <button class="btn btn-danger btn-sm" onclick="handleRemoveGame(this)" data-id={{this.id}}
+              style="float: right">Remove Game</button>
           </div>
         </div>
         {{/each}}
@@ -138,8 +140,8 @@
         <h6><u>Friends List:</u></h6>
         <p id="friendslist">{{#each friends}}
           <p>
-          {{this.friends}} 
-          <button class="btn btn-success btn-sm" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
+            <strong>{{this.friends}} </strong>
+            <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
           </p>
           {{/each}}
         </p>
@@ -148,8 +150,8 @@
         <h6><u>Outgoing requests:</u></h6>
         <p>{{#each friendsOut}}
           <p>
-          {{this.friendsOut}} 
-          <button class="btn btn-success btn-sm" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel</button>
+            <strong>{{this.friendsOut}} </strong>
+            <button class="badge badge-warning" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel</button>
           </p>
           {{/each}}
         </p>
@@ -158,9 +160,10 @@
         <h6><u>Incoming requests:</u></h6>
         <p>{{#each friendsIn}}
           <p>
-          {{this.friendsIn}} 
-          <button class="btn btn-success btn-sm" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}" data-id={{this.id}}>Confirm</button>
-          <button class="btn btn-success btn-sm" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
+            <strong>{{this.friendsIn}} </strong>
+            <button class="badge badge-success" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}"
+              data-id={{this.id}}>Confirm</button>
+            <button class="badge badge-danger" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
           </p>
           {{/each}}
         </p>

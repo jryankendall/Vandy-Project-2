@@ -206,7 +206,7 @@ function handleConfirmFriend(btn) {
         $("#friendslist")
             .append("<p>")
             .append($(btn).attr("id"))
-            .append("<button class='btn btn-success btn-sm' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
+            .append("<button class='badge badge-success' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
         $(btn).parent().remove();
     });
 }
