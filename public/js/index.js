@@ -193,7 +193,7 @@ var handleAddFriend = function () {
 };
 
 var handleConfirmFriend = function () {
-    return $ajax({
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
@@ -206,7 +206,7 @@ var handleConfirmFriend = function () {
 };
 
 var handleDenyFriend = function () {
-    return $ajax({
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
@@ -219,7 +219,7 @@ var handleDenyFriend = function () {
 };
 
 var handleCancelFriend = function () {
-    return $ajax({
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
@@ -232,7 +232,7 @@ var handleCancelFriend = function () {
 };
 
 var handleDeleteFriend = function () {
-    return $ajax({
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
