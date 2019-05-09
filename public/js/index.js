@@ -56,7 +56,7 @@ var handlePersonSearch = function (event) {
     API.searchPerson(person).then(function (data) {
 
         //call function to do something with API data
-        console.log(data);
+        console.log("Search result: ",data);
         displayPersonSearch(data);
     });
 };
@@ -171,6 +171,7 @@ function handleAddGame(btn) {
 }
 
 var handleAddFriend = function () {
+
 
     return $.ajax({
         headers: {
