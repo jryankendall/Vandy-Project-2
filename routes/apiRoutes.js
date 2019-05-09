@@ -59,9 +59,24 @@ module.exports = function (app) {
     });
 
     app.post("/api/userfriends", function (req, res) {
-        console.log(req.body);
+        var userId2 = parseInt(req.body.userId2);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId1 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+            db.userfriends.findOne({ where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
+                if(!dbFriends){
+                    db.userfriends.create({userId1: userId1, userId2: userId2}).then(function () {
+                        res.json({ success: true });
+                    });
+                }
+                else{
+                    res.json("Handle other shit here");
+                }
+            });
+        });
         // function to add user to friends list ... first checking that friend doesn't exist
-        res.json("you clicked the add friend button");
+
     });
 
     // Delete an example by id
