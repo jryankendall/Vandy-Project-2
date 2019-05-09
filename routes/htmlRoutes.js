@@ -134,7 +134,7 @@ module.exports = function(app) {
                                         element.sameGames = [];
                                         element.difGames = [];
                                         projects.forEach(element =>{
-                                            var same = arr.find(o => o.id === element.id);
+                                            var same = dbUsers.dataValues.games.find(o => o.id === element.id);
                                             console.log(same);
                                         });
                                     });
