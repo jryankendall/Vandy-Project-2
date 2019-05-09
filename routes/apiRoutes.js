@@ -95,6 +95,7 @@ module.exports = function (app) {
     });
 
     app.post("/api/deletefriend", function(req, res) {
+        console.log("sdfhasdjfhsdklfhdaslkfhdsfdsha");
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){

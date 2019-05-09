@@ -232,6 +232,7 @@ var handleCancelFriend = function () {
 };
 
 var handleDeleteFriend = function () {
+    console.log($(".delete-friend").attr("data-id"));
     return $.ajax({
         headers: {
             "Content-Type": "application/json"
