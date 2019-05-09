@@ -98,7 +98,7 @@ module.exports = function (app) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
-            var userId2 = dbUsers.dataValues.id;
+            var userId1 = dbUsers.dataValues.id;
             console.log(userId1,userId2);
 
             db.userfriends.destroy(

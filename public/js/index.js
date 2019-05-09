@@ -238,7 +238,7 @@ var handleDeleteFriend = function () {
         },
         type: "POST",
         url: "api/deletefriend",
-        data: JSON.stringify({ userId2: $(".delete").attr("data-id") })
+        data: JSON.stringify({ userId2: $(".delete-friend").attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
