@@ -131,7 +131,7 @@ module.exports = function(app) {
                                     " where usergames.userId = ?;",
                                     { replacements: [element.id], type: db.sequelize.QueryTypes.SELECT }
                                     ).then(function(projects) {
-                                        console.log(projects);
+                                        console.log(element,projects);
                                     });
                                 });
                             }
