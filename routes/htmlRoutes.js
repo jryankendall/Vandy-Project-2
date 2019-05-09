@@ -136,10 +136,11 @@ module.exports = function(app) {
                                         projects.forEach(element =>{
                                             var same = dbUsers.dataValues.games.find(o => o.id === element.id);
                                             if(same) {
-                                                element.sameGames.push(element);
+                                                element.sameGames = element.sameGames.concat(element);
                                             }
                                             else{
-                                                element.difGames.push(element);
+                                                element.difGames = element.difGames.concat(element);
+                                                //element.difGames.push(element);
                                             }
                                         });
                                     });
