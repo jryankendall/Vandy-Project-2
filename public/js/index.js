@@ -56,8 +56,14 @@ var handlePersonSearch = function (event) {
     API.searchPerson(person).then(function (data) {
 
         //call function to do something with API data
-        console.log("Search result: ",data);
-        displayPersonSearch(data);
+        if(data==="User not found"){
+            $searchResults.empty();
+            $searchResults.append(data);
+        }
+        else{
+            displayPersonSearch(data);
+        }
+        
     });
 };
 
