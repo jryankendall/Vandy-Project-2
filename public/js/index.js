@@ -235,6 +235,7 @@ function handleCancelFriend(btn) {
         data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $(btn).parent().remove();
     });
 }
 

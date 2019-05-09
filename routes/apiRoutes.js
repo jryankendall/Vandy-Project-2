@@ -124,6 +124,21 @@ module.exports = function (app) {
         });
     });
 
+    app.post("/api/cancelfriend", function(req, res) {
+        var userId2 = parseInt(req.body.userId2);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId1 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+
+            db.userfriends.destroy(
+                {where: {userId1: userId1, userId2: userId2, status: 0}})
+                .then(function () {
+                    res.json("canceled");
+                });
+        });
+    });
+
     // Delete an example by id
     app.delete("/api/examples/:id", function (req, res) {
         db.Example.destroy({ where: { id: req.params.id } }).then(function (
