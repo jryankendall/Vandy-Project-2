@@ -111,7 +111,7 @@ module.exports = function (app) {
     });
 
     //Deny friend request
-    app.post("/api/denyfriend", function(req, res) {
+    app.delete("/api/denyfriend", function(req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
@@ -127,7 +127,7 @@ module.exports = function (app) {
     });
 
     //Cancel friend request
-    app.post("/api/cancelfriend", function(req, res) {
+    app.delete("/api/cancelfriend", function(req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
@@ -138,6 +138,21 @@ module.exports = function (app) {
                 {where: {userId1: userId1, userId2: userId2, status: 0}})
                 .then(function () {
                     res.json("canceled");
+                });
+        });
+    });
+
+    //Remove Game
+    app.delete("/api/removegame", function(req, res) {
+        var gameId = parseInt(req.body.gameId);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId = dbUsers.dataValues.id;
+            console.log(userId,gameId);
+            db.usergames.destroy(
+                {where: {userId: userId, gameId: gameId}})
+                .then(function () {
+                    res.json("removed");
                 });
         });
     });

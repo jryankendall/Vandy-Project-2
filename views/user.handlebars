@@ -53,7 +53,11 @@
         <h6 style="color:darkgrey"><u><b>Description:</b></u></h6>
         <a id="description">{{description}}</a>
         <hr>
-        <h6>Friends</h6>
+        <h6>Friends 
+          <span class="badge">Count: {{this.friendsLen}}</span>
+          <span class="badge">Outgoing requests: {{this.friendsOutLen}}</span>
+          <span class="badge">Incoming requests: {{this.friendsInLen}}</span>
+          </h6>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
           Show friends
@@ -109,6 +113,7 @@
           <div class="card mb-2" style="width: 10rem;">
             <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
             <h5 class="card-title pl-1">{{this.name}}</h5>
+            <button class="btn btn-danger btn-sm" onclick="handleRemoveGame(this)" data-id={{this.id}} style="float: right">Remove Game</button>
           </div>
         </div>
         {{/each}}
