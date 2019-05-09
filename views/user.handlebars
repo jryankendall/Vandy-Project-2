@@ -123,13 +123,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Friends List</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h6>Friends List</h6>
+        <h6><u>Friends List:</u></h6>
         <p id="friendslist">{{#each friends}}
           <p>
           {{this.friends}} 
@@ -138,7 +138,7 @@
           {{/each}}
         </p>
         
-        <h6>Outgoing requests</h6>
+        <h6><u>Outgoing requests:</u></h6>
         <p>{{#each friendsOut}}
           <p>
           {{this.friendsOut}} 
@@ -146,7 +146,7 @@
           </p>
           {{/each}}</p>
 
-        <h6>Incoming requests</h6>
+        <h6><u>Incoming requests:</u></h6>
         <p>{{#each friendsIn}}
           <p>
           {{this.friendsIn}} 
@@ -159,7 +159,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
