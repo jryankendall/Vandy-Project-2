@@ -192,18 +192,18 @@ var handleAddFriend = function () {
     });
 };
 
-var handleConfirmFriend = function () {
+function handleConfirmFriend(btn) {
     return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/confirmfriend",
-        data: JSON.stringify({ userId1: $(".confirm").attr("data-id") })
+        data: JSON.stringify({ userId1: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
-};
+}
 
 var handleDenyFriend = function () {
     return $.ajax({
@@ -232,18 +232,18 @@ var handleCancelFriend = function () {
 };
 
 function handleDeleteFriend(btn) {
-    console.log($(btn).attr("data-id"));
+    
 
-    /*return $.ajax({
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/deletefriend",
-        data: JSON.stringify({ userId2: $(".delete-friend").attr("data-id") })
+        data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
-    });*/
+    });
 }
 
 // Add event listeners to the submit and delete buttons
@@ -251,8 +251,8 @@ $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
 $(document).on("click", ".add-game", handleAddGame);
 $(document).on("click", ".add-friend", handleAddFriend);
-$(document).on("click", ".confirm", handleConfirmFriend);
+//$(document).on("click", ".confirm", handleConfirmFriend);
 $(document).on("click", ".deny", handleDenyFriend);
 $(document).on("click", ".cancel", handleCancelFriend);
-$(document).on("click", ".delete", handleDeleteFriend);
+//$(document).on("click", ".delete", handleDeleteFriend);
 
