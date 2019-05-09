@@ -120,6 +120,25 @@ module.exports = function(app) {
 
                             dbUsers.dataValues.friends = friends;
                             dbUsers.dataValues.friendsLen = friends.length;
+                            if(friends.length > 0){
+                                for(var i = 0; i < friends.length; i++){
+                                    db.sequelize.query("select appids.id, appid, name, image from appids"+
+                                    " join usergames"+
+                                    " on usergames.gameId = appids.id"+
+                                    " where usergames.userId = ?;",
+                                    { replacements: [dbUsers.dataValues.friends[i].id], type: db.sequelize.QueryTypes.SELECT }
+                                    ).then(function(projects) {
+                                        //dbUsers.dataValues.friends[i]
+                                        console.log(projects);
+                                    });
+                                }
+                            }
+                            db.sequelize.query("select appids.id, appid, name, image from appids"+
+                            " join usergames"+
+                            " on usergames.gameId = appids.id"+
+                            " where usergames.userId = ?;",
+                            { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                            ).then(function(projects) {
 
                             //Get user pending out
                             db.sequelize.query("select users.username as friendsOut,status,users.id from users"+
