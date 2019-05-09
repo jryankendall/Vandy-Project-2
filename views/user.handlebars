@@ -131,7 +131,7 @@
       <div class="modal-body">
         <h6>Friends List</h6>
         <p>{{#each friends}}
-          {{this.friends}} <button class="btn btn-success btn-sm delete-friend" data-id={{this.id}}>Delete</button>
+          {{this.friends}} <button class="btn btn-success btn-sm deletefriend" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
           {{/each}}
         </p>
         

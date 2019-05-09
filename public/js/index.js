@@ -231,9 +231,10 @@ var handleCancelFriend = function () {
     });
 };
 
-var handleDeleteFriend = function () {
-    console.log($(".delete-friend").attr("data-id"));
-    return $.ajax({
+function handleDeleteFriend(btn) {
+    console.log($(btn).attr("data-id"));
+
+    /*return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
@@ -242,8 +243,8 @@ var handleDeleteFriend = function () {
         data: JSON.stringify({ userId2: $(".delete-friend").attr("data-id") })
     }).then(function (res) {
         console.log(res);
-    });
-};
+    });*/
+}
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
