@@ -36,8 +36,6 @@ var handleFormSearch = function (event) {
     }
 
     API.searchGame(game).then(function (data) {
-        //call function to do something with API data
-        //console.log(data);
         displaySearchResults(data);
     });
 };
