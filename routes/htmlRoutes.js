@@ -133,13 +133,13 @@ module.exports = function(app) {
                                     ).then(function(projects) {
                                         element.sameGames = [];
                                         element.difGames = [];
-                                        projects.forEach(element =>{
-                                            var same = dbUsers.dataValues.games.find(o => o.id === element.id);
+                                        projects.forEach(game =>{
+                                            var same = dbUsers.dataValues.games.find(o => o.id === game.id);
                                             if(same) {
-                                                element.sameGames = element.sameGames.concat(element);
+                                                element.sameGames.push(game);
                                             }
                                             else{
-                                                element.difGames = element.difGames.concat(element);
+                                                element.difGames.push(game);
                                                 //element.difGames.push(element);
                                             }
                                         });
