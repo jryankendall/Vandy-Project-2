@@ -53,38 +53,40 @@
         <h6 style="color:darkgrey"><u><b>Description:</b></u></h6>
         <a id="description">{{description}}</a>
         <hr>
-        <h6>Friends count</h6>
-        <hr>
-        <h6>Friends online</h6>
+        <h6>Friends</h6>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+          Show friends
+        </button>
         <hr>
 
         <div class="game-search">
-          
-            <div class="form-group">
-              <label for="game-search">
-                <h6>Search for game</h6>
-              </label>
-              <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
-                placeholder="Enter game name">
-            </div>
-            <button id="search-btn" class="btn btn-primary">Search</button>
-          
+
+          <div class="form-group">
+            <label for="game-search">
+              <h6>Search for game</h6>
+            </label>
+            <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
+              placeholder="Enter game name">
+          </div>
+          <button id="search-btn" class="btn btn-primary">Search</button>
+
           <p></p>
         </div>
 
         <hr>
 
         <div class="person-search">
-          
-            <div class="form-group">
-              <label for="person-search">
-                <h6>Search for a person</h6>
-              </label>
-              <input type="input" class="form-control" id="person-search" aria-describedby="person-search"
-                placeholder="Enter persom username">
-            </div>
-            <button id="person-btn" class="btn btn-primary">Search</button>
-          
+
+          <div class="form-group">
+            <label for="person-search">
+              <h6>Search for a person</h6>
+            </label>
+            <input type="input" class="form-control" id="person-search" aria-describedby="person-search"
+              placeholder="Enter persom username">
+          </div>
+          <button id="person-btn" class="btn btn-primary">Search</button>
+
           <p></p>
         </div>
 
@@ -106,10 +108,40 @@
         <div class="col">
           <div class="card mb-2" style="width: 10rem;">
             <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
-              <h5 class="card-title pl-1">{{this.name}}</h5>
+            <h5 class="card-title pl-1">{{this.name}}</h5>
           </div>
         </div>
         {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>Friends List</h6>
+        <p>...</p>
+        
+        <h6>Outgoing requests</h6>
+        <p>...</p>
+
+        <h6>Incoming requests</h6>
+        <p>...</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

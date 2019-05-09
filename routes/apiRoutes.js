@@ -76,7 +76,7 @@ module.exports = function (app) {
             });
         });
         // function to add user to friends list ... first checking that friend doesn't exist
-        
+
     });
 
     // Delete an example by id
