@@ -75,8 +75,16 @@ module.exports = function (app) {
                 }
             });
         });
-        // function to add user to friends list ... first checking that friend doesn't exist
+    });
 
+    app.post("/api/confirmfriend", function(req, res) {
+        var userId1 = parseInt(req.body.userId1);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId2 = dbUsers.dataValues.id;
+            console.log(userId1,userId2);
+            res.json("Accept friend here");
+        });
     });
 
     // Delete an example by id
