@@ -129,6 +129,7 @@ var displaySearchResults = function (data) {
             //.attr("href", "#")
             .text("+ Add game")
             .attr("id", game.id)
+            .attr("data-id",0)
             .attr("onclick","handleAddGame(this)");
         $card
             .append($img)
@@ -152,8 +153,7 @@ var renderResults = function ($item) {
 
 // this handles the addGame button click
 function handleAddGame(btn) {
-    console.log($(btn).attr("id"));
-    /*return $.ajax({
+    return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
@@ -161,19 +161,21 @@ function handleAddGame(btn) {
         url: "api/usergames",
         data: JSON.stringify({ gameId: $(btn).attr("id") })
     }).then(function (res) {
-        //console.log(res);
-        //$searchResults.empty();
         if (res.success) {
-            $(btn).attr("onclick","handleRemoveGame(this)")
-                .removeClass("btn-success").addClass("btn-danger");
-            $("#games2").append($(btn).parent());
-            $searchResults.empty();
-            //location.reload();
+            if($(btn).attr("data-id")===0){
+                $(btn).attr("onclick","handleRemoveGame(this)")
+                    .removeClass("btn-success").addClass("btn-danger");
+                $("#games2").append($(btn).parent());
+                $searchResults.empty();
+            }
+            else{
+                $(btn).parent().remove();
+            }
         }
         else {
             $searchResults.append("This game is already on your list.");
         }
-    });*/
+    });
 }
 
 var handleAddFriend = function () {
