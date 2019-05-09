@@ -212,7 +212,7 @@ var handleDenyFriend = function () {
         },
         type: "POST",
         url: "api/denyfriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId1: $(".deny").attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
@@ -225,7 +225,7 @@ var handleCancelFriend = function () {
         },
         type: "POST",
         url: "api/cancelfriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId2: $(".cancel").attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
@@ -238,7 +238,7 @@ var handleDeleteFriend = function () {
         },
         type: "POST",
         url: "api/deletefriend",
-        data: JSON.stringify({ userId2: this.data - id })
+        data: JSON.stringify({ userId2: $(".delete").attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
