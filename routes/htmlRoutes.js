@@ -108,11 +108,11 @@ module.exports = function(app) {
                         dbUsers.dataValues.games = projects;
 
                         db.sequelize.query("select users.username as friends,status from users"+
-                        "join userfriends"+
-                        "on userfriends.userId1 = users.id"+
-                        "or userfriends.userId2 = users.id"+
-                        "where users.id != ? AND (userfriends.userId1 = ?)"+
-                        "group by users.username;",
+                        " join userfriends"+
+                        " on userfriends.userId1 = users.id"+
+                        " or userfriends.userId2 = users.id"+
+                        " where users.id != ? AND (userfriends.userId1 = ?)"+
+                        " group by users.username;",
                         { replacements: [dbUsers.dataValues.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
                         ).then(function(friends) {
 
