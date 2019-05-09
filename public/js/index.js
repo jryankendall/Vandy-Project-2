@@ -245,7 +245,7 @@ function handleDeleteFriend(btn) {
         headers: {
             "Content-Type": "application/json"
         },
-        type: "POST",
+        type: "DELETE",
         url: "api/deletefriend",
         data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
