@@ -149,13 +149,11 @@ module.exports = function (app) {
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
             var userId = dbUsers.dataValues.id;
             console.log(userId,gameId);
-
-            res.json("removed");
-            /*db.userfriends.destroy(
-                {where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2, status: 1},{userId1: userId2, userId2: userId1, status: 1}]}})
+            db.usergames.destroy(
+                {where: {userId: userId, gameId: gameId}})
                 .then(function () {
-                    res.json("destroyed");
-                });*/
+                    res.json("removed");
+                });
         });
     });
 
