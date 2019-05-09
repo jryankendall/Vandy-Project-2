@@ -162,15 +162,7 @@ function handleAddGame(btn) {
         data: JSON.stringify({ gameId: $(btn).attr("id") })
     }).then(function (res) {
         if (res.success) {
-            if($(btn).attr("data-id")===0){
-                $(btn).attr("onclick","handleRemoveGame(this)")
-                    .removeClass("btn-success").addClass("btn-danger");
-                $("#games2").append($(btn).parent());
-                $searchResults.empty();
-            }
-            else{
-                $(btn).parent().remove();
-            }
+            location.reload();
         }
         else {
             $searchResults.append("This game is already on your list.");
