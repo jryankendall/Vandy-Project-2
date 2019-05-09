@@ -27,7 +27,7 @@ module.exports = function(app) {
         
         req.logout();
         req.session = null;
-        res.redirect("/authtest");
+        res.redirect("/");
     });
 
     // Load index page
@@ -97,21 +97,65 @@ module.exports = function(app) {
                     res.redirect("/createAccount");
                 }
                 else {
-                    //console.log(dbUsers);
-                    //db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+                    
+                    // Get user Games
                     db.sequelize.query("select appids.id, appid, name, image from appids"+
                     " join usergames"+
                     " on usergames.gameId = appids.id"+
                     " where usergames.userId = ?;",
                     { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
                     ).then(function(projects) {
+
                         dbUsers.dataValues.games = projects;
-                        console.log(dbUsers.dataValues);
-                        res.render("user",{
-                            image: dbUsers.dataValues.image,
-                            username: dbUsers.dataValues.username,
-                            description: dbUsers.dataValues.description,
-                            games: dbUsers.dataValues.games
+
+                        //Get user Friends
+                        db.sequelize.query("select users.username as friends,status from users"+
+                        " join userfriends"+
+                        " on userfriends.userId1 = users.id"+
+                        " or userfriends.userId2 = users.id"+
+                        " where users.id != ? AND (userfriends.userId1 = ? or userfriends.userId2 = ?) AND userfriends.status = 1"+
+                        " group by users.username;",
+                        { replacements: [dbUsers.dataValues.id,dbUsers.dataValues.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                        ).then(function(friends) {
+
+                            dbUsers.dataValues.friends = friends;
+
+                            //Get user pending out
+                            db.sequelize.query("select users.username as friendsOut,status from users"+
+                            " join userfriends"+
+                            " on userfriends.userId1 = users.id"+
+                            " or userfriends.userId2 = users.id"+
+                            " where users.id != ? AND (userfriends.userId1 = ?) AND userfriends.status = 0"+
+                            " group by users.username;",
+                            { replacements: [dbUsers.dataValues.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                            ).then(function(friendsOut) {
+
+                                dbUsers.dataValues.friendsOut = friendsOut;
+
+                                //Get user pending in
+                                db.sequelize.query("select users.username as friendsIn,status from users"+
+                                " join userfriends"+
+                                " on userfriends.userId1 = users.id"+
+                                " or userfriends.userId2 = users.id"+
+                                " where users.id != ? AND (userfriends.userId2 = ?) AND userfriends.status = 0"+
+                                " group by users.username;",
+                                { replacements: [dbUsers.dataValues.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                                ).then(function(friendsIn) {
+
+                                    dbUsers.dataValues.friendsIn = friendsIn;
+
+                                    console.log(dbUsers.dataValues);
+                                    res.render("user",{
+                                        image: dbUsers.dataValues.image,
+                                        username: dbUsers.dataValues.username,
+                                        description: dbUsers.dataValues.description,
+                                        games: dbUsers.dataValues.games,
+                                        friends: dbUsers.dataValues.friends,
+                                        friendsOut: dbUsers.dataValues.friendsOut,
+                                        friendsIn: dbUsers.dataValues.friendsIn
+                                    });
+                                });
+                            });
                         });
                     });  
                     //});
