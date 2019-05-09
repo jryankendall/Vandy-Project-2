@@ -199,7 +199,7 @@ var handleConfirmFriend = function () {
         },
         type: "POST",
         url: "api/confirmfriend",
-        data: JSON.stringify({ userId1: this.attr("data-id") })
+        data: JSON.stringify({ userId1: $(".confirm").attr("data-id") })
     }).then(function (res) {
         console.log(res);
     });
