@@ -192,9 +192,24 @@ var handleAddFriend = function () {
     });
 };
 
+var handleConfirmFriend = function () {
+    return $ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "POST",
+        url: "api/confirmfriend",
+        data: JSON.stringify({ userId2: this.data-id })
+    }).then(function (res) {
+        console.log(res);
+    });
+};
+
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
 $(document).on("click", ".add-game", handleAddGame);
 $(document).on("click", ".add-friend", handleAddFriend);
+$(document).on("click", ".confirm", handleConfirmFriend);
+
