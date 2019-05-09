@@ -2,14 +2,16 @@
   <div class="row">
     <div class="col-md-4 col-sm-12">
       <div class="sidebar">
-        
+        <!-- User profile section  -->
         <img src="{{image}}" alt="user image" width="150" height="150" class="mb-2" id="profile-img">
-        <h6 style="color:darkgrey"><u><b>Profile:</b></u></h6>
+        <h6>Profile:</h6>
         <h3><a id="username" style="color: #f44336">{{username}}</a></h3>
         <hr>
-        <h6 style="color:darkgrey"><u><b>Description:</b></u></h6>
+        <h6>Description:</h6>
         <a id="description">{{description}}</a>
         <hr>
+
+        <!-- Friends section  -->
         <h6>Friends</h6>
         <ul>
           <li>Total: <span class="badge badge-secondary">{{this.friendsLen}}</span></li>
@@ -17,29 +19,13 @@
           <li>Incoming requests: <span class="badge badge-secondary">{{this.friendsInLen}}</span></li>
         </ul>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">
-          Manage
+        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
+        Manage
         </button>
         <hr>
 
-        <div class="game-search">
-
-          <div class="form-group">
-            <label for="game-search">
-              <h6>Search for game</h6>
-            </label>
-            <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
-              placeholder="Enter game name">
-          </div>
-          <button id="search-btn" class="btn btn-secondary">Search</button>
-
-          <p></p>
-        </div>
-
-        <hr>
-
+        <!-- Friend search section  -->
         <div class="person-search">
-
           <div class="form-group">
             <label for="person-search">
               <h6>Search for a person</h6>
@@ -47,15 +33,26 @@
             <input type="input" class="form-control" id="person-search" aria-describedby="person-search"
               placeholder="Enter persom username">
           </div>
-          <button id="person-btn" class="btn btn-secondary">Search</button>
-
-          <p></p>
+          <button id="person-btn" class="btn btn-secondary btn-sm">Search</button>
         </div>
+        <hr>
+
+        <!-- Game search section  -->
+        <div class="game-search">
+          <div class="form-group">
+            <label for="game-search">
+              <h6>Search for game</h6>
+            </label>
+            <input type="input" class="form-control" id="game-search" aria-describedby="game-search"
+              placeholder="Enter game name">
+          </div>
+          <button id="search-btn" class="btn btn-secondary btn-sm">Search</button>
+        </div>
+
 
       </div>
     </div>
     <div class="col-md-8 col-sm-12">
-      {{!-- <br><br><br> --}}
       <div id="search-results">
       </div>
 
@@ -127,7 +124,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
