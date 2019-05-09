@@ -11,9 +11,11 @@
     padding-right: 1rem;
   }
 
-h3, h6 {
-      font-family: "Orbitron", sans-serif;
-}
+  h3,
+  h6 {
+    font-family: "Orbitron", sans-serif;
+  }
+
   .wrapper {
     display: flex;
     justify-content: space-between;
@@ -38,34 +40,39 @@ h3, h6 {
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 col-sm-12">
-      <div class="sidebar">
-       
+    <div class="col-md-10 offset-md-1"><br>
+      <h3>Recently added games</h3>
+      <div id="news-feed">
+        <table class="table table-sm table-hover" id="games-table">
+          <thead>
+            <tr>
+              <th scope="col">Game name</th>
+              <th scope="col">Date added</th>
+              <th scope="col">More info</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each games}}
 
-        <div class="game-search">
-          <form>
-            <div class="form-group">
-              <label for="news-search"><br><h6>Search for game</h6></label>
-              <input type="input" class="form-control" id="news-search" aria-describedby="news-search"
-                placeholder="Enter game name">
-            </div>
-            <button type="submit" id="news-btn" class="btn btn-primary">Search</button>
-          </form>
-          <p></p>
-        </div>
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.createdAt}}</td>
+              <td>Link here</td>
+            </tr>
+            {{/each}}
+
+          </tbody>
+        </table>
+
+
       </div>
     </div>
-    <div class="col-md-8 col-sm-12">
-        <div class="row">
-            <div class="col"><br><h3>Top trending games</h3><hr></div>
-        </div>
-        <div id="news-feed" class="row">
-        </div>
-    </div>
   </div>
+
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="/js/index.js"></script>
-<script src="/js/news.js"></script>
+{{!-- <script src="/js/news.js"></script> --}}

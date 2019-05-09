@@ -1,5 +1,5 @@
-var db = require("../models");
-
+// var db = require("../models");
+/*
 module.exports = function(app) {
     // Get all examples
     app.get("/api/examples", function(req, res) {
@@ -27,3 +27,4 @@ module.exports = function(app) {
         });
     });
 };
+*/

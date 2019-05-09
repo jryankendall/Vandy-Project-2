@@ -30,19 +30,21 @@ module.exports = function(app) {
         res.redirect("/");
     });
 
-    // Load index page
-    app.get("/", function(req, res) {
-        // console.log(db.appids);
-        
+    // Load index page, get latest 5 games added to db
+    app.get("/", function(req, res) {        
         db.appids.findAll({
-            attributes: ["appid", "name"],
-            limit: 5
+            limit: 5,
+            order: [
+                ["id", "DESC"],
+            ]
         }).then(function(dbGames) {
-            console.log(dbGames[0]);
+            for (var i = 0; i < dbGames.length; i++) {
+                console.log(dbGames[i].dataValues.name);
+            }
+            
             
             res.render("index", {
-                msg: "Games in the DB!",
-                examples: dbGames
+                games: dbGames
             });
         });
     });

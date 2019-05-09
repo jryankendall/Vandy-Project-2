@@ -3,15 +3,15 @@ $( document ).ready(function() {
     var $news = $("news-feed");
 
     var API = {
-        getNews: function () {
+        getAllGames: function () {
             return $.ajax({
-                url: "api/news/",
+                url: "api/allgames/",
                 type: "GET"
             });
         }
     };
 
-    API.getNews().then(function(data) {
+    API.getAllGames().then(function(data) {
         console.log(data);
     });
 });

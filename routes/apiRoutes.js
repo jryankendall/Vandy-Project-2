@@ -2,13 +2,6 @@ var db = require("../models");
 var axios = require("axios");
 
 module.exports = function (app) {
-    // Get all examples
-    app.get("/api/examples", function (req, res) {
-        db.Example.findAll({}).then(function (dbExamples) {
-            res.json(dbExamples);
-        });
-    });
-
     // create a new user profile
     app.post("/api/userdetails",function (req, res) {
         console.log(req.body);
@@ -37,10 +30,8 @@ module.exports = function (app) {
 
     // Create a new user game
     app.post("/api/usergames", function (req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         db.users.findOne({ where: { email: req.session.passport.user.profile.id } }).then(function (dbUser) {
-            //console.log(dbUser.dataValues.id);
-            //res.json({dbUser});
             db.usergames.findOne({ where: { userId: dbUser.dataValues.id, gameId: req.body.gameId } }).then(function (dbUsergames) {
                 if (!dbUsergames) {
                     req.body.userId = dbUser.dataValues.id;
@@ -53,10 +44,6 @@ module.exports = function (app) {
                 }
             });
         });
-        
-        /*(db.usergames.create(req.body).then(function (dbExample) {
-            res.json(dbExample);
-        });*/
     });
 
     // Create a new friend request
@@ -245,38 +232,66 @@ module.exports = function (app) {
         findGame(0, {});
     });
 
+    // app to get full list of games in DB    
+    app.get("/api/allgames", function (req, res) {
+        db.appids.findAll({}).then(function (dbGames) {
+            res.json(dbGames);
+        });
+
+    });
+};
 
 
-    // app to get latest streams for top games ... implement later    
-    //     app.get("/api/news", function (req, res) {
-    //         console.log("app.get news called in apiRoutes");
-    //         var $clipsArr = [];
-    //         var config = {
-    //             url: "https://api.twitch.tv/helix/games/top",
-    //             method: "get",
-    //             headers: {
-    //                 "cache-control": "no-cache",
-    //                 Connection: "keep-alive",
-    //                 Host: "api.twitch.tv",
-    //                 "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
-    //             },
-    //             params:
-    //             {
-    //                 first: 3
-    //             }
-    //         };
+/*
 
-    //         console.log("searching twitch for top games...");
 
-    //         axios(config)
-    //             .then(function (data) {
-    //                 var $news = data.data.data;
-    //                 console.log("Top games from twitch");
+var getStreams = function (data, cb) {
+    var $clipsArr = [];
+    console.log(data.dataValues);
+   
+    var $news = [data.dataValues];
 
-    //                 // console.log($news);
+    for (var i = 0; i < $news.length; i++) {
 
-    //                 for (var i = 0; i < $news.length; i++) {
-    //                     console.log("Game " + i + " : " + $news[i].name);
+        var config = {
+            url: "https://api.twitch.tv/helix/clips",
+            method: "get",
+            headers: {
+                "cache-control": "no-cache",
+                Connection: "keep-alive",
+                Host: "api.twitch.tv",
+                "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
+            },
+            params:
+            {
+                game_id: $news[i].id,
+                first: 1
+            }
+        };
+        axios(config)
+            .then(function (data) {
+                var $clips = data;
+                $clipsArr.push($clips[0]);
+                console.log($clipsArr);
+            });
+    }
+    // cb($clipsArr);
+    
+};
+
+*/
+
+//         console.log("searching twitch for top games...");
+
+//         axios(config)
+//             .then(function (data) {
+//                 var $news = data.data.data;
+//                 console.log("Top games from twitch");
+
+//                 // console.log($news);
+
+//                 for (var i = 0; i < $news.length; i++) {
+//                     console.log("Game " + i + " : " + $news[i].name);
 
 //                     var config = {
 //                         url: "https://api.twitch.tv/helix/clips",
@@ -303,4 +318,3 @@ module.exports = function (app) {
 //                 }
 //             });
 //     });
-};
