@@ -129,6 +129,7 @@
         </button>
       </div>
       <div class="modal-body">
+
         <h6><u>Friends List:</u></h6>
         <p id="friendslist">{{#each friends}}
           <p>
@@ -137,14 +138,17 @@
           </p>
           {{/each}}
         </p>
-        
+        <hr>
+
         <h6><u>Outgoing requests:</u></h6>
         <p>{{#each friendsOut}}
           <p>
           {{this.friendsOut}} 
           <button class="btn btn-success btn-sm" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel</button>
           </p>
-          {{/each}}</p>
+          {{/each}}
+        </p>
+        <hr>
 
         <h6><u>Incoming requests:</u></h6>
         <p>{{#each friendsIn}}
@@ -154,7 +158,7 @@
           <button class="btn btn-success btn-sm" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
           </p>
           {{/each}}
-          </p>
+        </p>
 
       </div>
       <div class="modal-footer">

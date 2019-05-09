@@ -77,7 +77,7 @@ module.exports = function (app) {
         });
     });
 
-    //Remove friend
+    //Confirm friend request
     app.post("/api/confirmfriend", function(req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
@@ -94,7 +94,8 @@ module.exports = function (app) {
         });
     });
 
-    app.post("/api/deletefriend", function(req, res) {
+    //Delete friend
+    app.delete("/api/deletefriend", function(req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
         db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
@@ -109,6 +110,7 @@ module.exports = function (app) {
         });
     });
 
+    //Deny friend request
     app.post("/api/denyfriend", function(req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
@@ -124,6 +126,7 @@ module.exports = function (app) {
         });
     });
 
+    //Cancel friend request
     app.post("/api/cancelfriend", function(req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
@@ -136,15 +139,6 @@ module.exports = function (app) {
                 .then(function () {
                     res.json("canceled");
                 });
-        });
-    });
-
-    // Delete an example by id
-    app.delete("/api/examples/:id", function (req, res) {
-        db.Example.destroy({ where: { id: req.params.id } }).then(function (
-            dbExample
-        ) {
-            res.json(dbExample);
         });
     });
 
