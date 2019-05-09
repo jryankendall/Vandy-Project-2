@@ -27,7 +27,7 @@ module.exports = function(app) {
         
         req.logout();
         req.session = null;
-        res.redirect("/authtest");
+        res.redirect("/");
     });
 
     // Load index page
@@ -106,12 +106,25 @@ module.exports = function(app) {
                     { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
                     ).then(function(projects) {
                         dbUsers.dataValues.games = projects;
-                        console.log(dbUsers.dataValues);
-                        res.render("user",{
-                            image: dbUsers.dataValues.image,
-                            username: dbUsers.dataValues.username,
-                            description: dbUsers.dataValues.description,
-                            games: dbUsers.dataValues.games
+
+                        db.sequelize.query("select users.username as friends,status from users"+
+                        "join userfriends"+
+                        "on userfriends.userId1 = users.id"+
+                        "or userfriends.userId2 = users.id"+
+                        "where users.id != ? AND (userfriends.userId1 = ?)"+
+                        "group by users.username;",
+                        { replacements: [dbUsers.dataValues.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                        ).then(function(friends) {
+
+                            dbUsers.dataValues.friends = friends;
+                            console.log(dbUsers.dataValues.friends);
+                            res.render("user",{
+                                image: dbUsers.dataValues.image,
+                                username: dbUsers.dataValues.username,
+                                description: dbUsers.dataValues.description,
+                                games: dbUsers.dataValues.games,
+                                friends: dbUsers.dataValues.friends
+                            });
                         });
                     });  
                     //});
