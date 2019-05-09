@@ -9,6 +9,7 @@ module.exports = function (app) {
         });
     });
 
+    // create a new user profile
     app.post("/api/userdetails",function (req, res) {
         console.log(req.body);
         console.log(req.session.passport.user.profile.id);
@@ -34,7 +35,7 @@ module.exports = function (app) {
         });
     });
 
-    // Create a new example
+    // Create a new user game
     app.post("/api/usergames", function (req, res) {
         console.log(req.body);
         db.users.findOne({ where: { email: req.session.passport.user.profile.id } }).then(function (dbUser) {
@@ -58,6 +59,7 @@ module.exports = function (app) {
         });*/
     });
 
+    // Create a new friend request
     app.post("/api/userfriends", function (req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
@@ -77,7 +79,7 @@ module.exports = function (app) {
         });
     });
 
-    //Confirm friend request
+    // Confirm friend request
     app.post("/api/confirmfriend", function(req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
@@ -94,7 +96,7 @@ module.exports = function (app) {
         });
     });
 
-    //Delete friend
+    // Delete friend
     app.delete("/api/deletefriend", function(req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
@@ -110,7 +112,7 @@ module.exports = function (app) {
         });
     });
 
-    //Deny friend request
+    // Deny friend request
     app.delete("/api/denyfriend", function(req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
@@ -126,7 +128,7 @@ module.exports = function (app) {
         });
     });
 
-    //Cancel friend request
+    // Cancel friend request
     app.delete("/api/cancelfriend", function(req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
@@ -142,7 +144,7 @@ module.exports = function (app) {
         });
     });
 
-    //Remove Game
+    // Remove Game from profile
     app.delete("/api/removegame", function(req, res) {
         var gameId = parseInt(req.body.gameId);
         var sessionId = req.session.passport.user.profile.id;
@@ -157,6 +159,7 @@ module.exports = function (app) {
         });
     });
 
+    // Search for users by name
     app.get("/api/person/search/:person", function (req, res){
         var username = req.params.person;
         db.users.findOne({ where: { username: username } }).then(function (dbUsers) {
@@ -172,7 +175,7 @@ module.exports = function (app) {
         });
     });
 
-    // get info on game from twitch
+    // Get info on game from twitch
     app.get("/api/games/search/:game", function (req, res) {
         console.log("app.get called in apiRoutes");
 
