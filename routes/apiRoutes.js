@@ -142,6 +142,23 @@ module.exports = function (app) {
         });
     });
 
+    //Remove Game
+    app.delete("/api/removegame", function(req, res) {
+        var gameId = parseInt(req.body.gameId);
+        var sessionId = req.session.passport.user.profile.id;
+        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+            var userId = dbUsers.dataValues.id;
+            console.log(userId,gameId);
+
+            res.json("removed");
+            /*db.userfriends.destroy(
+                {where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2, status: 1},{userId1: userId2, userId2: userId1, status: 1}]}})
+                .then(function () {
+                    res.json("destroyed");
+                });*/
+        });
+    });
+
     app.get("/api/person/search/:person", function (req, res){
         var username = req.params.person;
         db.users.findOne({ where: { username: username } }).then(function (dbUsers) {

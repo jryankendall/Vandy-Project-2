@@ -254,6 +254,21 @@ function handleDeleteFriend(btn) {
     });
 }
 
+function handleRemoveGame(btn) {
+    return $.ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "DELETE",
+        url: "api/removegame",
+        data: JSON.stringify({ gameId: $(btn).attr("data-id") })
+    }).then(function (res) {
+        console.log(res);
+        $(btn).parent().parent().remove();
+    });
+}
+
+
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);

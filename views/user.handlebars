@@ -113,6 +113,7 @@
           <div class="card mb-2" style="width: 10rem;">
             <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
             <h5 class="card-title pl-1">{{this.name}}</h5>
+            <button class="btn btn-danger btn-sm" onclick="handleRemoveGame(this)" data-id={{this.id}} style="float: right">Remove Game</button>
           </div>
         </div>
         {{/each}}
