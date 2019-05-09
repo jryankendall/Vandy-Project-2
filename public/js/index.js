@@ -202,6 +202,11 @@ function handleConfirmFriend(btn) {
         data: JSON.stringify({ userId1: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $("#friendslist")
+            .append("<p>")
+            .append($(btn).attr("id"))
+            .append("<button class='btn btn-success btn-sm' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
+        $(btn).parent().remove();
     });
 }
 
@@ -243,6 +248,7 @@ function handleDeleteFriend(btn) {
         data: JSON.stringify({ userId2: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
+        $(btn).parent().remove();
     });
 }
 

@@ -130,8 +130,10 @@
       </div>
       <div class="modal-body">
         <h6>Friends List</h6>
-        <p>{{#each friends}}
+        <p id="friendslist">{{#each friends}}
+          <p>
           {{this.friends}} <button class="btn btn-success btn-sm" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
+          </p>
           {{/each}}
         </p>
         
@@ -142,8 +144,11 @@
 
         <h6>Incoming requests</h6>
         <p>{{#each friendsIn}}
-          {{this.friendsIn}} <button class="btn btn-success btn-sm" onclick="handleConfirmFriend(this)" data-id={{this.id}}>Confirm</button> <button class="btn btn-success btn-sm deny" data-id={{this.id}}>Deny</button>
-          {{/each}}</p>
+          <p>
+          {{this.friendsIn}} <button class="btn btn-success btn-sm" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}" data-id={{this.id}}>Confirm</button> <button class="btn btn-success btn-sm deny" data-id={{this.id}}>Deny</button>
+          </p>
+          {{/each}}
+          </p>
 
       </div>
       <div class="modal-footer">
