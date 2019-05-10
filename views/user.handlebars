@@ -148,18 +148,13 @@
                       </li>
                       {{/each}}
                     </ul>
-                    {{/each}}
                   </div>
                 </div>
               </div>
             </div>
+            {{/each}}
           </div>
         </div>
-
-
-
-
-
         <hr>
 
         <h6>Outgoing requests:</h6>
@@ -189,14 +184,15 @@
           <p>
             <strong>{{this.username}} <span class="badge badge-secondary">Games incommon:
                 {{this.count}}</span></strong>
-            <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add Friend</button>
+            <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add
+              Friend</button>
           </p>
           {{/each}}
         </p>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
