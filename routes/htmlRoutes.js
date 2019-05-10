@@ -148,7 +148,12 @@ module.exports = function(app) {
                                 " where usergames.gameId = ? and usergames.userId != ?;",
                                 { replacements: [element.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
                                 ).then(function(people){
-                                    console.log(people);
+                                    people.forEach(person=>{
+                                        var alreadyFriends = dbUsers.dataValues.friends.find(o => o.id === person.id);
+                                        if(!alreadyFriends){
+                                            console.log(person);
+                                        }
+                                    });
                                 });
                             });
 
