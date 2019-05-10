@@ -100,7 +100,7 @@
             <strong>{{this.friends}} </strong>
             <p>
               <ul>
-                Games in common: 
+                <u>Games in common:</u>
                 {{#each this.sameGames}}
                   <li>
                     {{this.name}}
@@ -110,7 +110,7 @@
             </p>
             <p>
               <ul>
-                Games NOT in common: 
+                <u>Games NOT in common:</u>
                 {{#each this.difGames}}
                   <li>
                     <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}" style="width: 20px; height:20; display: inline-block; padding: 0px;">+</button>
