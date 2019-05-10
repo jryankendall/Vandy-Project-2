@@ -83,10 +83,11 @@ var displayPersonSearch = function (user) {
         .addClass("card-text")
         .text(user.description);
     var $addBtn = $("<button>")
-        .addClass("btn btn-success btn-sm btn-block add-friend")
+        .addClass("btn btn-success btn-sm btn-block")
         .attr("href", "#")
         .text("+ Add friend")
-        .attr("id", user.id);
+        .attr("id", user.id)
+        .attr("onclick","handleAddFriend(this)");
 
     $cardbody
         .append($title)
@@ -172,16 +173,14 @@ function handleAddGame(btn) {
     });
 }
 
-var handleAddFriend = function () {
-
-
+function handleAddFriend(btn) {
     return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/userfriends",
-        data: JSON.stringify({ userId2: this.id })
+        data: JSON.stringify({ userId2: $(btn).attr("id") })
     }).then(function (res) {
         console.log(res);
         $searchResults.empty();
@@ -192,7 +191,7 @@ var handleAddFriend = function () {
             $searchResults.append("This user is already in your friends list.");
         }
     });
-};
+}
 
 //Button function for confirming a friend
 function handleConfirmFriend(btn) {

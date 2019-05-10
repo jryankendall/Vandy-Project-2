@@ -145,6 +145,16 @@
           </p>
           {{/each}}
         </p>
+        <hr>
+
+        <h6>Suggested Friends:</h6>
+        <p>{{#each suggested}}
+          <p>
+            <strong>{{this.username}} </strong>
+            <button class="badge badge-success" onclick="handleAddFriend(this)" data-id={{this.id}}>Add Friend</button>
+          </p>
+          {{/each}}
+        </p>
 
       </div>
       <div class="modal-footer">
