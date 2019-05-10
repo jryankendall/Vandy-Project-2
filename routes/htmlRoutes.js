@@ -157,7 +157,7 @@ module.exports = function(app) {
                                                 dbUsers.dataValues.suggested.push(person);
                                             }
                                             else{
-                                                var index = dbUsers.dataValues.suggested.findIndex(x => x.id === item.id);
+                                                var index = dbUsers.dataValues.suggested.findIndex(x => x.id === person.id);
                                                 ++dbUsers.dataValues.suggested[index].count;
                                             }
                                         }
