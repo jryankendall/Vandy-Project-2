@@ -193,7 +193,7 @@ module.exports = function(app) {
 
                                     dbUsers.dataValues.suggested = [];
 
-                                    dbUsers.dataValues.games.forEach(element => {
+                                    await dbUsers.dataValues.games.forEach(element => {
                                         db.sequelize.query("select users.id, users.username from appids" +
                                         " join usergames" +
                                         " join users" +
@@ -217,9 +217,9 @@ module.exports = function(app) {
                                                 }
                                             });
                                         });
-                                    }).then(function(){
-                                        console.log(dbUsers.dataValues);
                                     });
+
+                                     //sleep(100);
 
                                     console.log(dbUsers.dataValues);
                                     res.render("user",{
