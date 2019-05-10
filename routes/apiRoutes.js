@@ -3,25 +3,25 @@ var axios = require("axios");
 
 module.exports = function (app) {
     // create a new user profile
-    app.post("/api/userdetails",function (req, res) {
+    app.post("/api/userdetails", function (req, res) {
         console.log(req.body);
         console.log(req.session.passport.user.profile.id);
-        db.users.findOne({ where: {email: req.session.passport.user.profile.id} }).then(function(dbUserCheck){
-            if(!dbUserCheck){
+        db.users.findOne({ where: { email: req.session.passport.user.profile.id } }).then(function (dbUserCheck) {
+            if (!dbUserCheck) {
                 res.redirect("/user");
             }
-            else{
-                db.users.findOne({ where: {username: req.body.username} }).then(function(dbUser){
-                    if(!dbUser){
+            else {
+                db.users.findOne({ where: { username: req.body.username } }).then(function (dbUser) {
+                    if (!dbUser) {
                         db.users.update(
-                            {username: req.body.username, description: req.body.description},
-                            {where: {email: req.session.passport.user.profile.id}})
+                            { username: req.body.username, description: req.body.description },
+                            { where: { email: req.session.passport.user.profile.id } })
                             .then(function () {
-                                res.json({success: "redirect"});
+                                res.json({ success: "redirect" });
                             });
                     }
-                    else{
-                        res.json({success: "username taken"});
+                    else {
+                        res.json({ success: "username taken" });
                     }
                 });
             }
@@ -50,16 +50,16 @@ module.exports = function (app) {
     app.post("/api/userfriends", function (req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
-        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+        db.users.findOne({ where: { email: sessionId } }).then(function (dbUsers) {
             var userId1 = dbUsers.dataValues.id;
-            console.log(userId1,userId2);
-            db.userfriends.findOne({ where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2}, {userId1: userId2, userId2: userId1}]} }).then(function(dbFriends){
-                if(!dbFriends){
-                    db.userfriends.create({userId1: userId1, userId2: userId2}).then(function () {
+            console.log(userId1, userId2);
+            db.userfriends.findOne({ where: { [db.Sequelize.Op.or]: [{ userId1: userId1, userId2: userId2 }, { userId1: userId2, userId2: userId1 }] } }).then(function (dbFriends) {
+                if (!dbFriends) {
+                    db.userfriends.create({ userId1: userId1, userId2: userId2 }).then(function () {
                         res.json({ success: true });
                     });
                 }
-                else{
+                else {
                     res.json("Handle other shit here");
                 }
             });
@@ -67,16 +67,16 @@ module.exports = function (app) {
     });
 
     // Confirm friend request
-    app.post("/api/confirmfriend", function(req, res) {
+    app.post("/api/confirmfriend", function (req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
-        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+        db.users.findOne({ where: { email: sessionId } }).then(function (dbUsers) {
             var userId2 = dbUsers.dataValues.id;
-            console.log(userId1,userId2);
+            console.log(userId1, userId2);
 
             db.userfriends.update(
-                {status: 1},
-                {where: {userId1: userId1, userId2: userId2}})
+                { status: 1 },
+                { where: { userId1: userId1, userId2: userId2 } })
                 .then(function () {
                     res.json("added");
                 });
@@ -84,15 +84,15 @@ module.exports = function (app) {
     });
 
     // Delete friend
-    app.delete("/api/deletefriend", function(req, res) {
+    app.delete("/api/deletefriend", function (req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
-        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+        db.users.findOne({ where: { email: sessionId } }).then(function (dbUsers) {
             var userId1 = dbUsers.dataValues.id;
-            console.log(userId1,userId2);
+            console.log(userId1, userId2);
 
             db.userfriends.destroy(
-                {where: {[db.Sequelize.Op.or]: [{userId1: userId1, userId2: userId2, status: 1},{userId1: userId2, userId2: userId1, status: 1}]}})
+                { where: { [db.Sequelize.Op.or]: [{ userId1: userId1, userId2: userId2, status: 1 }, { userId1: userId2, userId2: userId1, status: 1 }] } })
                 .then(function () {
                     res.json("destroyed");
                 });
@@ -100,15 +100,15 @@ module.exports = function (app) {
     });
 
     // Deny friend request
-    app.delete("/api/denyfriend", function(req, res) {
+    app.delete("/api/denyfriend", function (req, res) {
         var userId1 = parseInt(req.body.userId1);
         var sessionId = req.session.passport.user.profile.id;
-        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+        db.users.findOne({ where: { email: sessionId } }).then(function (dbUsers) {
             var userId2 = dbUsers.dataValues.id;
-            console.log(userId1,userId2);
+            console.log(userId1, userId2);
 
             db.userfriends.destroy(
-                {where: {userId1: userId1, userId2: userId2, status: 0}})
+                { where: { userId1: userId1, userId2: userId2, status: 0 } })
                 .then(function () {
                     res.json("denied");
                 });
@@ -116,15 +116,15 @@ module.exports = function (app) {
     });
 
     // Cancel friend request
-    app.delete("/api/cancelfriend", function(req, res) {
+    app.delete("/api/cancelfriend", function (req, res) {
         var userId2 = parseInt(req.body.userId2);
         var sessionId = req.session.passport.user.profile.id;
-        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+        db.users.findOne({ where: { email: sessionId } }).then(function (dbUsers) {
             var userId1 = dbUsers.dataValues.id;
-            console.log(userId1,userId2);
+            console.log(userId1, userId2);
 
             db.userfriends.destroy(
-                {where: {userId1: userId1, userId2: userId2, status: 0}})
+                { where: { userId1: userId1, userId2: userId2, status: 0 } })
                 .then(function () {
                     res.json("canceled");
                 });
@@ -132,14 +132,14 @@ module.exports = function (app) {
     });
 
     // Remove Game from profile
-    app.delete("/api/removegame", function(req, res) {
+    app.delete("/api/removegame", function (req, res) {
         var gameId = parseInt(req.body.gameId);
         var sessionId = req.session.passport.user.profile.id;
-        db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
+        db.users.findOne({ where: { email: sessionId } }).then(function (dbUsers) {
             var userId = dbUsers.dataValues.id;
-            console.log(userId,gameId);
+            console.log(userId, gameId);
             db.usergames.destroy(
-                {where: {userId: userId, gameId: gameId}})
+                { where: { userId: userId, gameId: gameId } })
                 .then(function () {
                     res.json("removed");
                 });
@@ -147,10 +147,10 @@ module.exports = function (app) {
     });
 
     // Search for users by name
-    app.get("/api/person/search/:person", function (req, res){
+    app.get("/api/person/search/:person", function (req, res) {
         var username = req.params.person;
         db.users.findOne({ where: { username: username } }).then(function (dbUsers) {
-            if(!dbUsers){
+            if (!dbUsers) {
                 res.json("User not found");
             }
             else {
@@ -239,20 +239,12 @@ module.exports = function (app) {
         });
 
     });
-};
 
-
-/*
-
-
-var getStreams = function (data, cb) {
-    var $clipsArr = [];
-    console.log(data.dataValues);
-   
-    var $news = [data.dataValues];
-
-    for (var i = 0; i < $news.length; i++) {
-
+    // Get stream info from Twitch for selected game
+    app.get("/api/getstreams/:appid", function (req, res) {
+        var appid = req.params.appid;
+        console.log(appid);
+        
         var config = {
             url: "https://api.twitch.tv/helix/clips",
             method: "get",
@@ -264,57 +256,15 @@ var getStreams = function (data, cb) {
             },
             params:
             {
-                game_id: $news[i].id,
-                first: 1
+                game_id: appid,
+                first: 2
             }
         };
+
         axios(config)
             .then(function (data) {
-                var $clips = data;
-                $clipsArr.push($clips[0]);
-                console.log($clipsArr);
+                console.log(data.data.data);
+                res.json(data.data.data);
             });
-    }
-    // cb($clipsArr);
-    
+    });
 };
-
-*/
-
-//         console.log("searching twitch for top games...");
-
-//         axios(config)
-//             .then(function (data) {
-//                 var $news = data.data.data;
-//                 console.log("Top games from twitch");
-
-//                 // console.log($news);
-
-//                 for (var i = 0; i < $news.length; i++) {
-//                     console.log("Game " + i + " : " + $news[i].name);
-
-//                     var config = {
-//                         url: "https://api.twitch.tv/helix/clips",
-//                         method: "get",
-//                         headers: {
-//                             "cache-control": "no-cache",
-//                             Connection: "keep-alive",
-//                             Host: "api.twitch.tv",
-//                             "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
-//                         },
-//                         params:
-//                         {
-//                             game_id: $news[i].id,
-//                             first: 1
-//                         }
-//                     };
-//                     axios(config)
-//                         .then(function (data) {
-//                             var $clips = data.data.data;
-//                             $clipsArr.push($clips[0]);
-//                             console.log($clipsArr);
-//                             res.json($clipsArr);
-//                         });
-//                 }
-//             });
-//     });

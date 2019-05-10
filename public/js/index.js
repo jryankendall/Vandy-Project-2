@@ -269,6 +269,26 @@ function handleRemoveGame(btn) {
     });
 }
 
+function handleStreams(btn) {
+    var appid = $(btn).attr("data-id");
+    console.log("handleStreams called with appid", appid);
+    
+    return $.ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "GET",
+        url: "api/getstreams/" + appid
+    }).then(function (res) {
+        console.log("response from API call");
+        console.log(res);
+        showStreams(res);
+    });
+}
+
+function showStreams(streamsArr) {
+    
+};
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);

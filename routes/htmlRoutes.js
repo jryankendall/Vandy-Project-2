@@ -33,7 +33,6 @@ module.exports = function(app) {
     // Load index page, get latest 5 games added to db
     app.get("/", function(req, res) {        
         db.appids.findAll({
-            limit: 5,
             order: [
                 ["id", "DESC"],
             ]
