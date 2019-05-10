@@ -23,7 +23,7 @@
         </ul>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
-        Manage
+          Manage
         </button>
         <hr>
 
@@ -67,7 +67,7 @@
 
       <br>
 
-    <!-- Current user's games section -->
+      <!-- Current user's games section -->
       <div id="games">
         <h3>{{username}}'s games</h3>
         <hr>
@@ -109,31 +109,58 @@
         <p id="friendslist">{{#each friends}}
           <p>
             <strong>{{this.friends}} </strong>
-            <p>
-              <ul>
+            <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete
+              friend</button>
+            <br>
+            <div class="accordion" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                      aria-expanded="true" aria-controls="collapseOne">
+                      Games in common
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <ul>
+                      {{#each this.sameGames}}
+                      <li>
+                        {{this.name}}
+
+                      </li>
+                      {{/each}}
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {{!-- <ul>
                 <u>Games in common:</u>
                 {{#each this.sameGames}}
-                  <li>
-                    {{this.name}}
-                    <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete friend</button>
+                <li>
+                  {{this.name}}
 
-                  </li>
+                </li>
                 {{/each}}
-              </ul>
-            </p>
-            <p>
-              <ul>
-                <u>Games NOT in common:</u>
-                {{#each this.difGames}}
-                  <li>
-                    <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}" style="width: 20px; height:20; display: inline-block; padding: 0px;">+</button>
-                    {{this.name}}
-                  </li>
-                {{/each}}
-              </ul>
-            </p>
+              </ul> --}}
           </p>
-          {{/each}}
+          <p>
+            <ul>
+              <u>Games NOT in common:</u>
+              {{#each this.difGames}}
+              <li>
+                <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}"
+                  style="width: 20px; height:20; display: inline-block; padding: 0px;">+</button>
+                {{this.name}}
+              </li>
+              {{/each}}
+            </ul>
+          </p>
+        </p>
+        {{/each}}
         </p>
         <hr>
 
