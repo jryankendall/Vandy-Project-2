@@ -115,6 +115,8 @@
                 {{#each this.sameGames}}
                   <li>
                     {{this.name}}
+                    <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete friend</button>
+
                   </li>
                 {{/each}}
               </ul>
@@ -130,7 +132,6 @@
                 {{/each}}
               </ul>
             </p>
-            <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
           </p>
           {{/each}}
         </p>
