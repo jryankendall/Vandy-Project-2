@@ -151,7 +151,15 @@ module.exports = function(app) {
                                     people.forEach(person=>{
                                         var alreadyFriends = dbUsers.dataValues.friends.find(o => o.id === person.id);
                                         if(!alreadyFriends){
-                                            console.log(person);
+                                            var alreadySuggested = dbUsers.dataValues.suggested.find(o => o.id === person.id);
+                                            if(!alreadySuggested){
+                                                person.count = 1;
+                                                dbUsers.dataValues.suggested.push(person);
+                                            }
+                                            else{
+                                                var index = dbUsers.dataValues.suggested.findIndex(x => x.id === item.id);
+                                                ++dbUsers.dataValues.suggested[index].count;
+                                            }
                                         }
                                     });
                                 });
