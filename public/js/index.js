@@ -119,8 +119,6 @@ var displaySearchResults = function (data) {
             image = game.image;
         }
 
-        console.log(game);
-
         var $img = $("<img>")
             .attr("src", image)
             .addClass("card-img-top");
