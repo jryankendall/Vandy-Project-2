@@ -119,8 +119,6 @@ var displaySearchResults = function (data) {
             image = game.image;
         }
 
-        console.log(image);
-
         var $img = $("<img>")
             .attr("src", image)
             .addClass("card-img-top");
@@ -268,7 +266,7 @@ function handleRemoveGame(btn) {
         data: JSON.stringify({ gameId: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
-        $(btn).parent().parent().remove();
+        location.reload();
     });
 }
 
