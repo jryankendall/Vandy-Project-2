@@ -23,7 +23,7 @@
         </ul>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
-        Manage
+          Manage
         </button>
         <hr>
 
@@ -67,7 +67,7 @@
 
       <br>
 
-    <!-- Current user's games section -->
+      <!-- Current user's games section -->
       <div id="games">
         <h3>{{username}}'s games</h3>
         <hr>
@@ -106,41 +106,62 @@
       <div class="modal-body">
 
         <h6>Friends List:</h6>
-        <p id="friendslist">{{#each friends}}
-          <p>
+        <div id="friendslist">
+          <div>
+            {{#each friends}}
             <strong>{{this.friends}} </strong>
-            <p>
-              <ul>
-                <u>Games in common:</u>
-                {{#each this.sameGames}}
-                  <li>
-                    {{this.name}}
-                  </li>
-                {{/each}}
-              </ul>
-            </p>
-            <p>
-              <ul>
-                <u>Games NOT in common:</u>
-                {{#each this.difGames}}
-                  <li>
-                    <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}" style="width: 20px; height:20; display: inline-block; padding: 0px;">+</button>
-                    {{this.name}}
-                  </li>
-                {{/each}}
-              </ul>
-            </p>
-            <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete</button>
-          </p>
-          {{/each}}
-        </p>
+            <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete
+              friend</button>
+            <br>
+            <div class="accordion" id="accordionExample">
+              <div class="card mt-1">
+                <div class="card-header py-0" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#user_{{this.id}}"
+                      aria-expanded="true" aria-controls="user_{{this.id}}">
+                      See {{this.friends}}'s games
+                    </button>
+                  </h5>
+                </div>
+                <div id="user_{{this.id}}" class="collapse" aria-labelledby="headingOne"
+                  data-parent="#accordionExample">
+                  <div class="card-body">
+                    <h6>Games in common</h6>
+                    <ul>
+                      {{#each this.sameGames}}
+                      <li>
+                        {{this.name}}
+
+                      </li>
+                      {{/each}}
+
+                    </ul>
+
+                    <h6>Games NOT in common:</h6>
+                    <ul>
+
+                      {{#each this.difGames}}
+                      <li>
+                        <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}"
+                          style="width: 20px; height:20; display: inline-block; padding: 0px;">+</button>
+                        {{this.name}}
+                      </li>
+                      {{/each}}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div><br>
+            {{/each}}
+          </div>
+        </div>
         <hr>
 
         <h6>Outgoing requests:</h6>
         <p>{{#each friendsOut}}
           <p>
             <strong>{{this.friendsOut}} </strong>
-            <button class="badge badge-warning" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel</button>
+            <button class="badge badge-warning" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel request</button>
           </p>
           {{/each}}
         </p>
@@ -151,8 +172,8 @@
           <p>
             <strong>{{this.friendsIn}} </strong>
             <button class="badge badge-success" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}"
-              data-id={{this.id}}>Confirm</button>
-            <button class="badge badge-danger" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
+              data-id={{this.id}}>Confirm request</button>
+            <button class="badge badge-danger" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny request</button>
           </p>
           {{/each}}
         </p>
@@ -161,15 +182,17 @@
         <h6>Suggested Friends:</h6>
         <p>{{#each suggested}}
           <p>
-            <strong>{{this.username}} <span class="badge badge-secondary">Games incommon: {{this.count}}</span></strong>
-            <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add Friend</button>
+            <strong>{{this.username}} <span class="badge badge-secondary">Games in common:
+                {{this.count}}</span></strong>
+            <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add
+              Friend</button>
           </p>
           {{/each}}
         </p>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
