@@ -119,7 +119,7 @@ var displaySearchResults = function (data) {
             image = game.image;
         }
 
-        console.log(image);
+        console.log(game);
 
         var $img = $("<img>")
             .attr("src", image)
@@ -268,7 +268,7 @@ function handleRemoveGame(btn) {
         data: JSON.stringify({ gameId: $(btn).attr("data-id") })
     }).then(function (res) {
         console.log(res);
-        $(btn).parent().parent().remove();
+        location.reload();
     });
 }
 
