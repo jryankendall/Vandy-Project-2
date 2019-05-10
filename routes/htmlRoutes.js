@@ -217,6 +217,8 @@ module.exports = function(app) {
                                                 }
                                             });
                                         });
+                                    }).then(function(){
+                                        console.log(dbUsers.dataValues);
                                     });
 
                                     console.log(dbUsers.dataValues);
