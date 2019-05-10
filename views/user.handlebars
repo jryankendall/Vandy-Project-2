@@ -150,8 +150,8 @@
         <h6>Suggested Friends:</h6>
         <p>{{#each suggested}}
           <p>
-            <strong>{{this.username}} </strong>
-            <button class="badge badge-success" onclick="handleAddFriend(this)" data-id={{this.id}}>Add Friend</button>
+            <strong>{{this.username}} <span class="badge badge-secondary">Games incommon: {{this.count}}</span></strong>
+            <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add Friend</button>
           </p>
           {{/each}}
         </p>
