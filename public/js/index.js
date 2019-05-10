@@ -36,8 +36,6 @@ var handleFormSearch = function (event) {
     }
 
     API.searchGame(game).then(function (data) {
-        //call function to do something with API data
-        //console.log(data);
         displaySearchResults(data);
     });
 };
@@ -56,8 +54,14 @@ var handlePersonSearch = function (event) {
     API.searchPerson(person).then(function (data) {
 
         //call function to do something with API data
-        console.log(data);
-        displayPersonSearch(data);
+        if(data==="User not found"){
+            $searchResults.empty();
+            $searchResults.append(data);
+        }
+        else{
+            displayPersonSearch(data);
+        }
+        
     });
 };
 
@@ -125,10 +129,12 @@ var displaySearchResults = function (data) {
             .addClass("card-title pl-1")
             .text(game.name);
         var $addBtn = $("<button>")
-            .addClass("btn btn-success btn-sm btn-block add-game")
-            .attr("href", "#")
+            .addClass("btn btn-success btn-sm btn-block")
+            //.attr("href", "#")
             .text("+ Add game")
-            .attr("id", game.id);
+            .attr("id", game.id)
+            .attr("data-id",0)
+            .attr("onclick","handleAddGame(this)");
         $card
             .append($img)
             .append($cardbody)
@@ -150,18 +156,15 @@ var renderResults = function ($item) {
 };
 
 // this handles the addGame button click
-var handleAddGame = function () {
-
+function handleAddGame(btn) {
     return $.ajax({
         headers: {
             "Content-Type": "application/json"
         },
         type: "POST",
         url: "api/usergames",
-        data: JSON.stringify({ gameId: this.id })
+        data: JSON.stringify({ gameId: $(btn).attr("id") })
     }).then(function (res) {
-        //console.log(res);
-        $searchResults.empty();
         if (res.success) {
             location.reload();
         }
@@ -169,9 +172,10 @@ var handleAddGame = function () {
             $searchResults.append("This game is already on your list.");
         }
     });
-};
+}
 
 var handleAddFriend = function () {
+
 
     return $.ajax({
         headers: {
@@ -206,7 +210,7 @@ function handleConfirmFriend(btn) {
         $("#friendslist")
             .append("<p>")
             .append("<strong>" + $(btn).attr("id") + " ")
-            .append("<button class='badge badge-success' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
+            .append("<button class='badge badge-danger' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
         $(btn).parent().remove();
     });
 }
@@ -272,7 +276,7 @@ function handleRemoveGame(btn) {
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
-$(document).on("click", ".add-game", handleAddGame);
+//$(document).on("click", ".add-game", handleAddGame);
 $(document).on("click", ".add-friend", handleAddFriend);
 //$(document).on("click", ".confirm", handleConfirmFriend);
 //$(document).on("click", ".deny", handleDenyFriend);

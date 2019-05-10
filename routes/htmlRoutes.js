@@ -68,17 +68,6 @@ module.exports = function(app) {
         }
     );
 
-    // Load example page and pass in an example by id
-    /*app.get("/example/:appid", function(req, res) {
-        db.appids.findOne({ where: { appid: req.params.appid } }).then(function(
-            dbExample
-        ) {
-            res.render("example", {
-                example: dbExample
-            });
-        });
-    });*/
-
     app.get("/user", function(req,res){
         console.log(Object.keys(req.session));
         if(Object.keys(req.session).length===1){
@@ -123,6 +112,31 @@ module.exports = function(app) {
                             dbUsers.dataValues.friends = friends;
                             dbUsers.dataValues.friendsLen = friends.length;
 
+
+                            if(friends.length > 0){
+                                
+                                dbUsers.dataValues.friends.forEach(element => {
+                                    db.sequelize.query("select appids.id, appid, name, image from appids"+
+                                    " join usergames"+
+                                    " on usergames.gameId = appids.id"+
+                                    " where usergames.userId = ?;",
+                                    { replacements: [element.id], type: db.sequelize.QueryTypes.SELECT }
+                                    ).then(function(projects) {
+                                        element.sameGames = [];
+                                        element.difGames = [];
+                                        projects.forEach(game =>{
+                                            var same = dbUsers.dataValues.games.find(o => o.id === game.id);
+                                            if(same) {
+                                                element.sameGames.push(game);
+                                            }
+                                            else{
+                                                element.difGames.push(game);
+                                            }
+                                        });
+                                    });
+                                });
+                            }
+
                             //Get user pending out
                             db.sequelize.query("select users.username as friendsOut,status,users.id from users"+
                             " join userfriends"+
@@ -166,31 +180,10 @@ module.exports = function(app) {
                             });
                         });
                     });  
-                    //});
                 }
             });
-            /*res.render("user",{
-
-            });*/
         }
     });
-
-    /*app.get("/api/user/:val", function(req, res){
-        console.log(req.params.val);
-        db.users.findOne({ where: {email: req.params.val} }).then(function(dbUsers){
-            db.sequelize.query("select appids.id, appid, name, image from appids"+
-            " join usergames"+
-            " on usergames.gameId = appids.id"+
-            " where usergames.userId = ?;",
-            { replacements: [dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
-            ).then(function(projects) {
-                dbUsers.dataValues.games = projects;
-                console.log(dbUsers.dataValues);
-                // console.log("Db users after parse", typeof dbUsers.dataValues);
-                res.json(dbUsers.dataValues);
-            });  
-        });
-    });*/
 
     app.get("/createAccount", function(req,res){
         if(Object.keys(req.session).length===1){
