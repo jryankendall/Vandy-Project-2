@@ -136,7 +136,7 @@ module.exports = function(app) {
                                     });
                                 });
                             }
-                            
+
                             dbUsers.dataValues.suggested = [];
 
                             dbUsers.dataValues.games.forEach(element => {
@@ -145,7 +145,7 @@ module.exports = function(app) {
                                 " join users" +
                                 " on usergames.gameId = appids.id" +
                                 " and usergames.userId = users.id" +
-                                "where usergames.gameId = ? and usergames.userId != ?;",
+                                " where usergames.gameId = ? and usergames.userId != ?;",
                                 { replacements: [element.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
                                 ).then(function(people){
                                     console.log(people);
