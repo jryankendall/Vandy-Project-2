@@ -161,7 +161,7 @@
         <p>{{#each friendsOut}}
           <p>
             <strong>{{this.friendsOut}} </strong>
-            <button class="badge badge-warning" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel</button>
+            <button class="badge badge-warning" onclick="handleCancelFriend(this)" data-id={{this.id}}>Cancel request</button>
           </p>
           {{/each}}
         </p>
@@ -172,8 +172,8 @@
           <p>
             <strong>{{this.friendsIn}} </strong>
             <button class="badge badge-success" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}"
-              data-id={{this.id}}>Confirm</button>
-            <button class="badge badge-danger" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
+              data-id={{this.id}}>Confirm request</button>
+            <button class="badge badge-danger" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny request</button>
           </p>
           {{/each}}
         </p>
