@@ -227,7 +227,7 @@ module.exports = function(app) {
                                             }
                                         }
                                     }
-                                    sleep(100);
+                                    sleep(1000);
 
                                     console.log(dbUsers.dataValues);
                                     res.render("user",{
