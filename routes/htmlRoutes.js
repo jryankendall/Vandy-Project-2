@@ -202,7 +202,8 @@ module.exports = function(app) {
                                         friendsIn: dbUsers.dataValues.friendsIn,
                                         friendsLen: dbUsers.dataValues.friendsLen,
                                         friendsOutLen: dbUsers.dataValues.friendsOutLen,
-                                        friendsInLen: dbUsers.dataValues.friendsInLen
+                                        friendsInLen: dbUsers.dataValues.friendsInLen,
+                                        suggested: dbUsers.dataValues.suggested
                                     });
                                 });
                             });
