@@ -112,7 +112,7 @@
             <strong>{{this.friends}} </strong>
             <button class="badge badge-danger" onclick="handleDeleteFriend(this)" data-id={{this.id}}>Delete
               friend</button>
-            <br>
+            <br><br>
             <div class="accordion" id="accordionExample">
               <div class="card">
                 <div class="card-header" id="headingOne">
@@ -151,7 +151,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div><br>
             {{/each}}
           </div>
         </div>
@@ -182,7 +182,7 @@
         <h6>Suggested Friends:</h6>
         <p>{{#each suggested}}
           <p>
-            <strong>{{this.username}} <span class="badge badge-secondary">Games incommon:
+            <strong>{{this.username}} <span class="badge badge-secondary">Games in common:
                 {{this.count}}</span></strong>
             <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add
               Friend</button>
