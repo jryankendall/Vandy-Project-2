@@ -3,6 +3,9 @@
     <div class="col-md-4 col-sm-12">
       <div class="sidebar" style="height: 100vh; overflow: scroll;">
         <!-- User profile section  -->
+        <br>
+        <br>
+        <br>
         <img src="{{image}}" alt="user image" width="150" height="150" class="mb-2" id="profile-img">
         <h6>Profile:</h6>
         <h3><a id="username" style="color: #f44336">{{username}}</a></h3>
@@ -48,13 +51,18 @@
           </div>
           <button id="search-btn" class="btn btn-secondary btn-sm">Search</button>
         </div>
-
+        <br>
+        <br>
+        <br>
 
       </div>
     </div>
     <!-- Friends and game search results section -->
     <div class="col-md-8 col-sm-12" style="height: 100vh; overflow: scroll;">
       <div id="search-results">
+        <br>
+        <br>
+        <br>
       </div>
 
       <br>
@@ -77,6 +85,9 @@
         </div>
         {{/each}}
       </div>
+      <br>
+      <br>
+      <br>
     </div>
   </div>
 </div>
@@ -100,21 +111,21 @@
             <strong>{{this.friends}} </strong>
             <p>
               <ul>
-                Games in common: 
+                <u>Games in common:</u>
                 {{#each this.sameGames}}
                   <li>
-                    name: {{this.name}}
+                    {{this.name}}
                   </li>
                 {{/each}}
               </ul>
             </p>
             <p>
               <ul>
-                Games NOT in common: 
+                <u>Games NOT in common:</u>
                 {{#each this.difGames}}
                   <li>
-                    name: {{this.name}}
-                    <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}">+ Add game</button>
+                    <button class="btn btn-success btn-sm btn-block" onclick="handleAddGame(this)" id="{{this.id}}" style="width: 20px; height:20; display: inline-block; padding: 0px;">+</button>
+                    {{this.name}}
                   </li>
                 {{/each}}
               </ul>
@@ -142,6 +153,16 @@
             <button class="badge badge-success" onclick="handleConfirmFriend(this)" id="{{this.friendsIn}}"
               data-id={{this.id}}>Confirm</button>
             <button class="badge badge-danger" onclick="handleDenyFriend(this)" data-id={{this.id}}>Deny</button>
+          </p>
+          {{/each}}
+        </p>
+        <hr>
+
+        <h6>Suggested Friends:</h6>
+        <p>{{#each suggested}}
+          <p>
+            <strong>{{this.username}} <span class="badge badge-secondary">Games incommon: {{this.count}}</span></strong>
+            <button class="badge badge-success" onclick="handleAddFriend(this)" id={{this.id}}>Add Friend</button>
           </p>
           {{/each}}
         </p>

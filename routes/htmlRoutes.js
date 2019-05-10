@@ -137,6 +137,34 @@ module.exports = function(app) {
                                 });
                             }
 
+                            dbUsers.dataValues.suggested = [];
+
+                            dbUsers.dataValues.games.forEach(element => {
+                                db.sequelize.query("select users.id, users.username from appids" +
+                                " join usergames" +
+                                " join users" +
+                                " on usergames.gameId = appids.id" +
+                                " and usergames.userId = users.id" +
+                                " where usergames.gameId = ? and usergames.userId != ?;",
+                                { replacements: [element.id,dbUsers.dataValues.id], type: db.sequelize.QueryTypes.SELECT }
+                                ).then(function(people){
+                                    people.forEach(person=>{
+                                        var alreadyFriends = dbUsers.dataValues.friends.find(o => o.id === person.id);
+                                        if(!alreadyFriends){
+                                            var alreadySuggested = dbUsers.dataValues.suggested.find(o => o.id === person.id);
+                                            if(!alreadySuggested){
+                                                person.count = 1;
+                                                dbUsers.dataValues.suggested.push(person);
+                                            }
+                                            else{
+                                                var index = dbUsers.dataValues.suggested.findIndex(x => x.id === person.id);
+                                                ++dbUsers.dataValues.suggested[index].count;
+                                            }
+                                        }
+                                    });
+                                });
+                            });
+
                             //Get user pending out
                             db.sequelize.query("select users.username as friendsOut,status,users.id from users"+
                             " join userfriends"+
@@ -174,7 +202,8 @@ module.exports = function(app) {
                                         friendsIn: dbUsers.dataValues.friendsIn,
                                         friendsLen: dbUsers.dataValues.friendsLen,
                                         friendsOutLen: dbUsers.dataValues.friendsOutLen,
-                                        friendsInLen: dbUsers.dataValues.friendsInLen
+                                        friendsInLen: dbUsers.dataValues.friendsInLen,
+                                        suggested: dbUsers.dataValues.suggested
                                     });
                                 });
                             });
