@@ -287,9 +287,8 @@ function handleStreams(btn) {
     });
 }
 
+// Adds streams to modal
 function showStreams(streamsArr) {
-    console.log(streamsArr);
-    console.log(streamsArr[0].embed_url);
     $streamArea
         .empty();
 
@@ -310,9 +309,8 @@ function showStreams(streamsArr) {
         console.log($stream);
 
         $streamArea
-            .append($stream)
+            .append($stream);
     }
-    console.log("appending my stream to modal");
 }
 
 // Add event listeners to the submit and delete buttons
