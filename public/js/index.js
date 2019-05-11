@@ -299,27 +299,20 @@ function showStreams(streamsArr) {
 
         var $stream = $("<div>")
             .addClass("col");
-        // var $video = $("<video controls>")
-        //     // .attr("controls")
-        //     .attr("id", streamsArr[i].id)
-        //     .attr("width", "420")
-        //     .attr("height", "315")
 
-        // $video
-        //     .append($source);
+        var $title = $("<h6>")
+            .text(streamsArr[i].title)
+            .addClass("mt-3");
 
         var $iframe = $("<iframe>")
             .attr("id", streamsArr[i].id)
             .attr("width", "420")
             .attr("height", "315")
-            .attr("src", streamsArr[i].embed_url + "&autoplay=false")
-            .attr("autoplay", "false")
+            .attr("src", streamsArr[i].embed_url + "&autoplay=false");
 
         $stream
-            // .append($video);
+            .append($title)
             .append($iframe);
-
-        console.log($stream);
 
         $streamArea
             .append($stream);
