@@ -289,6 +289,8 @@ function handleStreams(btn) {
 
 // Adds streams to modal
 function showStreams(streamsArr) {
+    console.log(streamsArr);
+    
     $streamArea
         .empty();
 
@@ -297,13 +299,24 @@ function showStreams(streamsArr) {
 
         var $stream = $("<div>")
             .addClass("col");
+        // var $video = $("<video controls>")
+        //     // .attr("controls")
+        //     .attr("id", streamsArr[i].id)
+        //     .attr("width", "420")
+        //     .attr("height", "315")
+
+        // $video
+        //     .append($source);
+
         var $iframe = $("<iframe>")
             .attr("id", streamsArr[i].id)
             .attr("width", "420")
             .attr("height", "315")
-            .attr("src", streamsArr[i].embed_url);
+            .attr("src", streamsArr[i].embed_url + "&autoplay=false")
+            .attr("autoplay", "false")
 
         $stream
+            // .append($video);
             .append($iframe);
 
         console.log($stream);
