@@ -57,7 +57,7 @@
             <tr>
               <td>{{this.name}}</td>
               <td>{{this.createdAt}}</td>
-              <td>Link here</td>
+              <td><button data-id="{{this.appid}}" data-toggle="modal" data-target="#streamsModal" class="badge badge-primary" onclick="handleStreams(this)">View streams on Twitch</button></td>
             </tr>
             {{/each}}
 
@@ -68,11 +68,29 @@
       </div>
     </div>
   </div>
-
 </div>
 
+<!-- Button trigger modal -->
+{{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#streamsModal">
+  Launch demo modal
+</button> --}}
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="/js/index.js"></script>
-{{!-- <script src="/js/news.js"></script> --}}
+<!-- Modal -->
+<div class="modal fade" id="streamsModal" tabindex="-1" role="dialog" aria-labelledby="streamsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="streamsModalLabel">Streams</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="stream-area" class="container row"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@
 var $searchResults = $("#search-results");
 var $searchBtn = $("#search-btn");
 var $personBtn = $("#person-btn");
+var $streamArea = $("#stream-area");
 
 // var $loginBtn = $("#login");
 // var $userGames = $("#games");
@@ -54,14 +55,14 @@ var handlePersonSearch = function (event) {
     API.searchPerson(person).then(function (data) {
 
         //call function to do something with API data
-        if(data==="User not found"){
+        if (data === "User not found") {
             $searchResults.empty();
             $searchResults.append(data);
         }
-        else{
+        else {
             displayPersonSearch(data);
         }
-        
+
     });
 };
 
@@ -87,7 +88,7 @@ var displayPersonSearch = function (user) {
         .attr("href", "#")
         .text("+ Add friend")
         .attr("id", user.id)
-        .attr("onclick","handleAddFriend(this)");
+        .attr("onclick", "handleAddFriend(this)");
 
     $cardbody
         .append($title)
@@ -132,8 +133,8 @@ var displaySearchResults = function (data) {
             //.attr("href", "#")
             .text("+ Add game")
             .attr("id", game.id)
-            .attr("data-id",0)
-            .attr("onclick","handleAddGame(this)");
+            .attr("data-id", 0)
+            .attr("onclick", "handleAddGame(this)");
         $card
             .append($img)
             .append($cardbody)
@@ -207,7 +208,7 @@ function handleConfirmFriend(btn) {
         $("#friendslist")
             .append("<p>")
             .append("<strong>" + $(btn).attr("id") + " ")
-            .append("<button class='badge badge-danger' onclick='handleDeleteFriend(this)' data-id="+ $(btn).attr("data-id") +">Delete</button>");
+            .append("<button class='badge badge-danger' onclick='handleDeleteFriend(this)' data-id=" + $(btn).attr("data-id") + ">Delete</button>");
         $(btn).parent().remove();
     });
 }
@@ -269,6 +270,50 @@ function handleRemoveGame(btn) {
     });
 }
 
+function handleStreams(btn) {
+    var appid = $(btn).attr("data-id");
+    console.log("handleStreams called with appid", appid);
+
+    return $.ajax({
+        headers: {
+            "Content-Type": "application/json"
+        },
+        type: "GET",
+        url: "api/getstreams/" + appid
+    }).then(function (res) {
+        console.log("response from API call");
+        // console.log(res);
+        showStreams(res);
+    });
+}
+
+function showStreams(streamsArr) {
+    console.log(streamsArr);
+    console.log(streamsArr[0].embed_url);
+    $streamArea
+        .empty();
+
+    for (var i = 0; i < streamsArr.length; i++) {
+        // build a row with columns of iframes inside
+
+        var $stream = $("<div>")
+            .addClass("col");
+        var $iframe = $("<iframe>")
+            .attr("id", streamsArr[i].id)
+            .attr("width", "420")
+            .attr("height", "315")
+            .attr("src", streamsArr[i].embed_url);
+
+        $stream
+            .append($iframe);
+
+        console.log($stream);
+
+        $streamArea
+            .append($stream)
+    }
+    console.log("appending my stream to modal");
+}
 
 // Add event listeners to the submit and delete buttons
 $searchBtn.on("click", handleFormSearch);
