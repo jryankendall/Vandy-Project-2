@@ -287,9 +287,10 @@ function handleStreams(btn) {
     });
 }
 
+// Adds streams to modal
 function showStreams(streamsArr) {
     console.log(streamsArr);
-    console.log(streamsArr[0].embed_url);
+    
     $streamArea
         .empty();
 
@@ -298,21 +299,24 @@ function showStreams(streamsArr) {
 
         var $stream = $("<div>")
             .addClass("col");
+
+        var $title = $("<h6>")
+            .text(streamsArr[i].title)
+            .addClass("mt-3");
+
         var $iframe = $("<iframe>")
             .attr("id", streamsArr[i].id)
             .attr("width", "420")
             .attr("height", "315")
-            .attr("src", streamsArr[i].embed_url);
+            .attr("src", streamsArr[i].embed_url + "&autoplay=false");
 
         $stream
+            .append($title)
             .append($iframe);
 
-        console.log($stream);
-
         $streamArea
-            .append($stream)
+            .append($stream);
     }
-    console.log("appending my stream to modal");
 }
 
 // Add event listeners to the submit and delete buttons

@@ -47,8 +47,7 @@
           <thead>
             <tr>
               <th scope="col">Game name</th>
-              <th scope="col">Date added</th>
-              <th scope="col">More info</th>
+              <th scope="col">Streams</th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +55,6 @@
 
             <tr>
               <td>{{this.name}}</td>
-              <td>{{this.createdAt}}</td>
               <td><button data-id="{{this.appid}}" data-toggle="modal" data-target="#streamsModal" class="badge badge-primary" onclick="handleStreams(this)">View streams on Twitch</button></td>
             </tr>
             {{/each}}
