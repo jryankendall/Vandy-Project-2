@@ -256,11 +256,11 @@ module.exports = function (app) {
                 "cache-control": "no-cache",
                 Connection: "keep-alive",
                 Host: "api.twitch.tv",
-                "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
+                "Client-ID": process.env.TWITCHID
             },
             params:
             {
-                game_id: appid,
+                game_id: appid, // eslint-disable-line camelcase
                 first: 2
             }
         };
