@@ -3,8 +3,10 @@ Project 2 for the Vanderbilt Coding Bootcamp, the Gamerbook App.
 
 ## Contributors
 [@merpig](https://github.com/merpig) - Sasha Peters
-@csbistline - Christ Bistline
-@jryankendall - Jed Kendall
+
+[@csbistline](https://github.com/csbistline) - Christ Bistline
+
+[@jryankendall](https://github.com/jryankendall) - Jed Kendall
 
 ## Technology
 - HTML5, CSS, Bootstrap
