@@ -4,10 +4,6 @@ var $searchBtn = $("#search-btn");
 var $personBtn = $("#person-btn");
 var $streamArea = $("#stream-area");
 
-// var $loginBtn = $("#login");
-// var $userGames = $("#games");
-// var $userGames2 = $("#games2");
-
 // The API object contains methods for each kind of request we'll make
 var API = {
     searchGame: function (game) {
@@ -25,7 +21,7 @@ var API = {
     }
 };
 
-// handle the search button
+// handle the game search button
 var handleFormSearch = function (event) {
     event.preventDefault();
 
@@ -41,7 +37,7 @@ var handleFormSearch = function (event) {
     });
 };
 
-// handle the search button
+// handle the person search button
 var handlePersonSearch = function (event) {
     event.preventDefault();
 
@@ -66,6 +62,7 @@ var handlePersonSearch = function (event) {
     });
 };
 
+// Function for displaying a searched user
 var displayPersonSearch = function (user) {
 
     // builds the user card and has an add button
@@ -103,6 +100,7 @@ var displayPersonSearch = function (user) {
     renderResults($card);
 };
 
+// Function for displaying a searched game
 var displaySearchResults = function (data) {
 
     // build the card for each game returned
@@ -174,6 +172,7 @@ function handleAddGame(btn) {
     });
 }
 
+// Button function for adding a friend
 function handleAddFriend(btn) {
     return $.ajax({
         headers: {
@@ -194,7 +193,7 @@ function handleAddFriend(btn) {
     });
 }
 
-//Button function for confirming a friend
+// Button function for confirming a friend
 function handleConfirmFriend(btn) {
     return $.ajax({
         headers: {
@@ -213,6 +212,7 @@ function handleConfirmFriend(btn) {
     });
 }
 
+// Button function for denying an incoming friend request
 function handleDenyFriend(btn) {
     return $.ajax({
         headers: {
@@ -227,6 +227,7 @@ function handleDenyFriend(btn) {
     });
 }
 
+// Button function for canceling an outgoing friend request
 function handleCancelFriend(btn) {
     return $.ajax({
         headers: {
@@ -256,6 +257,7 @@ function handleDeleteFriend(btn) {
     });
 }
 
+// Button function for removing a game from profile
 function handleRemoveGame(btn) {
     return $.ajax({
         headers: {
@@ -319,13 +321,7 @@ function showStreams(streamsArr) {
     }
 }
 
-// Add event listeners to the submit and delete buttons
+// Add event listeners to buttons
 $searchBtn.on("click", handleFormSearch);
 $personBtn.on("click", handlePersonSearch);
-//$(document).on("click", ".add-game", handleAddGame);
 $(document).on("click", ".add-friend", handleAddFriend);
-//$(document).on("click", ".confirm", handleConfirmFriend);
-//$(document).on("click", ".deny", handleDenyFriend);
-//$(document).on("click", ".cancel", handleCancelFriend);
-//$(document).on("click", ".delete", handleDeleteFriend);
-

@@ -4,10 +4,8 @@ var passport = require("passport");
 
 module.exports = function(app) {
 
+    // test route for session cookies
     app.get("/authtest", (req, res) => {
-        //will need to add more stuff to this, placeholder for now
-        
-        
         if (req.session.token) {
             res.cookie("token", req.session.token);
             res.json({
@@ -23,8 +21,8 @@ module.exports = function(app) {
 
     });
 
+    // Logout route
     app.get("/logout", (req, res) => {
-        
         req.logout();
         req.session = null;
         res.redirect("/");
@@ -40,8 +38,6 @@ module.exports = function(app) {
             for (var i = 0; i < dbGames.length; i++) {
                 console.log(dbGames[i].dataValues.name);
             }
-            
-            
             res.render("index", {
                 games: dbGames
             });
@@ -67,6 +63,7 @@ module.exports = function(app) {
         }
     );
 
+    // Loads the user page along with building the user object
     app.get("/user", function(req,res){
         console.log(Object.keys(req.session));
         if(Object.keys(req.session).length===1){
@@ -111,9 +108,9 @@ module.exports = function(app) {
                             dbUsers.dataValues.friends = friends;
                             dbUsers.dataValues.friendsLen = friends.length;
 
-
                             if(friends.length > 0){
                                 
+                                // Building object of same/dif games of friends
                                 dbUsers.dataValues.friends.forEach(element => {
                                     db.sequelize.query("select appids.id, appid, name, image from appids"+
                                     " join usergames"+
@@ -138,6 +135,7 @@ module.exports = function(app) {
 
                             dbUsers.dataValues.suggested = [];
 
+                            // Builds array of objects containing suggested friends
                             dbUsers.dataValues.games.forEach(element => {
                                 db.sequelize.query("select users.id, users.username from appids" +
                                 " join usergames" +
@@ -213,24 +211,22 @@ module.exports = function(app) {
         }
     });
 
+    // Account creation page
     app.get("/createAccount", function(req,res){
         if(Object.keys(req.session).length===1){
             res.redirect("/auth/google");
         }
         else{
             var sessionId = req.session.passport.user.profile.id;
-            
             db.users.findOne({ where: {email: sessionId} }).then(function(dbUsers){
                 if(dbUsers.dataValues.username && dbUsers.dataValues.description){
                     res.redirect("/");
                 }
                 else {
-                    //console.log("Account details not complete. Redirecting to account creation...");
                     res.render("createAccount");
                 }
             });
-        }
-        
+        }   
     });
 
     // Render 404 page for any unmatched routes
