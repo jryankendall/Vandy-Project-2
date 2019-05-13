@@ -185,6 +185,8 @@ module.exports = function (app) {
                 name: game
             },
         };
+
+        // Data leech, searches for game in database, if not found get the game from twitch and store it in database
         function findGame(check, obj) {
             db.appids.findOne({ where: { name: game } }).then(function (dbUsers) {
                 if (!dbUsers) {
@@ -193,6 +195,7 @@ module.exports = function (app) {
                         .then(function (data) {
                             var newGames = data.data;
                             if (newGames.data.length > 0 && !check) {
+                                // Double check required as a name like "wow" returns "world of warcraft".
                                 db.appids.findOne({ where: { name: newGames.data[0].name } }).then(function (dbUsersDoubleCheck) {
                                     if (dbUsersDoubleCheck) {
                                         console.log("Different input name than twitch name matched. Insertion prevented");
