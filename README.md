@@ -4,7 +4,7 @@ Project 2 for the Vanderbilt Coding Bootcamp, the Gamerbook App.
 ## Contributors
 [@merpig](https://github.com/merpig) - Sasha Peters
 
-[@csbistline](https://github.com/csbistline) - Christ Bistline
+[@csbistline](https://github.com/csbistline) - Chris Bistline
 
 [@jryankendall](https://github.com/jryankendall) - Jed Kendall
 
@@ -38,5 +38,5 @@ Project 2 for the Vanderbilt Coding Bootcamp, the Gamerbook App.
 - LinkedIn: https://www.linkedin.com/in/alexandr-sasha-peters-8a2489168/
 
 @csbistline
-- e-mail:
-- LinkedIn:
+- e-mail: chris.bistline@gmail.com
+- LinkedIn: https://www.linkedin.com/in/christopher-bistline-a0999a115/
