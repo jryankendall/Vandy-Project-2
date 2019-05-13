@@ -1,5 +1,6 @@
 var db = require("../models");
 var axios = require("axios");
+require("dotenv").config();
 
 module.exports = function (app) {
     // create a new user profile
@@ -179,7 +180,7 @@ module.exports = function (app) {
                 "Cache-Control": "no-cache",
                 Accept: "*/*",
                 "User-Agent": "PostmanRuntime/7.11.0",
-                "Client-ID": "we8zo2mrneam0abyl6ygvjrn577c1i"
+                "Client-ID": process.env.TWITCHID
             },
             params: {
                 name: game
